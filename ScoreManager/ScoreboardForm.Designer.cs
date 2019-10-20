@@ -41,7 +41,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ScoreboardForm";
             this.Text = "计分板";
-            this.Load += new System.EventHandler(this.ScoreboardForm_Load);
             this.ResumeLayout(false);
 
         }

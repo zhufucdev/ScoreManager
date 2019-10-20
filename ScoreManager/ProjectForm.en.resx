@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addAdmin.Text" xml:space="preserve">
+    <value>Add Daily Admin</value>
+  </data>
   <data name="adminLabel.Text" xml:space="preserve">
     <value>Chief Admin Password</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="error.DualAdmin" xml:space="preserve">
+    <value>This admin must not exist.</value>
   </data>
   <data name="error.EmptyPassword" xml:space="preserve">
     <value>Admin Password must not be null.</value>
@@ -144,11 +150,26 @@
   <data name="fileLabel.Text" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="fri.Text" xml:space="preserve">
+    <value>Fri</value>
+  </data>
+  <data name="mon.Text" xml:space="preserve">
+    <value>Mon</value>
+  </data>
   <data name="nameLabel.Text" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="password" xml:space="preserve">
     <value>Chief Admin Password</value>
+  </data>
+  <data name="properities" xml:space="preserve">
+    <value>Properities</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="sat.Text" xml:space="preserve">
+    <value>Sat</value>
   </data>
   <data name="securityButton.Text" xml:space="preserve">
     <value>Security Options</value>
@@ -156,7 +177,19 @@
   <data name="smp" xml:space="preserve">
     <value>Score Manager Project</value>
   </data>
+  <data name="sun.Text" xml:space="preserve">
+    <value>Sun</value>
+  </data>
   <data name="this.Text" xml:space="preserve">
     <value>Project Properities</value>
+  </data>
+  <data name="thur.Text" xml:space="preserve">
+    <value>Thur</value>
+  </data>
+  <data name="tue.Text" xml:space="preserve">
+    <value>Tue</value>
+  </data>
+  <data name="wed.Text" xml:space="preserve">
+    <value>Wed</value>
   </data>
 </root>

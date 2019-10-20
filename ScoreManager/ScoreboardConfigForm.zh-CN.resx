@@ -123,4 +123,10 @@
   <data name="type.Charts" xml:space="preserve">
     <value>排行</value>
   </data>
+  <data name="type.GroupRanking" xml:space="preserve">
+    <value>小组排行</value>
+  </data>
+  <data name="type.GroupScale" xml:space="preserve">
+    <value>小组比例</value>
+  </data>
 </root>

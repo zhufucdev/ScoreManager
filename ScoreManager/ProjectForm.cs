@@ -9,17 +9,20 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ScoreManager.Statics.Project;
 
 namespace ScoreManager
 {
     public partial class ProjectForm : Form
     {
         public Project ReturnValue;
+        private List<DailyAdmin> dailyAdmins = new List<DailyAdmin>();
         private readonly bool AddMode;
         public ProjectForm()
         {
             InitializeComponent();
             ResourceController.ApplySource(this);
+            Height = 200;
             AddMode = true;
 
             this.StartPosition = FormStartPosition.CenterParent;
@@ -31,6 +34,7 @@ namespace ScoreManager
         {
             InitializeComponent();
             ResourceController.ApplySource(this);
+            Height = 200;
             AddMode = false;
             ReturnValue = project;
 
@@ -42,6 +46,11 @@ namespace ScoreManager
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+
+            if (project.Encryted)
+                dailyAdmins.AddRange(project.DailyAdmins);
+            UpdateSelections(null, null);
+            DrawAdmins();
         }
 
         private void FileButton_Click(object sender, EventArgs e)
@@ -77,7 +86,7 @@ namespace ScoreManager
                 fileBox.Focus();
                 return;
             }
-            if (((AddMode && securityPanel.Visible) || (ReturnValue != null && ReturnValue.Encryted)) && passwordBox.Text == "")
+            if (((AddMode && securityPanel.Visible) || (!AddMode && !ReturnValue.Encryted)) && passwordBox.Text == "")
             {
                 MessageBox.Show(res.GetString("error.EmptyPassword"), res.GetString("error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 passwordBox.Focus();
@@ -98,7 +107,11 @@ namespace ScoreManager
             if (AddMode)
             {
                 if (securityPanel.Visible)
+                {
                     ReturnValue = new Project(fileBox.Text, nameBox.Text, passwordBox.Text);
+                    SyncWorkdaySelections();
+                    ReturnValue.DailyAdmins.AddRange(dailyAdmins);
+                }
                 else
                     ReturnValue = new Project(fileBox.Text, nameBox.Text);
             }
@@ -108,6 +121,11 @@ namespace ScoreManager
                 if (passwordBox.Text != "")
                 {
                     ReturnValue.Encrypt(passwordBox.Text);
+                }
+                if (ReturnValue.Encryted)
+                {
+                    SyncWorkdaySelections();
+                    ReturnValue.DailyAdmins = dailyAdmins;
                 }
             }
             Close();
@@ -126,6 +144,83 @@ namespace ScoreManager
                 {
                     fileBox.Items.Add(iterator);
                 }
+            listView1.ItemSelectionChanged += UpdateSelections;
+        }
+
+        private void SyncWorkdaySelections()
+        {
+            if (listView1.Tag != null)
+            {
+                CheckBox[] selections = new CheckBox[7] { sun, mon, tue, wed, thur, fri, sat };
+                DailyAdmin lastSelect = (DailyAdmin)listView1.Tag;
+
+                for (int i = 0; i < selections.Length; i++)
+                {
+                    CheckBox checkBox = selections[i];
+                    if (checkBox.Checked && !lastSelect.WorkingDays.Contains((DayOfWeek)i))
+                    {
+                        lastSelect.WorkingDays.Add((DayOfWeek)i);
+                    }
+                    else if (!checkBox.Checked && lastSelect.WorkingDays.Contains((DayOfWeek)i))
+                    {
+                        lastSelect.WorkingDays.Remove((DayOfWeek)i);
+                    }
+                }
+
+                listView1.Tag = null;
+            }
+        }
+        private void UpdateSelections(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            CheckBox[] selections = new CheckBox[7] { sun, mon, tue, wed, thur, fri, sat };
+            ComponentResourceManager res = new ComponentResourceManager(typeof(ProjectForm));
+
+            listView1.ContextMenu = new ContextMenu();
+            if (listView1.SelectedItems.Count == 1)
+            {
+                
+                SyncWorkdaySelections();
+                foreach (CheckBox checkBox in selections)
+                {
+                    checkBox.Checked = false;
+                    checkBox.Enabled = true;
+                }
+                DailyAdmin modify = dailyAdmins.Find((it) => it.Name == listView1.SelectedItems[0].Text);
+                listView1.Tag = modify;
+
+                modify.WorkingDays.ForEach((day) =>
+                {
+                    selections[(int)day].Checked = true;
+                });
+
+                listView1.ContextMenu.MenuItems.Add(res.GetString("properities"),
+                    (s, ea) =>
+                    {
+                        DailyAdminForm form = new DailyAdminForm(modify);
+                        form.ShowDialog();
+                        form.Dispose();
+                    }
+                );
+            }
+            else
+            {
+                SyncWorkdaySelections();
+                foreach (CheckBox checkBox in selections)
+                {
+                    checkBox.Enabled = false;
+                }
+            }
+            listView1.ContextMenu.MenuItems.Add(res.GetString("remove"),
+                    (s, ea) =>
+                    {
+                        ListView.SelectedListViewItemCollection selected = listView1.SelectedItems;
+                        foreach (ListViewItem item in selected)
+                        {
+                            listView1.Items.Remove(item);
+                            dailyAdmins.RemoveAll((it) => it.Name == item.Text);
+                        }
+                    }
+                );
         }
 
         private void NameBox_TextChanged(object sender, EventArgs e)
@@ -151,7 +246,7 @@ namespace ScoreManager
                 securityPanel.Visible = !securityPanel.Visible;
                 Timer timer = new Timer
                 {
-                    Interval = 10
+                    Interval = 5
                 };
                 securityButton.Enabled = false;
                 if (securityPanel.Visible)
@@ -160,11 +255,7 @@ namespace ScoreManager
                     int oldY = confirm.Location.Y;
                     timer.Tick += (s, ea) =>
                     {
-                        Height += 5;
-                        int y = Height - oldHeight + oldY;
-                        confirm.Location = new Point(confirm.Location.X, y);
-                        cancel.Location = new Point(cancel.Location.X, y);
-                        securityButton.Location = new Point(securityButton.Location.X, y);
+                        Height += 10;
                         if (Height - oldHeight >= securityPanel.Height)
                         {
                             timer.Stop();
@@ -180,11 +271,7 @@ namespace ScoreManager
                     int oldY = confirm.Location.Y;
                     timer.Tick += (s, ea) =>
                     {
-                        Height -= 5;
-                        int y = Height - oldHeight + oldY;
-                        confirm.Location = new Point(confirm.Location.X, y);
-                        cancel.Location = new Point(cancel.Location.X, y);
-                        securityButton.Location = new Point(securityButton.Location.X, y);
+                        Height -= 10;
                         if (oldHeight - Height >= securityPanel.Height)
                         {
                             timer.Stop();
@@ -210,7 +297,7 @@ namespace ScoreManager
                     EditValue edit = new EditValue(res.GetString("password"), true);
                     if (edit.ShowDialog() == DialogResult.OK)
                     {
-                        if (ReturnValue.MatchPassword(edit.ValueReturn))
+                        if (ReturnValue.MatchPassword(edit.ValueReturn).Permission == Permission.ChiefAdmin)
                         {
                             switchPanel();
                         }
@@ -226,6 +313,38 @@ namespace ScoreManager
                     switchPanel();
                 }
             }
+        }
+
+        private void addAdmin_Click(object sender, EventArgs e)
+        {
+            DailyAdminForm form = new DailyAdminForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                if (dailyAdmins.Exists((it) => it.Name == form.ValueReturn.Name))
+                {
+                    ComponentResourceManager res = new ComponentResourceManager(typeof(ProjectForm));
+                    MessageBox.Show(res.GetString("error.DualAdmin"), res.GetString("error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    dailyAdmins.Add(form.ValueReturn);
+                    DrawAdmins();
+                }
+            }
+            form.Dispose();
+        }
+
+        private void DrawAdmins()
+        {
+            listView1.BeginUpdate();
+
+            listView1.Items.Clear();
+            dailyAdmins.ForEach((it) =>
+            {
+                listView1.Items.Add(it.Name);
+            });
+
+            listView1.EndUpdate();
         }
     }
 }

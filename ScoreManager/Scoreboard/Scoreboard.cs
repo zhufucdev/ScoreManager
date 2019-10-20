@@ -14,20 +14,24 @@ namespace ScoreManager.Scoreboard
         public ScoreboardType Type;
         public string Name;
         public Point Position;
+        public Size Size;
         public bool Overflow;
+        public bool Removed = false;
         public Scoreboard(string name, ScoreboardType type, bool overflow)
         {
             Name = name;
             Type = type;
-            Position = new Point((int)(Screen.PrimaryScreen.Bounds.Width * 0.7), Screen.PrimaryScreen.Bounds.Height);
+            Position = new Point((int)(Screen.PrimaryScreen.Bounds.Width * 0.7), 40);
+            Size = new Size(400, 300);
             Overflow = overflow;
         }
 
-        public Scoreboard(string name, ScoreboardType type, Point position, bool overflow)
+        public Scoreboard(string name, ScoreboardType type, Point position, Size size, bool overflow)
         {
             Name = name;
             Type = type;
             Position = position;
+            Size = size;
             Overflow = overflow;
         }
 
@@ -44,6 +48,11 @@ namespace ScoreManager.Scoreboard
                 { "x", Position.X },
                 { "y", Position.Y }
             });
+            result.Add("size", new JObject
+            {
+                { "width", Size.Width },
+                { "height", Size.Height }
+            });
             return result.ToString();
         }
 
@@ -51,13 +60,23 @@ namespace ScoreManager.Scoreboard
         {
             JObject origin = JObject.Parse(json);
             JObject position = origin.Value<JObject>("position");
-            Console.WriteLine(position);
+            JObject size = origin.Value<JObject>("size");
             return new Scoreboard(origin.Value<string>("name"), (ScoreboardType)origin.Value<int>("type"),
-                new Point()
+                new Point
                 {
                     X = position.Value<int>("x"),
                     Y = position.Value<int>("y")
-                }, origin.Value<bool>("overflow"));
+                }, new Size
+                {
+                    Width = size.Value<int>("width"),
+                    Height = size.Value<int>("height")
+                },
+                origin.Value<bool>("overflow"));
+        }
+
+        public ScoreboardForm NewForm(Form1 parent)
+        {
+            return new ScoreboardForm(this, parent);
         }
 
         public override bool Equals(object obj)

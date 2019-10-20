@@ -117,22 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="col.Name" xml:space="preserve">
-    <value>姓名</value>
+  <data name="cancel.Text" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="col.Score" xml:space="preserve">
-    <value>得分</value>
+  <data name="confirm.Text" xml:space="preserve">
+    <value>Confirm</value>
   </data>
-  <data name="noData" xml:space="preserve">
-    <value>没有打开的项目。</value>
+  <data name="error.EmptyName" xml:space="preserve">
+    <value>Name must not be empty.</value>
   </data>
-  <data name="properties" xml:space="preserve">
-    <value>属性</value>
+  <data name="error.Password" xml:space="preserve">
+    <value>Password must notbe emtpy,</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="nameLabel.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="passwordLabel.Text" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="this.Text" xml:space="preserve">
-    <value>计分板</value>
+    <value>Daily Admin</value>
   </data>
 </root>

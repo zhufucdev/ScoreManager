@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScoreManager.Statics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,10 +16,12 @@ namespace ScoreManager
     public partial class ScoreForm : Form
     {
         private Person target;
+        private Project project;
         public Score ValueReturn;
-        public ScoreForm(Person target)
+        public ScoreForm(Person target, Project project)
         {
             this.target = target;
+            this.project = project;
 
             InitializeComponent();
             ResourceController.ApplySource(this);
@@ -26,6 +29,53 @@ namespace ScoreManager
             
             targetLabel.Text = new ResourceManager(typeof(ScoreForm)).GetString("target", System.Threading.Thread.CurrentThread.CurrentUICulture).Replace("%s1", target.Group.Name).Replace("%s2", target.Name);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
+
+            reasonBox.Click += ReasonBox_Click;
+            reasonBox.SelectionChangeCommitted += ReasonBox_SelectionChangeCommitted;
+        }
+
+        private void ReasonBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string newItem = (string)reasonBox.SelectedItem;
+            if (newItem.EndsWith(")"))
+            {
+                int a = newItem.LastIndexOf('(');
+                if (a != -1)
+                {
+                    string tryScore = newItem.Substring(a + 1, newItem.Length - a - 2);
+                    long score;
+                    if (long.TryParse(tryScore, out score))
+                    {
+                        if (score < 0)
+                        {
+                            button11.Text = "-";
+                            score *= -1;
+                        }
+                        textBox.Text = score.ToString();
+                    }
+                }
+            }
+        }
+
+        private void ReasonBox_Click(object sender, EventArgs e)
+        {
+            if (reasonBox.Items.Count <= 0)
+            {
+                reasonBox.BeginUpdate();
+                reasonBox.Items.Clear();
+                project.Groups.ForEach((g) =>
+                {
+                    g.Record.ForEach((r) =>
+                    {
+                        if (!reasonBox.Items.Contains(r.Reason))
+                        {
+                            reasonBox.Items.Add(r.Reason);
+                            reasonBox.Items.Add(r.Reason + "(" + r.Value + ")");
+                        }
+                    });
+                });
+                reasonBox.EndUpdate();
+            }
         }
 
         private void ScoreForm_Load(object sender, EventArgs e)
@@ -43,7 +93,18 @@ namespace ScoreManager
 
         private void Confirm_Click(object sender, EventArgs e)
         {
-            ValueReturn = new Score(int.Parse(textBox.Text) * (negative ? -1 : 1), reasonBox.Text, target);
+            string reason = reasonBox.Text;
+            if (reason.EndsWith(")"))
+            {
+                int a = reason.LastIndexOf('(');
+                string substr = reason.Substring(a + 1, reason.Length - a - 2);
+                long tryParse;
+                if (long.TryParse(substr, out tryParse))
+                {
+                    reason = reason.Substring(0, a);
+                }
+            }
+            ValueReturn = new Score(int.Parse(textBox.Text) * (negative ? -1 : 1), reason, target);
             target.Group.Record.Add(ValueReturn);
             DialogResult = DialogResult.OK;
             Close();

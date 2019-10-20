@@ -123,6 +123,12 @@
   <data name="addMember.Text" xml:space="preserve">
     <value>Add Member</value>
   </data>
+  <data name="autostartItem.Text" xml:space="preserve">
+    <value>Start With System</value>
+  </data>
+  <data name="chiefAdmin" xml:space="preserve">
+    <value>Chief Admin</value>
+  </data>
   <data name="col.Member" xml:space="preserve">
     <value>Name of Member</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="error.LoadScoreboard" xml:space="preserve">
+    <value>Failed to Load Scoreboard</value>
   </data>
   <data name="error.OpenProject" xml:space="preserve">
     <value>Failed to Open Project</value>
@@ -146,6 +155,9 @@
   </data>
   <data name="error.WrongPassword" xml:space="preserve">
     <value>Wrong password.</value>
+  </data>
+  <data name="exit" xml:space="preserve">
+    <value>Exit</value>
   </data>
   <data name="file.Text" xml:space="preserve">
     <value>File</value>
@@ -165,8 +177,26 @@
   <data name="newToolStripMenuItem.Text" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="notification.Subtitle" xml:space="preserve">
+    <value>Click the notify icon to show the main interface.</value>
+  </data>
+  <data name="notification.Title" xml:space="preserve">
+    <value>Score Manger is running in background.</value>
+  </data>
+  <data name="notifyIcon.Text" xml:space="preserve">
+    <value>ScoreManager Background Process</value>
+  </data>
+  <data name="observer" xml:space="preserve">
+    <value>Observer</value>
+  </data>
+  <data name="openItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Chief or Daily Admin's Password</value>
+  </data>
+  <data name="password.Chief" xml:space="preserve">
+    <value>Chief Admin's Password</value>
   </data>
   <data name="projectProperties.Text" xml:space="preserve">
     <value>Properties</value>
@@ -194,6 +224,9 @@
   </data>
   <data name="settingsItem.Text" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="smp" xml:space="preserve">
+    <value>Score Manager Project</value>
   </data>
   <data name="this.Text" xml:space="preserve">
     <value>Score Manager</value>

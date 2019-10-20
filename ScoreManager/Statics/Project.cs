@@ -22,6 +22,7 @@ namespace ScoreManager.Statics
         {
             get { return chiefPassword != null; }
         }
+        public List<DailyAdmin> DailyAdmins;
         public Project(string File, string Name) {
             this.Path = File;
             this.Name = Name;
@@ -44,6 +45,7 @@ namespace ScoreManager.Statics
             {
                 chiefPassword = Encoding.UTF8.GetString(sha.ComputeHash(Encoding.UTF8.GetBytes(newPassword)));
             }
+            DailyAdmins = new List<DailyAdmin>();
         }
 
         public void Save()
@@ -57,15 +59,18 @@ namespace ScoreManager.Statics
                     { "name", Name },
                     { "begin", TimeBegin.Ticks }
                 };
-                if (chiefPassword != null)
+                if (Encryted)
                 {
                     info.Add("password", chiefPassword);
+
+                    JArray admins = new JArray();
+                    DailyAdmins.ForEach((it) => admins.Add(it.Serialize()));
+                    info.Add("admins", admins);
                 }
                 serialize.Add("info", info);
-                
 
                 JArray groups = new JArray();
-                this.Groups.ForEach((it) => groups.Add(it.Serialize()));
+                Groups.ForEach((it) => groups.Add(it.Serialize()));
                 serialize.Add("groups", groups);
 
                 str = serialize.ToString();
@@ -152,15 +157,36 @@ namespace ScoreManager.Statics
             }
         }
 
-        public bool MatchPassword(string password)
+        public List<DailyAdmin> TodaysAdmin
         {
+            get
+            {
+                return DailyAdmins.FindAll((it) => it.WorkingDays.Contains(DateTime.Today.DayOfWeek));
+            }
+        }
+        public MatchResult MatchPassword(string password)
+        {
+            if (!Encryted)
+                return MatchResult.ChiefAdmin;
             string sha256;
             using(SHA256 sha = SHA256.Create())
             {
                 sha256 = Encoding.UTF8.GetString(sha.ComputeHash(Encoding.UTF8.GetBytes(password)));
                 sha.Dispose();
             }
-            return sha256 == chiefPassword;
+            if (chiefPassword == sha256)
+            {
+                return MatchResult.ChiefAdmin;
+            }
+            else
+            {
+                foreach (DailyAdmin it in TodaysAdmin)
+                {
+                    if (it.MatchPassword(password))
+                        return new MatchResult(it);
+                }
+                return MatchResult.Locked;
+            }
         }
 
         public static Project Open(string path)
@@ -174,6 +200,12 @@ namespace ScoreManager.Statics
             if (info.ContainsKey("password"))
             {
                 result.chiefPassword = info.Value<string>("password");
+                result.DailyAdmins = new List<DailyAdmin>();
+                JArray admins = info.Value<JArray>("admins");
+                foreach(JObject admin in admins)
+                {
+                    result.DailyAdmins.Add(DailyAdmin.Deserialize(admin));
+                }
             }
             JArray groups = obj.Value<JArray>("groups");
             foreach(JObject group in groups)
@@ -206,8 +238,9 @@ namespace ScoreManager.Statics
             operation.Header = OperationHeader;
             operation.Project = this;
             CanBeSaved = true;
-
-            OperationDone.Invoke();
+            
+            if (OperationDone != null)
+                OperationDone.Invoke();
         }
         public Operation LastOperation
         {
@@ -226,9 +259,62 @@ namespace ScoreManager.Statics
             }
             set
             {
-                OperationHeaderChanged.Invoke();
+                if (OperationHeaderChanged != null)
+                    OperationHeaderChanged.Invoke();
                 mHeader = value;
             }
+        }
+
+        public class MatchResult
+        {
+            public Permission Permission;
+            public DailyAdmin Admin = null;
+            public bool CanChangeScore
+            {
+                get
+                {
+                    return Permission != Permission.Locked;
+                }
+            }
+            public bool CanChangeMember
+            {
+                get
+                {
+                    return Permission == Permission.ChiefAdmin;
+                }
+            }
+            MatchResult(Permission permission)
+            {
+                Permission = permission;
+            }
+            public MatchResult(DailyAdmin admin)
+            {
+                Permission = Permission.DailyAdmin;
+                Admin = admin;
+            }
+            public static MatchResult Locked
+            {
+                get
+                {
+                    return new MatchResult(Permission.Locked);
+                }
+            }
+            public static MatchResult ChiefAdmin
+            {
+                get
+                {
+                    return new MatchResult(Permission.ChiefAdmin);
+                }
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is MatchResult && ((MatchResult)obj).Permission == Permission && ((MatchResult)obj).Admin == Admin;
+            }
+        }
+        public enum Permission
+        {
+            Locked, ChiefAdmin, DailyAdmin
         }
     }
 }

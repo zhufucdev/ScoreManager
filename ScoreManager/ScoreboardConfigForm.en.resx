@@ -123,4 +123,10 @@
   <data name="type.Charts" xml:space="preserve">
     <value>Ranking</value>
   </data>
+  <data name="type.GroupRanking" xml:space="preserve">
+    <value>Group Ranking</value>
+  </data>
+  <data name="type.GroupScale" xml:space="preserve">
+    <value>Group Scale</value>
+  </data>
 </root>

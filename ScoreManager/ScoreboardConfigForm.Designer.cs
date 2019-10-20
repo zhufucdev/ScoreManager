@@ -35,6 +35,7 @@
             this.cancel = new System.Windows.Forms.Button();
             this.confirm = new System.Windows.Forms.Button();
             this.overflowCheckbox = new System.Windows.Forms.CheckBox();
+            this.delete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // typeLabel
@@ -73,7 +74,7 @@
             // 
             // cancel
             // 
-            this.cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancel.Location = new System.Drawing.Point(278, 137);
             this.cancel.Name = "cancel";
@@ -85,7 +86,7 @@
             // 
             // confirm
             // 
-            this.confirm.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.confirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.confirm.Location = new System.Drawing.Point(197, 137);
             this.confirm.Name = "confirm";
             this.confirm.Size = new System.Drawing.Size(75, 23);
@@ -104,6 +105,18 @@
             this.overflowCheckbox.Text = "始终置于顶层";
             this.overflowCheckbox.UseVisualStyleBackColor = true;
             // 
+            // delete
+            // 
+            this.delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.delete.Location = new System.Drawing.Point(12, 137);
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(75, 23);
+            this.delete.TabIndex = 8;
+            this.delete.Text = "删除";
+            this.delete.UseVisualStyleBackColor = true;
+            this.delete.Visible = false;
+            this.delete.Click += new System.EventHandler(this.delete_Click);
+            // 
             // ScoreboardConfigForm
             // 
             this.AcceptButton = this.confirm;
@@ -111,6 +124,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
             this.ClientSize = new System.Drawing.Size(365, 172);
+            this.Controls.Add(this.delete);
             this.Controls.Add(this.overflowCheckbox);
             this.Controls.Add(this.confirm);
             this.Controls.Add(this.cancel);
@@ -139,5 +153,6 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button confirm;
         private System.Windows.Forms.CheckBox overflowCheckbox;
+        private System.Windows.Forms.Button delete;
     }
 }

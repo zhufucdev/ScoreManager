@@ -8,6 +8,6 @@ namespace ScoreManager.Scoreboard
 {
     public enum ScoreboardType
     {
-        Charts
+        Charts, GroupRanking, GroupScale
     }
 }

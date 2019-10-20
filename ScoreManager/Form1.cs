@@ -1,62 +1,138 @@
 ﻿using ScoreManager.Statics;
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using static ScoreManager.Statics.Project;
+using ScoreManager.Properties;
+using Microsoft.Win32;
 
 namespace ScoreManager
 {
     public partial class Form1 : Form
     {
         private readonly List<Scoreboard.Scoreboard> scoreboards = new List<Scoreboard.Scoreboard>();
-        public Form1()
+        public Form1(string OpenFile = "")
         {
             Settings.Default.Language = Settings.Default.Language ?? Thread.CurrentThread.CurrentCulture.Name;
+            Icon = Resources.AppIcon;
             InitializeComponent();
             Relayout();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
+
+            notifyIcon.Text = res.GetString("this.Text");
+            notifyIcon.Icon = Resources.AppIcon;
+            notifyIcon.ContextMenu = new ContextMenu();
+            notifyIcon.ContextMenu.MenuItems.Add(res.GetString("exit"), (e, a) => {
+                Application.Exit();
+            });
 
             FormClosed += (sender, e) =>
             {
-                Settings.Default.Scoreboards.Clear();
-                scoreboards.ForEach((it) => {
-                    Console.WriteLine(it.Position + "@Form1");
-                    Console.WriteLine(it.ToString());
-                    Settings.Default.Scoreboards.Add(it.ToString());
-                });
+                if (Settings.Default.Scoreboards != null)
+                {
+                    Settings.Default.Scoreboards.Clear();
+                    scoreboards.ForEach((it) =>
+                    {
+                        if (!it.Removed)
+                            Settings.Default.Scoreboards.Add(it.ToString());
+                    });
+                }
                 Settings.Default.Save();
             };
             listView.ItemSelectionChanged += (sender, e) =>
             {
-                recordScore.Enabled = unlocked && listView.SelectedItems.Count > 0;
+                recordScore.Enabled = unlocked.CanChangeScore && listView.SelectedItems.Count > 0;
                 DrawCharts();
+            };
+            adminBox.SelectionChangeCommitted += (sender, e) =>
+            {
+                int oldIndex = adminBox.Tag != null ? (int)adminBox.Tag : adminBox.Items.Count - 1;
+                adminBox.Tag = adminBox.SelectedIndex;
+                if (adminBox.SelectedIndex < adminBox.Items.Count - 1)
+                {
+                    EditValue edit = new EditValue(res.GetString("password.Chief"), true);
+                    if (edit.ShowDialog() == DialogResult.OK)
+                    {
+                        MatchResult result = CurrentProject.MatchPassword(edit.ValueReturn);
+                        void showError()
+                        {
+                            MessageBox.Show(res.GetString("error.WrongPassword"), res.GetString("validate.Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            adminBox.SelectedIndex = oldIndex;
+                        }
+                        if (adminBox.SelectedIndex == 0)
+                        {
+                            if (result.Permission == Permission.ChiefAdmin)
+                            {
+                                unlocked = MatchResult.ChiefAdmin;
+                                UpdateMenuStrip();
+                            }
+                            else
+                            {
+                                showError();
+                            }
+                        }
+                        else
+                        {
+                            DailyAdmin target = CurrentProject.TodaysAdmin[adminBox.SelectedIndex - 1];
+                            if (result.Permission == Permission.DailyAdmin && result.Admin.Equals(target))
+                            {
+                                unlocked = result;
+                                UpdateMenuStrip();
+                            }
+                            else
+                            {
+                                showError();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        adminBox.SelectedIndex = oldIndex;
+                    }
+                    edit.Dispose();
+                }
+                else
+                {
+                    unlocked = MatchResult.Locked;
+                    UpdateMenuStrip();
+                }
             };
 
             if(Settings.Default.Scoreboards != null)
             {
-                for (int i = 0; i < Settings.Default.Scoreboards.Count; i++)
+                foreach (string json in Settings.Default.Scoreboards)
                 {
-                    Scoreboard.Scoreboard scoreboard = Scoreboard.Scoreboard.Deserialize(Settings.Default.Scoreboards[i]);
-                    scoreboards.Add(scoreboard);
-                    new ScoreboardForm(scoreboard, this).Show();
+                    try
+                    {
+                        Scoreboard.Scoreboard scoreboard = Scoreboard.Scoreboard.Deserialize(json);
+                        scoreboards.Add(scoreboard);
+                        scoreboard.NewForm(this).Show();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.GetType().FullName + ": " + e.Message, res.GetString("error.LoadScoreboard"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+            }
+
+            if (OpenFile != "")
+            {
+                OpenProject(Open(OpenFile));
             }
         }
 
-        private Project currentProject;
-        private bool unlocked = true;
+        public Project CurrentProject;
+        private MatchResult unlocked = MatchResult.ChiefAdmin;
         public event ProjectOpenEventHandler ProjectOpen;
         void OpenProject(Project project)
         {
-            currentProject = project;
-            if (project.Encryted)
-            {
-                unlocked = false;
-            }
-            UpdateMenuStrip();
+            CurrentProject = project;
+            unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
+            UpdateMenuStrip(true);
 
             Relayout();
             ColumnStyle column = projectPanel.ColumnStyles[0];
@@ -68,18 +144,20 @@ namespace ScoreManager
             DrawCharts();
 
             project.OperationDone += UpdateUndoRedoMenuStrip;
-            ProjectOpen.Invoke(project);
+            if (ProjectOpen != null)
+                ProjectOpen.Invoke(project);
         }
 
         private void Relayout()
         {
             ComponentResourceManager res = ResourceController.ApplySource(this);
-            if (currentProject == null)
+            if (CurrentProject == null)
             {
                 projectPanel.Visible = false;
                 startPanel.Visible = true;
                 startPanel.Dock = DockStyle.Fill;
                 projectPanel.Dock = DockStyle.None;
+                adminBox.Visible = false;
             }
             else
             {
@@ -99,6 +177,7 @@ namespace ScoreManager
                     Text = res.GetString("col.Score"),
                     Width = 120
                 });
+                UpdateMenuStrip(true);
             }
         }
 
@@ -107,7 +186,7 @@ namespace ScoreManager
             listView.BeginUpdate();
             listView.Groups.Clear();
             listView.Items.Clear();
-            currentProject.Groups.ForEach((group) =>
+            CurrentProject.Groups.ForEach((group) =>
             {
                 ListViewGroup groupView = new ListViewGroup
                 {
@@ -136,33 +215,58 @@ namespace ScoreManager
         private void UpdateUndoRedoMenuStrip()
         {
             menuStrip.SuspendLayout();
-            saveToolStripMenuItem.Enabled = unlocked;
-            undoMenuItem.Enabled = unlocked;
-            redoMenuItem.Enabled = unlocked;
-            if (unlocked)
+            saveToolStripMenuItem.Enabled = undoMenuItem.Enabled = redoMenuItem.Enabled = unlocked.CanChangeScore;
+            if (unlocked.CanChangeScore)
             {
-                undoMenuItem.Enabled = currentProject.LastOperation != null;
-                redoMenuItem.Enabled = currentProject.OperationHeader < currentProject.Operations.Count - 1 
-                    && currentProject.Operations.Count > 0;
-                saveToolStripMenuItem.Enabled = currentProject.CanBeSaved;
+                undoMenuItem.Enabled = CurrentProject.LastOperation != null;
+                redoMenuItem.Enabled = CurrentProject.OperationHeader < CurrentProject.Operations.Count - 1 
+                    && CurrentProject.Operations.Count > 0;
+                saveToolStripMenuItem.Enabled = CurrentProject.CanBeSaved;
             }
             menuStrip.ResumeLayout();
         }
-        private void UpdateMenuStrip()
+        private void UpdateMenuStrip(bool includeAdminBox = false)
         {
-            addGroup.Enabled = unlocked;
-            addMember.Enabled = unlocked;
-            validate.Enabled = currentProject.Encryted;
+            addGroup.Enabled = addMember.Enabled = unlocked.CanChangeMember;
+            validate.Enabled = CurrentProject.Encryted;
             UpdateUndoRedoMenuStrip();
-            if (currentProject.Encryted)
+            if (CurrentProject.Encryted)
             {
                 ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-                validate.Text = res.GetString(unlocked ? "lock" : "validate.Text");
+                validate.Text = res.GetString(unlocked.CanChangeScore ? "lock" : "validate.Text");
+
+                if (includeAdminBox)
+                {
+                    adminBox.Visible = true;
+                    adminBox.BeginUpdate();
+
+                    adminBox.Items.Clear();
+                    adminBox.Items.Add(res.GetString("chiefAdmin"));
+                    CurrentProject.TodaysAdmin.ForEach((it) => adminBox.Items.Add(it.Name));
+                    adminBox.Items.Add(res.GetString("observer"));
+
+                    adminBox.EndUpdate();
+                }
+                switch (unlocked.Permission)
+                {
+                    case Permission.ChiefAdmin:
+                        adminBox.SelectedIndex = 0;
+                        break;
+                    case Permission.DailyAdmin:
+                        adminBox.SelectedIndex = CurrentProject.DailyAdmins.IndexOf(unlocked.Admin) + 1;
+                        break;
+                    case Permission.Locked:
+                        adminBox.SelectedIndex = adminBox.Items.Count - 1;
+                        break;
+                }
+            }
+            else
+            {
+                adminBox.Visible = false;
             }
 
-            if (!unlocked)
-                recordScore.Enabled = false;
-            projectProperties.Enabled = unlocked;
+            recordScore.Enabled = unlocked.CanChangeScore;
+            projectProperties.Enabled = unlocked.CanChangeMember;
         }
 
         private void New_Project(object sender, EventArgs e)
@@ -196,21 +300,16 @@ namespace ScoreManager
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
 
             if (listView.SelectedItems.Count == 1)
-                listMenu.MenuItems.Add(res.GetString("properties"), this.PropertiesMenuClickHandler);
+                listMenu.MenuItems.Add(res.GetString("properties"), PropertiesMenuClickHandler)
+                    .Enabled = unlocked.CanChangeMember;
             if (listView.SelectedItems.Count > 0)
-                listMenu.MenuItems.Add(res.GetString("recordScore.Text"), this.RecordScoreMenuClickHandler);
-            if (!unlocked)
-            {
-                foreach(MenuItem item in listMenu.MenuItems)
-                {
-                    item.Enabled = false;
-                }
-            }
+                listMenu.MenuItems.Add(res.GetString("recordScore.Text"), RecordScoreMenuClickHandler)
+                    .Enabled = unlocked.CanChangeScore;
         }
 
         private void PropertiesMenuClickHandler(object sender, EventArgs e)
         {
-            MemberForm memberForm = new MemberForm(currentProject.FindPerson((Guid)listView.SelectedItems[0].Tag), currentProject);
+            MemberForm memberForm = new MemberForm(CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag), CurrentProject);
             if (memberForm.ShowDialog() == DialogResult.OK)
                 UpdateGroupView();
             memberForm.Dispose();
@@ -219,7 +318,7 @@ namespace ScoreManager
         {
             List<Operation> operations = new List<Operation>();
             foreach (ListViewItem item in listView.SelectedItems) {
-                ScoreForm scoreForm = new ScoreForm(currentProject.FindPerson((Guid)item.Tag));
+                ScoreForm scoreForm = new ScoreForm(CurrentProject.FindPerson((Guid)item.Tag), CurrentProject);
                 if (scoreForm.ShowDialog() != DialogResult.OK)
                 {
                     scoreForm.Dispose();
@@ -228,7 +327,7 @@ namespace ScoreManager
                 operations.Add(new ScoreChange(scoreForm.ValueReturn));
                 scoreForm.Dispose();
             }
-            currentProject.Do(new MulitOperations()
+            CurrentProject.Do(new MulitOperations()
             {
                 Operations = operations.ToArray()
             });
@@ -251,8 +350,15 @@ namespace ScoreManager
             listView.View = View.Details;
             listMenu.Popup += this.PopupHandler;
             listView.ContextMenu = listMenu;
+            autostartItem.Checked = Settings.Default.Autostart;
 
             UpdateLanguageMenuStrip();
+
+            ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
+            if (Registry.ClassesRoot.OpenSubKey(".smp") == null)
+            {
+                ResourceController.SetAssociation(".smp", "ScoreManager", "");
+            }
         }
 
         private void UpdateLanguageMenuStrip()
@@ -280,8 +386,8 @@ namespace ScoreManager
             GroupForm groupForm = new GroupForm();
             if(groupForm.ShowDialog() == DialogResult.OK)
             {
-                currentProject.Groups.Add(groupForm.ReturnValue);
-                currentProject.Do(new AddGroup(groupForm.ReturnValue));
+                CurrentProject.Groups.Add(groupForm.ReturnValue);
+                CurrentProject.Do(new AddGroup(groupForm.ReturnValue));
                 UpdateGroupView();
             }
             groupForm.Dispose();
@@ -289,7 +395,7 @@ namespace ScoreManager
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            currentProject.Save();
+            CurrentProject.Save();
             saveToolStripMenuItem.Enabled = false;
         }
 
@@ -300,11 +406,11 @@ namespace ScoreManager
 
         private void AddMember_Click(object sender, EventArgs e)
         {
-            MemberForm memberForm = new MemberForm(currentProject);
+            MemberForm memberForm = new MemberForm(CurrentProject);
             if (memberForm.ShowDialog() == DialogResult.OK)
             {
-                currentProject.AddPerson(memberForm.ValueReturn);
-                currentProject.Do(new AddMember(memberForm.ValueReturn));
+                CurrentProject.AddPerson(memberForm.ValueReturn);
+                CurrentProject.Do(new AddMember(memberForm.ValueReturn));
                 UpdateGroupView();
             }
             memberForm.Dispose();
@@ -318,18 +424,18 @@ namespace ScoreManager
         private void validate_Click(object sender, EventArgs e)
         {
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-            if (!unlocked)
+            if (!unlocked.CanChangeScore)
             {
                 EditValue edit = new EditValue(res.GetString("password"), true);
                 if (edit.ShowDialog() == DialogResult.OK)
                 {
-                    if (!currentProject.MatchPassword(edit.ValueReturn))
+                    unlocked = CurrentProject.MatchPassword(edit.ValueReturn);
+                    if (!unlocked.CanChangeScore)
                     {
                         MessageBox.Show(res.GetString("error.WrongPassword"), res.GetString("error.WPC"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        unlocked = true;
                         UpdateMenuStrip();
                         validate.Text = res.GetString("lock");
                     }
@@ -338,7 +444,7 @@ namespace ScoreManager
             }
             else
             {
-                unlocked = false;
+                unlocked = MatchResult.Locked;
                 UpdateMenuStrip();
                 validate.Text = res.GetString("validate.Text");
             }
@@ -346,14 +452,15 @@ namespace ScoreManager
 
         private void projectProperties_Click(object sender, EventArgs e)
         {
-            ProjectForm projectForm = new ProjectForm(currentProject);
+            ProjectForm projectForm = new ProjectForm(CurrentProject);
             if (projectForm.ShowDialog() == DialogResult.OK)
             {
-                if (currentProject.Encryted)
+                if (CurrentProject.Encryted)
                 {
-                    unlocked = false;
+                    unlocked = MatchResult.Locked;
+                    CurrentProject.Save();
                 }
-                UpdateMenuStrip();
+                UpdateMenuStrip(true);
             }
             projectForm.Dispose();
         }
@@ -364,7 +471,7 @@ namespace ScoreManager
             chart.Series.Clear();
             if (listView.SelectedItems.Count == 1)
             {
-                Person member = currentProject.FindPerson((Guid)listView.SelectedItems[0].Tag);
+                Person member = CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag);
                 List<Score> record = member.Record;
 
                 Series series = chart.Series.Add(member.Name);
@@ -384,7 +491,7 @@ namespace ScoreManager
                     int previousCount = 0;
                     foreach (ListViewItem item in listView.SelectedItems)
                     {
-                        Person member = currentProject.FindPerson((Guid)item.Tag);
+                        Person member = CurrentProject.FindPerson((Guid)item.Tag);
                         if (previousGroup != null)
                         {
                             if(previousGroup != member.Group)
@@ -416,7 +523,7 @@ namespace ScoreManager
                     List<Person> people = new List<Person>();
                     foreach (ListViewItem item in listView.SelectedItems)
                     {
-                        Person member = currentProject.FindPerson((Guid)item.Tag);
+                        Person member = CurrentProject.FindPerson((Guid)item.Tag);
                         people.Add(member);
                         if (isSameGroup)
                         {
@@ -455,14 +562,14 @@ namespace ScoreManager
 
         private void undoMenuItem_Click(object sender, EventArgs e)
         {
-            currentProject.LastOperation.Undo();
+            CurrentProject.LastOperation.Undo();
             UpdateUndoRedoMenuStrip();
             UpdateGroupView();
         }
 
         private void redoMenuItem_Click(object sender, EventArgs e)
         {
-            currentProject.Operations[currentProject.OperationHeader + 1].Redo();
+            CurrentProject.Operations[CurrentProject.OperationHeader + 1].Redo();
             UpdateUndoRedoMenuStrip();
             UpdateGroupView();
         }
@@ -499,6 +606,8 @@ namespace ScoreManager
                 else
                     Settings.Default.Scoreboards.Add(configForm.ValueReturn.ToString());
 
+                configForm.ValueReturn.NewForm(this).Show();
+
                 Settings.Default.Save();
             }
             configForm.Dispose();
@@ -516,6 +625,57 @@ namespace ScoreManager
             Settings.Default.Language = "en";
             UpdateLanguageMenuStrip();
             Relayout();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CurrentProject != null)
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    e.Cancel = true;
+                    Hide();
+                    notifyIcon.Visible = true;
+                    if (!Settings.Default.BackgrounMessageShown)
+                    {
+                        ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
+                        notifyIcon.ShowBalloonTip(3000, res.GetString("notification.Title"), res.GetString("notification.Subtitle"), ToolTipIcon.Info);
+                        Settings.Default.BackgrounMessageShown = true;
+                    }
+                }
+                else if (CurrentProject.CanBeSaved)
+                {
+                    CurrentProject.Save();
+                }
+            }
+        }
+
+        private void notifyIcon_Click(object sender, EventArgs e)
+        {
+            Show();
+            Activate();
+            WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+        }
+
+        private void openItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog()
+            {
+                AddExtension = true,
+                Filter = new ComponentResourceManager(typeof(Form1)).GetString("smp") + "(*.smp)|*.smp"
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                OpenProject(Open(dialog.FileName));
+            }
+            dialog.Dispose();
+        }
+
+        private void autostartItem_Click(object sender, EventArgs e)
+        {
+            autostartItem.Checked = Settings.Default.Autostart = !Settings.Default.Autostart;
+            ResourceController.StartWithSystem = Settings.Default.Autostart;
         }
     }
 }

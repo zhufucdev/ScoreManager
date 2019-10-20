@@ -28,27 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.file = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newScoreboardItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.projectProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.addMember = new System.Windows.Forms.ToolStripMenuItem();
             this.recordScore = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.validate = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.englishItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProject = new System.Windows.Forms.Button();
             this.recent = new System.Windows.Forms.Button();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -58,7 +64,9 @@
             this.projectPanel = new System.Windows.Forms.TableLayoutPanel();
             this.infoPanel = new System.Windows.Forms.Panel();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.englishItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adminBox = new System.Windows.Forms.ComboBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.autostartItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.startPanel.SuspendLayout();
@@ -82,7 +90,9 @@
             this.file.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.file.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.openItem,
             this.saveToolStripMenuItem,
+            this.toolStripSeparator1,
             this.projectProperties});
             this.file.Name = "file";
             resources.ApplyResources(this.file, "file");
@@ -107,11 +117,22 @@
             resources.ApplyResources(this.newScoreboardItem, "newScoreboardItem");
             this.newScoreboardItem.Click += new System.EventHandler(this.newScoreboardItem_Click);
             // 
+            // openItem
+            // 
+            this.openItem.Name = "openItem";
+            resources.ApplyResources(this.openItem, "openItem");
+            this.openItem.Click += new System.EventHandler(this.openItem_Click);
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // projectProperties
             // 
@@ -124,9 +145,11 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.undoMenuItem,
             this.redoMenuItem,
+            this.toolStripSeparator2,
             this.addGroup,
             this.addMember,
             this.recordScore,
+            this.toolStripSeparator3,
             this.validate});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(this.editToolStripMenuItem, "editToolStripMenuItem");
@@ -142,6 +165,11 @@
             this.redoMenuItem.Name = "redoMenuItem";
             resources.ApplyResources(this.redoMenuItem, "redoMenuItem");
             this.redoMenuItem.Click += new System.EventHandler(this.redoMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // addGroup
             // 
@@ -161,6 +189,11 @@
             resources.ApplyResources(this.recordScore, "recordScore");
             this.recordScore.Click += new System.EventHandler(this.RecordScore_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
+            // 
             // validate
             // 
             this.validate.Name = "validate";
@@ -170,7 +203,8 @@
             // settingsItem
             // 
             this.settingsItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.languageItem});
+            this.languageItem,
+            this.autostartItem});
             this.settingsItem.Name = "settingsItem";
             resources.ApplyResources(this.settingsItem, "settingsItem");
             // 
@@ -187,6 +221,12 @@
             this.chineseItem.Name = "chineseItem";
             resources.ApplyResources(this.chineseItem, "chineseItem");
             this.chineseItem.Click += new System.EventHandler(this.chineseItem_Click);
+            // 
+            // englishItem
+            // 
+            this.englishItem.Name = "englishItem";
+            resources.ApplyResources(this.englishItem, "englishItem");
+            this.englishItem.Click += new System.EventHandler(this.englishItem_Click);
             // 
             // newProject
             // 
@@ -246,33 +286,47 @@
             // 
             resources.ApplyResources(this.chart, "chart");
             this.chart.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
             this.chart.Cursor = System.Windows.Forms.Cursors.Default;
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Name = "chart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart.Series.Add(series2);
             // 
-            // englishItem
+            // adminBox
             // 
-            this.englishItem.Name = "englishItem";
-            resources.ApplyResources(this.englishItem, "englishItem");
-            this.englishItem.Click += new System.EventHandler(this.englishItem_Click);
+            resources.ApplyResources(this.adminBox, "adminBox");
+            this.adminBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.adminBox.FormattingEnabled = true;
+            this.adminBox.Name = "adminBox";
+            // 
+            // notifyIcon
+            // 
+            resources.ApplyResources(this.notifyIcon, "notifyIcon");
+            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            // 
+            // autostartItem
+            // 
+            this.autostartItem.Name = "autostartItem";
+            resources.ApplyResources(this.autostartItem, "autostartItem");
+            this.autostartItem.Click += new System.EventHandler(this.autostartItem_Click);
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.adminBox);
             this.Controls.Add(this.projectPanel);
             this.Controls.Add(this.startPanel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -316,6 +370,13 @@
         private System.Windows.Forms.ToolStripMenuItem languageItem;
         private System.Windows.Forms.ToolStripMenuItem chineseItem;
         private System.Windows.Forms.ToolStripMenuItem englishItem;
+        private System.Windows.Forms.ComboBox adminBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem openItem;
+        private System.Windows.Forms.ToolStripMenuItem autostartItem;
     }
 }
 

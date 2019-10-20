@@ -117,22 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="col.Name" xml:space="preserve">
-    <value>姓名</value>
-  </data>
-  <data name="col.Score" xml:space="preserve">
-    <value>得分</value>
-  </data>
-  <data name="noData" xml:space="preserve">
-    <value>没有打开的项目。</value>
-  </data>
-  <data name="properties" xml:space="preserve">
-    <value>属性</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="this.Text" xml:space="preserve">
-    <value>计分板</value>
-  </data>
+  <metadata name="errorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
