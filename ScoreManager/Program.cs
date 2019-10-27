@@ -16,7 +16,19 @@ namespace ScoreManager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(args.Length > 0 ? args[0] : ""));
+            Form1 form1 = new Form1();
+            if (args.Length > 0)
+            {
+                if (args.Contains("-open-last"))
+                {
+                    form1.Recent_Click(null, null);
+                }
+                else
+                {
+                    form1.OpenProject(Statics.Project.Open(args[0]));
+                }
+            }
+            Application.Run(form1);
         }
     }
 }

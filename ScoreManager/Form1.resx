@@ -121,36 +121,6 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="file.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="file.Text" xml:space="preserve">
-    <value>文件</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="languageItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="languageItem.Text" xml:space="preserve">
-    <value>语言</value>
-  </data>
-  <data name="autostartItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="autostartItem.Text" xml:space="preserve">
-    <value>随系统启动</value>
-  </data>
-  <data name="settingsItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="settingsItem.Text" xml:space="preserve">
-    <value>设置</value>
-  </data>
   <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -175,6 +145,12 @@
   </data>
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="file.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 21</value>
+  </data>
+  <data name="file.Text" xml:space="preserve">
+    <value>文件</value>
   </data>
   <data name="newToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 22</value>
@@ -214,6 +190,12 @@
   </data>
   <data name="projectProperties.Text" xml:space="preserve">
     <value>属性</value>
+  </data>
+  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 21</value>
+  </data>
+  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+    <value>编辑</value>
   </data>
   <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
@@ -257,6 +239,18 @@
   <data name="validate.Text" xml:space="preserve">
     <value>验证</value>
   </data>
+  <data name="settingsItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 21</value>
+  </data>
+  <data name="settingsItem.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="languageItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="languageItem.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
   <data name="chineseItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 22</value>
   </data>
@@ -268,6 +262,12 @@
   </data>
   <data name="englishItem.Text" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="autostartItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="autostartItem.Text" xml:space="preserve">
+    <value>随系统启动</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newProject.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -552,14 +552,41 @@
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>ScoreManager</value>
   </data>
+  <data name="viewToolStripItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 21</value>
+  </data>
+  <data name="viewToolStripItem.Text" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="overviewItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="overviewItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="overviewItem.Text" xml:space="preserve">
+    <value>总览</value>
+  </data>
+  <data name="quickIndexItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="quickIndexItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="quickIndexItem.Text" xml:space="preserve">
+    <value>快速索引</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>773, 450</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>40, 40</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
@@ -693,6 +720,12 @@
   <data name="&gt;&gt;englishItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;autostartItem.Name" xml:space="preserve">
+    <value>autostartItem</value>
+  </data>
+  <data name="&gt;&gt;autostartItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;readyStatusLable.Name" xml:space="preserve">
     <value>readyStatusLable</value>
   </data>
@@ -705,10 +738,22 @@
   <data name="&gt;&gt;notifyIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;autostartItem.Name" xml:space="preserve">
-    <value>autostartItem</value>
+  <data name="&gt;&gt;viewToolStripItem.Name" xml:space="preserve">
+    <value>viewToolStripItem</value>
   </data>
-  <data name="&gt;&gt;autostartItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;viewToolStripItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;overviewItem.Name" xml:space="preserve">
+    <value>overviewItem</value>
+  </data>
+  <data name="&gt;&gt;overviewItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;quickIndexItem.Name" xml:space="preserve">
+    <value>quickIndexItem</value>
+  </data>
+  <data name="&gt;&gt;quickIndexItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

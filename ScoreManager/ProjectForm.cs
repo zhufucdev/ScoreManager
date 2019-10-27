@@ -21,7 +21,7 @@ namespace ScoreManager
         public ProjectForm()
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             Height = 200;
             AddMode = true;
 
@@ -33,7 +33,7 @@ namespace ScoreManager
         public ProjectForm(Project project)
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             Height = 200;
             AddMode = false;
             ReturnValue = project;

@@ -289,6 +289,8 @@
             this.reasonBox.Name = "reasonBox";
             this.reasonBox.Size = new System.Drawing.Size(395, 25);
             this.reasonBox.TabIndex = 16;
+            this.reasonBox.Enter += new System.EventHandler(this.reasonBox_Enter);
+            this.reasonBox.Leave += new System.EventHandler(this.reasonBox_Leave);
             // 
             // ScoreForm
             // 

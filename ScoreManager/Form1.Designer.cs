@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.file = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,7 @@
             this.languageItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autostartItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newProject = new System.Windows.Forms.Button();
             this.recent = new System.Windows.Forms.Button();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -66,7 +67,9 @@
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.adminBox = new System.Windows.Forms.ComboBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.autostartItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.overviewItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickIndexItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.startPanel.SuspendLayout();
@@ -81,6 +84,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.file,
             this.editToolStripMenuItem,
+            this.viewToolStripItem,
             this.settingsItem});
             resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
@@ -228,6 +232,12 @@
             resources.ApplyResources(this.englishItem, "englishItem");
             this.englishItem.Click += new System.EventHandler(this.englishItem_Click);
             // 
+            // autostartItem
+            // 
+            this.autostartItem.Name = "autostartItem";
+            resources.ApplyResources(this.autostartItem, "autostartItem");
+            this.autostartItem.Click += new System.EventHandler(this.autostartItem_Click);
+            // 
             // newProject
             // 
             resources.ApplyResources(this.newProject, "newProject");
@@ -309,16 +319,30 @@
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
-            // autostartItem
+            // viewToolStripItem
             // 
-            this.autostartItem.Name = "autostartItem";
-            resources.ApplyResources(this.autostartItem, "autostartItem");
-            this.autostartItem.Click += new System.EventHandler(this.autostartItem_Click);
+            this.viewToolStripItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.overviewItem,
+            this.quickIndexItem});
+            this.viewToolStripItem.Name = "viewToolStripItem";
+            resources.ApplyResources(this.viewToolStripItem, "viewToolStripItem");
+            // 
+            // overviewItem
+            // 
+            resources.ApplyResources(this.overviewItem, "overviewItem");
+            this.overviewItem.Name = "overviewItem";
+            this.overviewItem.Click += new System.EventHandler(this.overviewItem_Click);
+            // 
+            // quickIndexItem
+            // 
+            resources.ApplyResources(this.quickIndexItem, "quickIndexItem");
+            this.quickIndexItem.Name = "quickIndexItem";
+            this.quickIndexItem.Click += new System.EventHandler(this.quickIndexItem_Click);
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.adminBox);
             this.Controls.Add(this.projectPanel);
             this.Controls.Add(this.startPanel);
@@ -377,6 +401,9 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ToolStripMenuItem openItem;
         private System.Windows.Forms.ToolStripMenuItem autostartItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripItem;
+        private System.Windows.Forms.ToolStripMenuItem overviewItem;
+        private System.Windows.Forms.ToolStripMenuItem quickIndexItem;
     }
 }
 

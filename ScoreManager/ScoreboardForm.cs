@@ -19,7 +19,7 @@ namespace ScoreManager
         public ScoreboardForm(Scoreboard.Scoreboard info, Form1 parent)
         {
             InitializeComponent();
-            ComponentResourceManager res = ResourceController.ApplySource(this);
+            ComponentResourceManager res = Utility.ApplySource(this);
             if (info.Name != "")
                 Text = info.Name;
             Info = info;
@@ -44,6 +44,11 @@ namespace ScoreManager
                         break;
                     case DialogResult.Abort:
                         Info.Removed = true;
+                        parent.ProjectOpen -= Draw;
+                        LocationChanged -= ScoreboardForm_LocationChanged;
+                        ResizeEnd -= ScoreboardForm_ResizeEnd;
+                        if (LastDrawEvent != null)
+                            parent.CurrentProject.OperationHeaderChanged -= LastDrawEvent;
                         Close();
                         break;
                 }
@@ -123,7 +128,7 @@ namespace ScoreManager
                     };
 
                     listView.Dock = DockStyle.Fill;
-                    listView.View = View.Details;
+                    listView.View = System.Windows.Forms.View.Details;
                     Controls.Add(listView);
                 }
                 else
@@ -131,13 +136,13 @@ namespace ScoreManager
                     Chart chart = new Chart();
                     chart.ChartAreas.Add("MainArea");
                     chart.Legends.Add("MainLegend");
-                    chart.BeginInit();
 
                     string score = res.GetString("col.Score");
                     switch (Info.Type) {
                         case Scoreboard.ScoreboardType.GroupScale:
                             LastDrawEvent = () =>
                             {
+                                chart.BeginInit();
                                 chart.Series.Clear();
                                 Series series = chart.Series.Add(score);
                                 foreach (Group group in project.Groups)
@@ -145,14 +150,16 @@ namespace ScoreManager
                                     series.Points.AddXY(group.Name, group.Score);
                                 }
                                 series.ChartType = SeriesChartType.Pie;
+                                chart.EndInit();
                             };
                             LastDrawEvent();
                             break;
                         case Scoreboard.ScoreboardType.GroupRanking:
                             LastDrawEvent = () =>
                             {
+                                chart.BeginInit();
                                 chart.Series.Clear();
-                                foreach(Group group in project.Groups) 
+                                foreach (Group group in project.Groups) 
                                 {
                                     Series series = chart.Series.Add(group.Name);
                                     long ach = group.Score;
@@ -160,11 +167,11 @@ namespace ScoreManager
                                     series.Label = ach.ToString();
                                     series.ChartType = SeriesChartType.Column;
                                 }
+                                chart.EndInit();
                             };
                             LastDrawEvent();
                             break;
                     }
-                    chart.EndInit();
                     chart.Dock = DockStyle.Fill;
                     Controls.Add(chart);
                 }

@@ -192,11 +192,17 @@
   <data name="openItem.Text" xml:space="preserve">
     <value>打开</value>
   </data>
+  <data name="overviewItem.Text" xml:space="preserve">
+    <value>总览</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>首席或今日管理员密码</value>
   </data>
   <data name="password.Chief" xml:space="preserve">
     <value>首席管理员密码</value>
+  </data>
+  <data name="password.Speciafic" xml:space="preserve">
+    <value>%s的密码</value>
   </data>
   <data name="projectProperties.Text" xml:space="preserve">
     <value>属性</value>
@@ -206,6 +212,9 @@
   </data>
   <data name="properties" xml:space="preserve">
     <value>属性</value>
+  </data>
+  <data name="quickIndexItem.Text" xml:space="preserve">
+    <value>快速索引</value>
   </data>
   <data name="readyStatusLable.Text" xml:space="preserve">
     <value>就绪</value>
@@ -236,5 +245,8 @@
   </data>
   <data name="validate.Text" xml:space="preserve">
     <value>验证</value>
+  </data>
+  <data name="viewToolStripItem.Text" xml:space="preserve">
+    <value>视图</value>
   </data>
 </root>

@@ -192,11 +192,17 @@
   <data name="openItem.Text" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="overviewItem.Text" xml:space="preserve">
+    <value>Overview</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Chief or Daily Admin's Password</value>
   </data>
   <data name="password.Chief" xml:space="preserve">
     <value>Chief Admin's Password</value>
+  </data>
+  <data name="password.Speciafic" xml:space="preserve">
+    <value>%s's Password</value>
   </data>
   <data name="projectProperties.Text" xml:space="preserve">
     <value>Properties</value>
@@ -206,6 +212,9 @@
   </data>
   <data name="properties" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="quickIndexItem.Text" xml:space="preserve">
+    <value>Quick Index</value>
   </data>
   <data name="readyStatusLable.Text" xml:space="preserve">
     <value>Ready</value>
@@ -236,5 +245,8 @@
   </data>
   <data name="validate.Text" xml:space="preserve">
     <value>Validate</value>
+  </data>
+  <data name="viewToolStripItem.Text" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

@@ -18,7 +18,7 @@ namespace ScoreManager
         public ScoreboardConfigForm()
         {
             InitializeComponent();
-            ComponentResourceManager res = ResourceController.ApplySource(this);
+            ComponentResourceManager res = Utility.ApplySource(this);
             foreach (string name in Enum.GetNames(typeof(ScoreboardType)))
                 typeBox.Items.Add(res.GetString("type." + name));
             typeBox.SelectedIndex = 0;
@@ -29,7 +29,7 @@ namespace ScoreManager
             InitializeComponent();
             ValueReturn = scoreboard;
 
-            ComponentResourceManager res = ResourceController.ApplySource(this);
+            ComponentResourceManager res = Utility.ApplySource(this);
             foreach (string name in Enum.GetNames(typeof(ScoreboardType)))
                 typeBox.Items.Add(res.GetString("type." + name));
 

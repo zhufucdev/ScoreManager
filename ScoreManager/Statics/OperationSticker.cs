@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ScoreManager.Statics
 {
-    public class MulitOperations : Operation
+    public class OperationSticker : Operation
     {
         public Operation[] Operations;
-        public MulitOperations(params Operation[] operations)
+        public OperationSticker(params Operation[] operations)
         {
             Operations = operations;
         }

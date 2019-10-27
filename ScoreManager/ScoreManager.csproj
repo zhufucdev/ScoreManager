@@ -46,6 +46,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -68,10 +69,21 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ScoreManager.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NPinyin.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPinyin.Core.3.0.0\lib\net45\NPinyin.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,6 +106,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -103,6 +116,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DailyAdminForm.cs">
@@ -141,7 +157,7 @@
     <Compile Include="ProjectForm.Designer.cs">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ResourceController.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="ScoreboardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,7 +188,7 @@
     <Compile Include="Statics\DailyAdmin.cs" />
     <Compile Include="Statics\Group.cs" />
     <Compile Include="Statics\MoveMember.cs" />
-    <Compile Include="Statics\MulitOperations.cs" />
+    <Compile Include="Statics\OperationSticker.cs" />
     <Compile Include="Statics\Operation.cs" />
     <Compile Include="Statics\OperationDoneEventHandler.cs" />
     <Compile Include="Statics\Person.cs" />
@@ -189,6 +205,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Statics\ScoreChange.cs" />
+    <Compile Include="QuickIndexView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuickIndexView.Designer.cs">
+      <DependentUpon>QuickIndexView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\AutoCompleteComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="DailyAdminForm.en.resx">
       <DependentUpon>DailyAdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +278,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="QuickIndexView.en.resx">
+      <DependentUpon>QuickIndexView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickIndexView.resx">
+      <DependentUpon>QuickIndexView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickIndexView.zh-CN.resx">
+      <DependentUpon>QuickIndexView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScoreboardConfigForm.en.resx">
       <DependentUpon>ScoreboardConfigForm.cs</DependentUpon>
     </EmbeddedResource>

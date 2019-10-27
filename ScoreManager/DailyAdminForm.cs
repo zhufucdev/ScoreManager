@@ -19,13 +19,13 @@ namespace ScoreManager
         public DailyAdminForm()
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
         }
 
         public DailyAdminForm(DailyAdmin admin)
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             ValueReturn = admin;
             AddMode = false;
 

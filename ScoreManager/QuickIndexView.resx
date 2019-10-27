@@ -117,79 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="addAdmin.Text" xml:space="preserve">
-    <value>添加每日管理员</value>
+  <data name="reasonBox.AutoCompleteOptions" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0
+        cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAvU3lzdGVtLkNvbGxlY3Rpb25z
+        LlNwZWNpYWxpemVkLlN0cmluZ0NvbGxlY3Rpb24BAAAABGRhdGEDHFN5c3RlbS5Db2xsZWN0aW9ucy5B
+        cnJheUxpc3QCAAAACQMAAAAEAwAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
+        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkEAAAAAAAAAAAAAAAQBAAAAAAAAAAL
+</value>
   </data>
-  <data name="adminLabel.Text" xml:space="preserve">
-    <value>首席管理员密码</value>
-  </data>
-  <data name="cancel.Text" xml:space="preserve">
-    <value>取消</value>
-  </data>
-  <data name="confirm.Text" xml:space="preserve">
-    <value>确定</value>
-  </data>
-  <data name="error" xml:space="preserve">
-    <value>错误</value>
-  </data>
-  <data name="error.DualAdmin" xml:space="preserve">
-    <value>此管理员已存在</value>
-  </data>
-  <data name="error.EmptyPassword" xml:space="preserve">
-    <value>管理员密码不能为空</value>
-  </data>
-  <data name="error.FileEmpty" xml:space="preserve">
-    <value>文件不能为空</value>
-  </data>
-  <data name="error.NameEmpty" xml:space="preserve">
-    <value>名称不能为空</value>
-  </data>
-  <data name="error.Password" xml:space="preserve">
-    <value>密码错误</value>
-  </data>
-  <data name="fileLabel.Text" xml:space="preserve">
-    <value>文件</value>
-  </data>
-  <data name="fri.Text" xml:space="preserve">
-    <value>周五</value>
-  </data>
-  <data name="mon.Text" xml:space="preserve">
-    <value>周一</value>
-  </data>
-  <data name="nameLabel.Text" xml:space="preserve">
-    <value>名称</value>
-  </data>
-  <data name="password" xml:space="preserve">
-    <value>首席管理员密码</value>
-  </data>
-  <data name="properities" xml:space="preserve">
-    <value>属性</value>
-  </data>
-  <data name="remove" xml:space="preserve">
-    <value>移除</value>
-  </data>
-  <data name="sat.Text" xml:space="preserve">
-    <value>周六</value>
-  </data>
-  <data name="securityButton.Text" xml:space="preserve">
-    <value>安全选项</value>
-  </data>
-  <data name="smp" xml:space="preserve">
-    <value>计分管理器项目</value>
-  </data>
-  <data name="sun.Text" xml:space="preserve">
-    <value>周日</value>
-  </data>
-  <data name="this.Text" xml:space="preserve">
-    <value>项目属性</value>
-  </data>
-  <data name="thur.Text" xml:space="preserve">
-    <value>周四</value>
-  </data>
-  <data name="tue.Text" xml:space="preserve">
-    <value>周二</value>
-  </data>
-  <data name="wed.Text" xml:space="preserve">
-    <value>周三</value>
+  <data name="nameBox.AutoCompleteOptions" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElTeXN0ZW0sIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0
+        cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAvU3lzdGVtLkNvbGxlY3Rpb25z
+        LlNwZWNpYWxpemVkLlN0cmluZ0NvbGxlY3Rpb24BAAAABGRhdGEDHFN5c3RlbS5Db2xsZWN0aW9ucy5B
+        cnJheUxpc3QCAAAACQMAAAAEAwAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
+        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkEAAAAAAAAAAAAAAAQBAAAAAAAAAAL
+</value>
   </data>
 </root>

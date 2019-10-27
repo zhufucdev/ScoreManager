@@ -20,7 +20,7 @@ namespace ScoreManager
         public MemberForm(Project project)
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             this.project = project;
             this.addMode = true;
             StartPosition = FormStartPosition.CenterParent;
@@ -37,7 +37,7 @@ namespace ScoreManager
         public MemberForm(Person person, Project project)
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             this.addMode = false;
             this.project = project;
             ValueReturn = person;
@@ -98,7 +98,7 @@ namespace ScoreManager
                     operations.Add(new MoveMember(ValueReturn, ValueReturn.Group, selectedGroup));
                     project.MovePerson(ValueReturn, selectedGroup);
                 }
-                project.Do(new MulitOperations()
+                project.Do(new OperationSticker()
                 {
                     Operations = operations.ToArray()
                 });

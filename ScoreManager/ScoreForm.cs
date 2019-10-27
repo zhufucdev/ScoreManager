@@ -24,7 +24,7 @@ namespace ScoreManager
             this.project = project;
 
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
             StartPosition = FormStartPosition.CenterParent;
             
             targetLabel.Text = new ResourceManager(typeof(ScoreForm)).GetString("target", System.Threading.Thread.CurrentThread.CurrentUICulture).Replace("%s1", target.Group.Name).Replace("%s2", target.Name);
@@ -49,6 +49,7 @@ namespace ScoreManager
                         if (score < 0)
                         {
                             button11.Text = "-";
+                            negative = true;
                             score *= -1;
                         }
                         textBox.Text = score.ToString();
@@ -172,6 +173,16 @@ namespace ScoreManager
         {
             negative = !negative;
             button11.Text = negative ? "-" : "+";
+        }
+
+        private void reasonBox_Enter(object sender, EventArgs e)
+        {
+            Utility.ShowInputPanel();
+        }
+
+        private void reasonBox_Leave(object sender, EventArgs e)
+        {
+            Utility.HideInputPanel();
         }
     }
 }

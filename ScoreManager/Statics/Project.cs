@@ -105,6 +105,29 @@ namespace ScoreManager.Statics
             }
             return null;
         }
+        public Person FindPerson(string name)
+        {
+            string realName = name;
+            string groupName = null;
+            if (name.EndsWith(")"))
+            {
+                int index = name.LastIndexOf('(');
+                if (index > 0)
+                {
+                    groupName = name.Substring(index + 1, name.Length - index - 2);
+                    realName = name.Substring(0, index);
+                }
+            }
+            foreach (Group g in Groups)
+            {
+                Person person = g.People.Find((p) => p.Name == realName 
+                && (groupName == null || p.Group.Name == groupName));
+                if (person != null)
+                    return person;
+            }
+            return null;
+        }
+
         public void AddPerson(Person person)
         {
             person.Group.People.Add(person);
@@ -157,7 +180,7 @@ namespace ScoreManager.Statics
             }
         }
 
-        public List<DailyAdmin> TodaysAdmin
+        public List<DailyAdmin> TodaysAdmins
         {
             get
             {
@@ -180,7 +203,7 @@ namespace ScoreManager.Statics
             }
             else
             {
-                foreach (DailyAdmin it in TodaysAdmin)
+                foreach (DailyAdmin it in TodaysAdmins)
                 {
                     if (it.MatchPassword(password))
                         return new MatchResult(it);

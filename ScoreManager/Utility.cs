@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,9 +15,9 @@ using static System.Windows.Forms.Control;
 
 namespace ScoreManager
 {
-    public static class ResourceController
+    public static class Utility
     {
-        public static ComponentResourceManager ApplySource(Form form)
+        public static ComponentResourceManager ApplySource(ContainerControl form)
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Settings.Default.Language);
             ComponentResourceManager res = new ComponentResourceManager(form.GetType());
@@ -69,7 +70,7 @@ namespace ScoreManager
                 RegistryKey run = machine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
                 if (value)
                 {
-                    run.SetValue("ScoreManger", Application.ExecutablePath);
+                    run.SetValue("ScoreManger", Application.ExecutablePath + " -open-last");
                 }
                 else
                 {
@@ -123,5 +124,42 @@ namespace ScoreManager
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+
+        //显示屏幕键盘
+        public static int ShowInputPanel()
+        {
+            try
+            {
+                dynamic file = "C:\\Program Files\\Common Files\\microsoft shared\\ink\\TabTip.exe";
+                if (!System.IO.File.Exists(file))
+                    return -1;
+                Process.Start(file);
+                //return SetUnDock(); //不知SetUnDock()是什么，所以直接注释返回1
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 255;
+            }
+        }
+
+
+
+        private const Int32 WM_SYSCOMMAND = 274;
+        private const UInt32 SC_CLOSE = 61536;
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern bool PostMessage(IntPtr hWnd, int Msg, uint wParam, uint lParam);
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        //隐藏屏幕键盘
+        public static void HideInputPanel()
+        {
+            IntPtr TouchhWnd = new IntPtr(0);
+            TouchhWnd = FindWindow("IPTip_Main_Window", null);
+            if (TouchhWnd == IntPtr.Zero)
+                return;
+            PostMessage(TouchhWnd, WM_SYSCOMMAND, SC_CLOSE, 0);
+        }
     }
 }

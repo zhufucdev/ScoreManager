@@ -14,9 +14,10 @@ namespace ScoreManager
     public partial class Form1 : Form
     {
         private readonly List<Scoreboard.Scoreboard> scoreboards = new List<Scoreboard.Scoreboard>();
-        public Form1(string OpenFile = "")
+        public Form1()
         {
             Settings.Default.Language = Settings.Default.Language ?? Thread.CurrentThread.CurrentCulture.Name;
+            recentFolders = Settings.Default.RecentFolders;
             Icon = Resources.AppIcon;
             InitializeComponent();
             Relayout();
@@ -54,7 +55,9 @@ namespace ScoreManager
                 adminBox.Tag = adminBox.SelectedIndex;
                 if (adminBox.SelectedIndex < adminBox.Items.Count - 1)
                 {
-                    EditValue edit = new EditValue(res.GetString("password.Chief"), true);
+                    bool isAdmin = adminBox.SelectedIndex == 0;
+                    DailyAdmin target = !isAdmin ? CurrentProject.TodaysAdmins[adminBox.SelectedIndex - 1] : null;
+                    EditValue edit = new EditValue(isAdmin ? res.GetString("password.Chief") : res.GetString("password.Speciafic").Replace("%s", target.Name), true);
                     if (edit.ShowDialog() == DialogResult.OK)
                     {
                         MatchResult result = CurrentProject.MatchPassword(edit.ValueReturn);
@@ -63,7 +66,7 @@ namespace ScoreManager
                             MessageBox.Show(res.GetString("error.WrongPassword"), res.GetString("validate.Text"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                             adminBox.SelectedIndex = oldIndex;
                         }
-                        if (adminBox.SelectedIndex == 0)
+                        if (isAdmin)
                         {
                             if (result.Permission == Permission.ChiefAdmin)
                             {
@@ -77,7 +80,6 @@ namespace ScoreManager
                         }
                         else
                         {
-                            DailyAdmin target = CurrentProject.TodaysAdmin[adminBox.SelectedIndex - 1];
                             if (result.Permission == Permission.DailyAdmin && result.Admin.Equals(target))
                             {
                                 unlocked = result;
@@ -118,17 +120,12 @@ namespace ScoreManager
                     }
                 }
             }
-
-            if (OpenFile != "")
-            {
-                OpenProject(Open(OpenFile));
-            }
         }
 
         public Project CurrentProject;
         private MatchResult unlocked = MatchResult.ChiefAdmin;
         public event ProjectOpenEventHandler ProjectOpen;
-        void OpenProject(Project project)
+        public void OpenProject(Project project)
         {
             CurrentProject = project;
             unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
@@ -150,7 +147,8 @@ namespace ScoreManager
 
         private void Relayout()
         {
-            ComponentResourceManager res = ResourceController.ApplySource(this);
+            ComponentResourceManager res = Utility.ApplySource(this);
+            if (quickIndexView != null) quickIndexView.UpdateLanguage();
             if (CurrentProject == null)
             {
                 projectPanel.Visible = false;
@@ -225,10 +223,46 @@ namespace ScoreManager
             }
             menuStrip.ResumeLayout();
         }
+        private QuickIndexView quickIndexView;
+        private void UpdateViewType()
+        {
+            switch (viewType)
+            {
+                case ViewType.QuickIndex:
+                    quickIndexItem.Checked = true;
+                    overviewItem.Checked = false;
+                    this.SuspendLayout();
+                    if (quickIndexView == null)
+                    {
+                        quickIndexView = new QuickIndexView(CurrentProject);
+                        Controls.Add(quickIndexView);
+                        quickIndexView.Dock = DockStyle.Fill;
+                        Padding newMargin = new Padding(3);
+                        newMargin.Bottom += statusStrip.Height;
+                        newMargin.Top += MainMenuStrip.Height;
+                        quickIndexView.Padding = newMargin;
+                    }
+                    projectPanel.Visible = false;
+                    quickIndexView.Visible = true;
+                    this.ResumeLayout();
+                    break;
+                default:
+                    overviewItem.Checked = true;
+                    quickIndexItem.Checked = false;
+                    this.SuspendLayout();
+                    if(quickIndexView != null) quickIndexView.Visible = false;
+                    projectPanel.Visible = true;
+                    UpdateGroupView();
+                    this.ResumeLayout();
+                    break;
+            }
+        }
         private void UpdateMenuStrip(bool includeAdminBox = false)
         {
             addGroup.Enabled = addMember.Enabled = unlocked.CanChangeMember;
             validate.Enabled = CurrentProject.Encryted;
+            quickIndexItem.Enabled = overviewItem.Enabled = true;
+            UpdateViewType();
             UpdateUndoRedoMenuStrip();
             if (CurrentProject.Encryted)
             {
@@ -242,7 +276,7 @@ namespace ScoreManager
 
                     adminBox.Items.Clear();
                     adminBox.Items.Add(res.GetString("chiefAdmin"));
-                    CurrentProject.TodaysAdmin.ForEach((it) => adminBox.Items.Add(it.Name));
+                    CurrentProject.TodaysAdmins.ForEach((it) => adminBox.Items.Add(it.Name));
                     adminBox.Items.Add(res.GetString("observer"));
 
                     adminBox.EndUpdate();
@@ -253,7 +287,7 @@ namespace ScoreManager
                         adminBox.SelectedIndex = 0;
                         break;
                     case Permission.DailyAdmin:
-                        adminBox.SelectedIndex = CurrentProject.DailyAdmins.IndexOf(unlocked.Admin) + 1;
+                        adminBox.SelectedIndex = CurrentProject.TodaysAdmins.IndexOf(unlocked.Admin) + 1;
                         break;
                     case Permission.Locked:
                         adminBox.SelectedIndex = adminBox.Items.Count - 1;
@@ -280,7 +314,7 @@ namespace ScoreManager
             projectForm.Dispose();
         }
 
-        private void Recent_Click(object sender, EventArgs e)
+        public void Recent_Click(object sender, EventArgs e)
         {
             try
             {
@@ -327,7 +361,7 @@ namespace ScoreManager
                 operations.Add(new ScoreChange(scoreForm.ValueReturn));
                 scoreForm.Dispose();
             }
-            CurrentProject.Do(new MulitOperations()
+            CurrentProject.Do(new OperationSticker()
             {
                 Operations = operations.ToArray()
             });
@@ -337,7 +371,6 @@ namespace ScoreManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recentFolders = Settings.Default.RecentFolders;
             recent.Enabled = recentFolders != null && recentFolders.Count > 0;
             saveToolStripMenuItem.Enabled = false;
             addGroup.Enabled = false;
@@ -347,7 +380,7 @@ namespace ScoreManager
             projectProperties.Enabled = false;
             undoMenuItem.Enabled = false;
             redoMenuItem.Enabled = false;
-            listView.View = View.Details;
+            listView.View = System.Windows.Forms.View.Details;
             listMenu.Popup += this.PopupHandler;
             listView.ContextMenu = listMenu;
             autostartItem.Checked = Settings.Default.Autostart;
@@ -357,7 +390,7 @@ namespace ScoreManager
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
             if (Registry.ClassesRoot.OpenSubKey(".smp") == null)
             {
-                ResourceController.SetAssociation(".smp", "ScoreManager", "");
+                Utility.SetAssociation(".smp", "ScoreManager", "");
             }
         }
 
@@ -660,7 +693,7 @@ namespace ScoreManager
 
         private void openItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog()
+            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog()
             {
                 AddExtension = true,
                 Filter = new ComponentResourceManager(typeof(Form1)).GetString("smp") + "(*.smp)|*.smp"
@@ -675,7 +708,31 @@ namespace ScoreManager
         private void autostartItem_Click(object sender, EventArgs e)
         {
             autostartItem.Checked = Settings.Default.Autostart = !Settings.Default.Autostart;
-            ResourceController.StartWithSystem = Settings.Default.Autostart;
+            Utility.StartWithSystem = Settings.Default.Autostart;
+        }
+
+        enum ViewType
+        {
+            Overview, QuickIndex
+        }
+
+        private ViewType viewType = ViewType.Overview;
+        private void overviewItem_Click(object sender, EventArgs e)
+        {
+            if (viewType != ViewType.Overview)
+            {
+                viewType = ViewType.Overview;
+                UpdateViewType();
+            }
+        }
+
+        private void quickIndexItem_Click(object sender, EventArgs e)
+        {
+            if (viewType != ViewType.QuickIndex)
+            {
+                viewType = ViewType.QuickIndex;
+                UpdateViewType();
+            }
         }
     }
 }

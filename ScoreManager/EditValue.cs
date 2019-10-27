@@ -21,7 +21,7 @@ namespace ScoreManager
             typeLabel.Text = type;
             textBox1.UseSystemPasswordChar = password;
             StartPosition = FormStartPosition.CenterParent;
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
         }
 
         private void confirm_Click(object sender, EventArgs e)
@@ -42,6 +42,16 @@ namespace ScoreManager
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            Utility.ShowInputPanel();
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            Utility.HideInputPanel();
         }
     }
 }

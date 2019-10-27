@@ -17,7 +17,7 @@ namespace ScoreManager
         public GroupForm()
         {
             InitializeComponent();
-            ResourceController.ApplySource(this);
+            Utility.ApplySource(this);
         }
 
         private void GroupForm_Load(object sender, EventArgs e)
