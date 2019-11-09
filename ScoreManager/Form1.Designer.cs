@@ -30,18 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.file = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newScoreboardItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projectProperties = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +54,9 @@
             this.recordScore = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.validate = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.overviewItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickIndexItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chineseItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,12 +70,11 @@
             this.listView = new System.Windows.Forms.ListView();
             this.projectPanel = new System.Windows.Forms.TableLayoutPanel();
             this.infoPanel = new System.Windows.Forms.Panel();
+            this.recordListView = new System.Windows.Forms.ListView();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.emptySelection = new System.Windows.Forms.Label();
             this.adminBox = new System.Windows.Forms.ComboBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.viewToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.overviewItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quickIndexItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.startPanel.SuspendLayout();
@@ -95,9 +100,12 @@
             this.file.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openItem,
-            this.saveToolStripMenuItem,
             this.toolStripSeparator1,
-            this.projectProperties});
+            this.saveToolStripMenuItem,
+            this.importItem,
+            this.projectProperties,
+            this.toolStripSeparator4,
+            this.exitItem});
             this.file.Name = "file";
             resources.ApplyResources(this.file, "file");
             // 
@@ -127,22 +135,39 @@
             resources.ApplyResources(this.openItem, "openItem");
             this.openItem.Click += new System.EventHandler(this.openItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // importItem
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.importItem.Name = "importItem";
+            resources.ApplyResources(this.importItem, "importItem");
+            this.importItem.Click += new System.EventHandler(this.importItem_Click);
             // 
             // projectProperties
             // 
             this.projectProperties.Name = "projectProperties";
             resources.ApplyResources(this.projectProperties, "projectProperties");
             this.projectProperties.Click += new System.EventHandler(this.projectProperties_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // exitItem
+            // 
+            this.exitItem.Name = "exitItem";
+            resources.ApplyResources(this.exitItem, "exitItem");
+            this.exitItem.Click += new System.EventHandler(this.exitItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -203,6 +228,26 @@
             this.validate.Name = "validate";
             resources.ApplyResources(this.validate, "validate");
             this.validate.Click += new System.EventHandler(this.validate_Click);
+            // 
+            // viewToolStripItem
+            // 
+            this.viewToolStripItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.overviewItem,
+            this.quickIndexItem});
+            this.viewToolStripItem.Name = "viewToolStripItem";
+            resources.ApplyResources(this.viewToolStripItem, "viewToolStripItem");
+            // 
+            // overviewItem
+            // 
+            resources.ApplyResources(this.overviewItem, "overviewItem");
+            this.overviewItem.Name = "overviewItem";
+            this.overviewItem.Click += new System.EventHandler(this.overviewItem_Click);
+            // 
+            // quickIndexItem
+            // 
+            resources.ApplyResources(this.quickIndexItem, "quickIndexItem");
+            this.quickIndexItem.Name = "quickIndexItem";
+            this.quickIndexItem.Click += new System.EventHandler(this.quickIndexItem_Click);
             // 
             // settingsItem
             // 
@@ -284,28 +329,43 @@
             resources.ApplyResources(this.projectPanel, "projectPanel");
             this.projectPanel.Controls.Add(this.listView, 0, 0);
             this.projectPanel.Controls.Add(this.infoPanel, 1, 0);
+            this.projectPanel.Controls.Add(this.emptySelection, 1, 0);
             this.projectPanel.Name = "projectPanel";
             // 
             // infoPanel
             // 
+            this.infoPanel.Controls.Add(this.recordListView);
             this.infoPanel.Controls.Add(this.chart);
             resources.ApplyResources(this.infoPanel, "infoPanel");
             this.infoPanel.Name = "infoPanel";
+            // 
+            // recordListView
+            // 
+            resources.ApplyResources(this.recordListView, "recordListView");
+            this.recordListView.HideSelection = false;
+            this.recordListView.Name = "recordListView";
+            this.recordListView.UseCompatibleStateImageBehavior = false;
+            this.recordListView.View = System.Windows.Forms.View.Details;
             // 
             // chart
             // 
             resources.ApplyResources(this.chart, "chart");
             this.chart.BackColor = System.Drawing.SystemColors.Control;
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
+            chartArea5.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea5);
             this.chart.Cursor = System.Windows.Forms.Cursors.Default;
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            legend5.Name = "Legend1";
+            this.chart.Legends.Add(legend5);
             this.chart.Name = "chart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart.Series.Add(series5);
+            // 
+            // emptySelection
+            // 
+            resources.ApplyResources(this.emptySelection, "emptySelection");
+            this.emptySelection.Name = "emptySelection";
             // 
             // adminBox
             // 
@@ -318,26 +378,6 @@
             // 
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
-            // 
-            // viewToolStripItem
-            // 
-            this.viewToolStripItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.overviewItem,
-            this.quickIndexItem});
-            this.viewToolStripItem.Name = "viewToolStripItem";
-            resources.ApplyResources(this.viewToolStripItem, "viewToolStripItem");
-            // 
-            // overviewItem
-            // 
-            resources.ApplyResources(this.overviewItem, "overviewItem");
-            this.overviewItem.Name = "overviewItem";
-            this.overviewItem.Click += new System.EventHandler(this.overviewItem_Click);
-            // 
-            // quickIndexItem
-            // 
-            resources.ApplyResources(this.quickIndexItem, "quickIndexItem");
-            this.quickIndexItem.Name = "quickIndexItem";
-            this.quickIndexItem.Click += new System.EventHandler(this.quickIndexItem_Click);
             // 
             // Form1
             // 
@@ -404,6 +444,11 @@
         private System.Windows.Forms.ToolStripMenuItem viewToolStripItem;
         private System.Windows.Forms.ToolStripMenuItem overviewItem;
         private System.Windows.Forms.ToolStripMenuItem quickIndexItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem exitItem;
+        private System.Windows.Forms.ToolStripMenuItem importItem;
+        private System.Windows.Forms.ListView recordListView;
+        private System.Windows.Forms.Label emptySelection;
     }
 }
 

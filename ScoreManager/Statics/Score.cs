@@ -56,5 +56,13 @@ namespace ScoreManager
             hash += Maker.GetHashCode() * 31;
             return hash;
         }
+
+        public string DateString
+        {
+            get
+            {
+                return Time.ToShortDateString() + " " + Time.ToShortTimeString();
+            }
+        }
     }
 }

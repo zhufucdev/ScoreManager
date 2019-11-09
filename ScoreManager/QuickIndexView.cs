@@ -14,17 +14,67 @@ namespace ScoreManager
     public partial class QuickIndexView : UserControl
     {
         private Project Project;
+        private Form1 Form1;
         private Dictionary<Person, Score> data = new Dictionary<Person, Score>();
-        public QuickIndexView(Project project)
+        public QuickIndexView(Project project, Form1 parent)
         {
             InitializeComponent();
             UpdateLanguage();
+            UpdateComponents();
             Project = project;
+            Form1 = parent;
         }
 
         public void UpdateLanguage()
         {
             Utility.ApplySource(this);
+        }
+
+        public void UpdateComponents()
+        {
+            remove.Enabled = listView.SelectedItems.Count > 0;
+            if (listView.SelectedItems.Count == 0)
+            {
+                RestBoxes();
+                lastSelected = null;
+            }
+            else if (listView.SelectedItems.Count == 1)
+            {
+                Person person = Project.FindPerson((Guid)listView.SelectedItems[0].Tag);
+                Score score = data[person];
+                nameBox.Enabled = true;
+                nameBox.Text = getGeneralName(person);
+                reasonBox.Text = score.Reason;
+                scoreBox.Value = score.Value;
+                lastSelected = new List<Person>() { person };
+            }
+            else
+            {
+                nameBox.Text = new ComponentResourceManager(typeof(QuickIndexView)).GetString("dualItems");
+                nameBox.Enabled = false;
+                lastSelected = new List<Person>();
+                bool sameReason = true, sameScore = true;
+                Score lastScore = null;
+                foreach (ListViewItem item in listView.SelectedItems)
+                {
+                    Person person = Project.FindPerson((Guid)item.Tag);
+                    if (lastScore == null)
+                        lastScore = data[person];
+                    else
+                    {
+                        if (sameReason && lastScore.Reason != data[person].Reason)
+                            sameReason = false;
+                        if (sameScore && lastScore.Value != data[person].Value)
+                            sameScore = false;
+                    }
+                    lastSelected.Add(person);
+                }
+                reasonBox.Text = sameReason ? lastScore.Reason : "";
+                scoreBox.Value = sameScore ? lastScore.Value : 0;
+                reasonBox.TextChanged += ReasonChange;
+                scoreBox.ValueChanged += ScoreChange;
+            }
+            confirm.Enabled = data.Count > 0 && Form1.unlocked.CanChangeScore;
         }
 
         private string getGeneralName(Person it)
@@ -69,7 +119,6 @@ namespace ScoreManager
             }
 
             listView.EndUpdate();
-            confirm.Enabled = data.Count > 0;
         }
 
         private void EnterPress(object sender, KeyPressEventArgs e)
@@ -77,9 +126,7 @@ namespace ScoreManager
             if (e.KeyChar == 13)
             {
                 add(nameBox.Text);
-                nameBox.Text = "";
-                reasonBox.Text = "";
-                scoreBox.Value = 0;
+                UpdateComponents();
                 e.Handled = true;
             }
         }
@@ -92,6 +139,7 @@ namespace ScoreManager
             }
             remove.Enabled = false;
             UpdateListView();
+            UpdateComponents();
         }
 
         private List<Person> lastSelected = null;
@@ -144,48 +192,7 @@ namespace ScoreManager
                 lastSelected = null;
                 scoreChanged = reasonChanged = false;
             }
-            remove.Enabled = listView.SelectedItems.Count > 0;
-            if (listView.SelectedItems.Count == 0)
-            {
-                RestBoxes();
-                lastSelected = null;
-            }
-            else if (listView.SelectedItems.Count == 1)
-            {
-                Person person = Project.FindPerson((Guid)listView.SelectedItems[0].Tag);
-                Score score = data[person];
-                nameBox.Enabled = true;
-                nameBox.Text = getGeneralName(person);
-                reasonBox.Text = score.Reason;
-                scoreBox.Value = score.Value;
-                lastSelected = new List<Person>() { person };
-            }
-            else
-            {
-                nameBox.Text = new ComponentResourceManager(typeof(QuickIndexView)).GetString("dualItems");
-                nameBox.Enabled = false;
-                lastSelected = new List<Person>();
-                bool sameReason = true, sameScore = true;
-                Score lastScore = null;
-                foreach (ListViewItem item in listView.SelectedItems)
-                {
-                    Person person = Project.FindPerson((Guid)item.Tag);
-                    if (lastScore == null)
-                        lastScore = data[person];
-                    else
-                    {
-                        if (sameReason && lastScore.Reason != data[person].Reason)
-                            sameReason = false;
-                        if (sameScore && lastScore.Value != data[person].Value)
-                            sameScore = false;
-                    }
-                    lastSelected.Add(person);
-                }
-                reasonBox.Text = sameReason ? lastScore.Reason : "";
-                scoreBox.Value = sameScore ? lastScore.Value : 0;
-                reasonBox.TextChanged += ReasonChange;
-                scoreBox.ValueChanged += ScoreChange;
-            }
+            UpdateComponents();
         }
 
         private void ScoreChange(object sender, EventArgs e)
@@ -225,6 +232,7 @@ namespace ScoreManager
             Project.Do(new OperationSticker(operations.ToArray()));
             data.Clear();
 
+            confirm.Enabled = false;
             UpdateListView();
             RestBoxes();
         }

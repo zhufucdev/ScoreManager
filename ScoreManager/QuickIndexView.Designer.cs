@@ -127,6 +127,7 @@
             this.reasonBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.reasonBox.AutoCompleteOptions = ((System.Collections.Specialized.StringCollection)(resources.GetObject("reasonBox.AutoCompleteOptions")));
+            this.reasonBox.AutoExpendWhenEmpty = true;
             this.reasonBox.FilterThreshold = 0.7F;
             this.reasonBox.FormattingEnabled = true;
             this.reasonBox.Location = new System.Drawing.Point(134, 161);
@@ -152,6 +153,7 @@
             // 
             this.nameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nameBox.AutoCompleteOptions = ((System.Collections.Specialized.StringCollection)(resources.GetObject("nameBox.AutoCompleteOptions")));
+            this.nameBox.AutoExpendWhenEmpty = false;
             this.nameBox.FilterThreshold = 0.7F;
             this.nameBox.Location = new System.Drawing.Point(6, 163);
             this.nameBox.Name = "nameBox";

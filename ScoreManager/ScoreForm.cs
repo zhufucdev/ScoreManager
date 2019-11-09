@@ -30,7 +30,7 @@ namespace ScoreManager
             targetLabel.Text = new ResourceManager(typeof(ScoreForm)).GetString("target", System.Threading.Thread.CurrentThread.CurrentUICulture).Replace("%s1", target.Group.Name).Replace("%s2", target.Name);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
 
-            reasonBox.Click += ReasonBox_Click;
+            reasonBox.DropDown += ReasonBox_DropDown;
             reasonBox.SelectionChangeCommitted += ReasonBox_SelectionChangeCommitted;
         }
 
@@ -58,12 +58,11 @@ namespace ScoreManager
             }
         }
 
-        private void ReasonBox_Click(object sender, EventArgs e)
+        private void ReasonBox_DropDown(object sender, EventArgs e)
         {
             if (reasonBox.Items.Count <= 0)
             {
                 reasonBox.BeginUpdate();
-                reasonBox.Items.Clear();
                 project.Groups.ForEach((g) =>
                 {
                     g.Record.ForEach((r) =>

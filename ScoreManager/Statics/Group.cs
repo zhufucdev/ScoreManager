@@ -1,16 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ScoreManager
 {
-    public class Group
+    public class Group : ICloneable
     {
         public long InitalScore;
         public string Name;
+        public Color ChosenColor;
         public long Score
         {
             get
@@ -36,10 +38,12 @@ namespace ScoreManager
         }
         private List<Person> people = new List<Person>();
         private List<Score> record = new List<Score>();
+        private static Random random = new Random();
         public Group(string Name, long InitalScore)
         {
             this.Name = Name;
             this.InitalScore = InitalScore;
+            ChosenColor = Color.FromArgb(random.Next(int.MinValue, int.MaxValue));
         }
 
         public JObject Serialize()
@@ -49,7 +53,7 @@ namespace ScoreManager
                 { "name", Name },
                 { "inital", InitalScore }
             };
-            
+            result.Add("color", ChosenColor.ToArgb());
 
             JArray people = new JArray();
             this.people.ForEach((it) =>
@@ -70,6 +74,11 @@ namespace ScoreManager
         public static Group Deserialize(JObject former)
         {
             Group result = new Group(former.GetValue("name").ToString(), former.GetValue("inital").ToObject<long>());
+            if (former.ContainsKey("color"))
+            {
+                result.ChosenColor = Color.FromArgb(former.Value<int>("color"));
+            }
+
             foreach(JObject obj in former.GetValue("people").ToObject<JArray>())
             {
                 Person person = new Person(obj.GetValue("name").ToString(), result, Guid.Parse(obj.GetValue("id").ToString()));
@@ -95,7 +104,7 @@ namespace ScoreManager
             return obj is Group
                 && ((Group)obj).Name == this.Name
                 && ((Group)obj).InitalScore == this.InitalScore
-                && ((Group)obj).People == this.People;
+                && ((Group)obj).People.Equals(this.People);
         }
 
         public override int GetHashCode()
@@ -104,6 +113,14 @@ namespace ScoreManager
             hash += Name.GetHashCode() * 31;
             hash += InitalScore.GetHashCode() * 31;
             return hash;
+        }
+
+        public object Clone()
+        {
+            var result = new Group(Name, InitalScore);
+            result.People.AddRange(people);
+            result.record.AddRange(record);
+            return result;
         }
     }
 }

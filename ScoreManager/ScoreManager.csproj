@@ -73,7 +73,7 @@
     <StartupObject>ScoreManager.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Face.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -157,6 +157,8 @@
     <Compile Include="ProjectForm.Designer.cs">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Statics\ChangeGroupProperties.cs" />
+    <Compile Include="Statics\ElementDuplicatedHandler.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="ScoreboardForm.cs">
       <SubType>Form</SubType>
@@ -211,6 +213,7 @@
     <Compile Include="QuickIndexView.Designer.cs">
       <DependentUpon>QuickIndexView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\ListViewColumnSorter.cs" />
     <Compile Include="View\AutoCompleteComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -317,15 +320,6 @@
       <LastGenOutput>ScoreForm.zh-CN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <None Include="ScoreManager_TemporaryKey.pfx" />
     <None Include="Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -360,6 +354,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AppIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Face.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Face.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

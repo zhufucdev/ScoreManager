@@ -40,6 +40,8 @@
             this.memberList = new System.Windows.Forms.ListView();
             this.cancel = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.colorButton = new System.Windows.Forms.Button();
             this.memberGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -102,8 +104,9 @@
             // 
             // confirm
             // 
+            this.confirm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.confirm.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.confirm.Location = new System.Drawing.Point(255, 352);
+            this.confirm.Location = new System.Drawing.Point(255, 444);
             this.confirm.Name = "confirm";
             this.confirm.Size = new System.Drawing.Size(75, 28);
             this.confirm.TabIndex = 8;
@@ -117,7 +120,7 @@
             this.memberGroupBox.Controls.Add(this.add);
             this.memberGroupBox.Controls.Add(this.remove);
             this.memberGroupBox.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.memberGroupBox.Location = new System.Drawing.Point(12, 121);
+            this.memberGroupBox.Location = new System.Drawing.Point(12, 156);
             this.memberGroupBox.Name = "memberGroupBox";
             this.memberGroupBox.Size = new System.Drawing.Size(399, 220);
             this.memberGroupBox.TabIndex = 9;
@@ -135,9 +138,10 @@
             // 
             // cancel
             // 
+            this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancel.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cancel.Location = new System.Drawing.Point(336, 352);
+            this.cancel.Location = new System.Drawing.Point(336, 444);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 28);
             this.cancel.TabIndex = 10;
@@ -149,13 +153,25 @@
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // colorButton
+            // 
+            this.colorButton.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.colorButton.Location = new System.Drawing.Point(324, 127);
+            this.colorButton.Name = "colorButton";
+            this.colorButton.Size = new System.Drawing.Size(75, 23);
+            this.colorButton.TabIndex = 11;
+            this.colorButton.Text = "颜色";
+            this.colorButton.UseVisualStyleBackColor = true;
+            this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
             // GroupForm
             // 
             this.AcceptButton = this.confirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancel;
-            this.ClientSize = new System.Drawing.Size(425, 389);
+            this.ClientSize = new System.Drawing.Size(425, 481);
+            this.Controls.Add(this.colorButton);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.memberGroupBox);
             this.Controls.Add(this.confirm);
@@ -187,5 +203,7 @@
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.ListView memberList;
+        private System.Windows.Forms.Button colorButton;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }

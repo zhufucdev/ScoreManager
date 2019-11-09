@@ -13,33 +13,20 @@ namespace ScoreManager.View
         public AutoCompleteComboBox()
         {
             this.TextUpdate += AutoCompleteComboBox_TextUpdate;
+            this.DropDown += AutoCompleteComboBox_DropDown;
         }
 
-        public StringCollection AutoCompleteOptions
+        private void AutoCompleteComboBox_DropDown(object sender, EventArgs e)
         {
-            set
+            if (AutoExpendWhenEmpty && Text.Length <= 0)
             {
-                autocompleteOptions = value;
-            }
-            get
-            {
-                return autocompleteOptions;
-            }
-        }
-        public float FilterThreshold
-        {
-            set
-            {
-                threshold = value;
-            }
-            get
-            {
-                return threshold;
+                addAllOptions();
             }
         }
 
-        private StringCollection autocompleteOptions = new StringCollection();
-        private float threshold = 0.7f;
+        public StringCollection AutoCompleteOptions { set; get; } = new StringCollection();
+        public float FilterThreshold { set; get; } = 0.7f;
+        public bool AutoExpendWhenEmpty { set; get; } = false;
 
         private float select(string selection, string selector)
         {
@@ -56,8 +43,8 @@ namespace ScoreManager.View
                     }
                     else if (char.ToLowerInvariant(selection[i]) == char.ToLowerInvariant(c))
                     {
+                        weight += 1f / selector.Length - (i - (lastIndex == -1 ? 0 : lastIndex) - 1 - spaces) * 0.05f;
                         lastIndex = i;
-                        weight += 1f / selector.Length - (i - lastIndex - 1 - spaces) * 0.1f;
                         break;
                     }
                 }
@@ -66,60 +53,72 @@ namespace ScoreManager.View
             return weight;
         }
 
-        private DateTime lastEdit;
+        private Timer timer = null;
+        private void addAllOptions()
+        {
+            BeginUpdate();
+            Items.Clear();
+            foreach (string option in AutoCompleteOptions)
+            {
+                Items.Add(option);
+            }
+            EndUpdate();
+        }
         private void AutoCompleteComboBox_TextUpdate(object sender, EventArgs e)
         {
-            Timer timer = new Timer
+            if (timer != null)
+                timer.Dispose();
+            timer = new Timer
             {
                 Interval = 300
             };
-            lastEdit = DateTime.Now;
             timer.Tick += (any, thing) =>
             {
-                if ((DateTime.Now - lastEdit).TotalMilliseconds > 300)
+                try
                 {
-                    try
+                    var text = Text;
+                    if (text != "")
                     {
-                        var text = Text;
-                        if (text != "")
-                        {
-                            StringCollection options = autocompleteOptions;
-                            if (options == null)
-                                return;
+                        StringCollection options = AutoCompleteOptions;
+                        if (options == null)
+                            return;
 
-                            string pinyin = text;
-                            var dictionary = new Dictionary<string, float>();
-                            var list = new List<string>();
-                            foreach (string option in options)
+                        string pinyin = text;
+                        var dictionary = new Dictionary<string, float>();
+                        var list = new List<string>();
+                        foreach (string option in options)
+                        {
+                            float weight = select(NPinyin.Pinyin.GetPinyin(option), pinyin);
+                            if (weight >= FilterThreshold)
                             {
-                                float weight = select(NPinyin.Pinyin.GetPinyin(option), pinyin);
-                                if (weight >= threshold)
-                                {
-                                    dictionary[option] = weight;
-                                    list.Add(option);
-                                }
+                                dictionary[option] = weight;
+                                list.Add(option);
                             }
-                            list.Sort((a, b) => -dictionary[a].CompareTo(dictionary[b]));
+                        }
+                        list.Sort((a, b) => -dictionary[a].CompareTo(dictionary[b]));
 
-                            Items.Clear();
-                            list.ForEach((it) => Items.Add(it));
-                            DroppedDown = Items.Count > 0;
-                            SelectionStart = Text.Length;
-                            SelectionLength = 0;
-                        }
-                        else
-                        {
-                            Items.Clear();
-                            DroppedDown = false;
-                        }
+                        Items.Clear();
+                        list.ForEach((it) => Items.Add(it));
+                        DroppedDown = Items.Count > 0;
+                        SelectionStart = Text.Length;
+                        SelectionLength = 0;
                     }
-                    catch (Exception ignored) { }
+                    else if (AutoExpendWhenEmpty)
+                    {
+                        Items.Clear();
+                        DroppedDown = false;
+                    }
+                    else
+                    {
+                        addAllOptions();
+                        DroppedDown = true;
+                    }
                 }
+                catch (Exception) { }
                 timer.Stop();
                 timer.Dispose();
             };
             timer.Start();
-            
         }
     }
 }

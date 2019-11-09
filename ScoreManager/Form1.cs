@@ -8,16 +8,18 @@ using System.Collections.Generic;
 using static ScoreManager.Statics.Project;
 using ScoreManager.Properties;
 using Microsoft.Win32;
+using System.Drawing;
+using ScoreManager.Utils;
 
 namespace ScoreManager
 {
     public partial class Form1 : Form
     {
         private readonly List<Scoreboard.Scoreboard> scoreboards = new List<Scoreboard.Scoreboard>();
+        private readonly ListViewColumnSorter lviSorter = new ListViewColumnSorter();
         public Form1()
         {
             Settings.Default.Language = Settings.Default.Language ?? Thread.CurrentThread.CurrentCulture.Name;
-            recentFolders = Settings.Default.RecentFolders;
             Icon = Resources.AppIcon;
             InitializeComponent();
             Relayout();
@@ -123,11 +125,28 @@ namespace ScoreManager
         }
 
         public Project CurrentProject;
-        private MatchResult unlocked = MatchResult.ChiefAdmin;
+        public MatchResult unlocked
+        {
+            private set;
+            get;
+        }
         public event ProjectOpenEventHandler ProjectOpen;
         public void OpenProject(Project project)
         {
             CurrentProject = project;
+            if (Settings.Default.RecentFolders == null)
+            {
+                Settings.Default.RecentFolders = new System.Collections.Specialized.StringCollection();
+            }
+            else
+            {
+                if (Settings.Default.RecentFolders.Contains(project.Path))
+                {
+                    Settings.Default.RecentFolders.Remove(project.Path);
+                }
+                Settings.Default.RecentFolders.Insert(0, project.Path);
+            }
+
             unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
             UpdateMenuStrip(true);
 
@@ -234,7 +253,7 @@ namespace ScoreManager
                     this.SuspendLayout();
                     if (quickIndexView == null)
                     {
-                        quickIndexView = new QuickIndexView(CurrentProject);
+                        quickIndexView = new QuickIndexView(CurrentProject, this);
                         Controls.Add(quickIndexView);
                         quickIndexView.Dock = DockStyle.Fill;
                         Padding newMargin = new Padding(3);
@@ -301,6 +320,12 @@ namespace ScoreManager
 
             recordScore.Enabled = unlocked.CanChangeScore;
             projectProperties.Enabled = unlocked.CanChangeMember;
+            importItem.Enabled = unlocked.CanChangeMember;
+
+            if (viewType == ViewType.QuickIndex)
+            {
+                quickIndexView.UpdateComponents();
+            }
         }
 
         private void New_Project(object sender, EventArgs e)
@@ -313,32 +338,71 @@ namespace ScoreManager
             }
             projectForm.Dispose();
         }
-
+        private void ShowErrorWhileReading(Exception error)
+        {
+            MessageBox.Show(error.GetType().FullName + ": " + error.Message, new ComponentResourceManager(typeof(Form1)).GetString("error.OpenProject"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         public void Recent_Click(object sender, EventArgs e)
         {
             try
             {
-                OpenProject(Project.Open(recentFolders[0]));
+                OpenProject(Project.Open(Settings.Default.RecentFolders[0]));
             }
             catch(Exception error)
             {
-                MessageBox.Show(error.GetType().FullName + ": " + error.Message, new ComponentResourceManager(typeof(Form1)).GetString("error.OpenProject"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorWhileReading(error);
             }
         }
 
-        System.Collections.Specialized.StringCollection recentFolders;
         private readonly ContextMenu listMenu = new ContextMenu();
         private void PopupHandler(object sender, EventArgs e)
         {
             listMenu.MenuItems.Clear();
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
 
-            if (listView.SelectedItems.Count == 1)
-                listMenu.MenuItems.Add(res.GetString("properties"), PropertiesMenuClickHandler)
-                    .Enabled = unlocked.CanChangeMember;
             if (listView.SelectedItems.Count > 0)
+            {
                 listMenu.MenuItems.Add(res.GetString("recordScore.Text"), RecordScoreMenuClickHandler)
                     .Enabled = unlocked.CanChangeScore;
+
+                if (listView.SelectedItems.Count == 1)
+                    listMenu.MenuItems.Add(res.GetString("properties"), PropertiesMenuClickHandler)
+                        .Enabled = unlocked.CanChangeMember;
+                else
+                {
+                    bool inOneGroup = true;
+                    Group lastGroup = null;
+                    foreach(ListViewItem item in listView.SelectedItems)
+                    {
+                        Person person = CurrentProject.FindPerson((Guid)item.Tag);
+                        if (lastGroup == null)
+                        {
+                            lastGroup = person.Group;
+                        }
+                        else if (person.Group != lastGroup)
+                        {
+                            inOneGroup = false;
+                            break;
+                        }
+                    }
+                    if (inOneGroup)
+                    {
+                        listMenu.MenuItems.Add(res.GetString("properties"), (x, y) =>
+                        {
+                            GroupForm form = new GroupForm(lastGroup);
+                            Group oldGroup = lastGroup.Clone() as Group;
+                            if (form.ShowDialog() == DialogResult.OK) {
+                                CurrentProject.Do(new ChangeGroupProperties(oldGroup, lastGroup));
+
+                                UpdateGroupView();
+                                DrawCharts();
+                            }
+                            form.Dispose();
+                        })
+                            .Enabled = unlocked.CanChangeMember;
+                    }
+                }
+            }
         }
 
         private void PropertiesMenuClickHandler(object sender, EventArgs e)
@@ -371,19 +435,22 @@ namespace ScoreManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recent.Enabled = recentFolders != null && recentFolders.Count > 0;
+            recent.Enabled = Settings.Default.RecentFolders != null && Settings.Default.RecentFolders.Count > 0;
             saveToolStripMenuItem.Enabled = false;
             addGroup.Enabled = false;
             addMember.Enabled = false;
             recordScore.Enabled = false;
             validate.Enabled = false;
             projectProperties.Enabled = false;
+            importItem.Enabled = false;
             undoMenuItem.Enabled = false;
             redoMenuItem.Enabled = false;
             listView.View = System.Windows.Forms.View.Details;
             listMenu.Popup += this.PopupHandler;
             listView.ContextMenu = listMenu;
             autostartItem.Checked = Settings.Default.Autostart;
+            recordListView.ListViewItemSorter = lviSorter;
+
 
             UpdateLanguageMenuStrip();
 
@@ -498,99 +565,204 @@ namespace ScoreManager
             projectForm.Dispose();
         }
 
+        private ColumnClickEventHandler lastColumnClickListenr;
+        private System.Windows.Forms.Timer chartTimer = null;
         private void DrawCharts()
         {
-            chart.BeginInit();
-            chart.Series.Clear();
-            if (listView.SelectedItems.Count == 1)
+            void doDrawing()
             {
-                Person member = CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag);
-                List<Score> record = member.Record;
-
-                Series series = chart.Series.Add(member.Name);
-                series.ChartType = SeriesChartType.Line;
-
-                record.ForEach((score) =>
+                chart.BeginInit();
+                chart.Series.Clear();
+                if (listView.SelectedItems.Count == 0)
                 {
-                    series.Points.AddXY(score.Time.ToShortDateString(), score.Value);
-                });
-            }
-            else
-            {
-                bool allSelectionsInGroup = true;
-                List<Group> selectedGroups = new List<Group>();
-                void validate() {
-                    Group previousGroup = null;
-                    int previousCount = 0;
-                    foreach (ListViewItem item in listView.SelectedItems)
-                    {
-                        Person member = CurrentProject.FindPerson((Guid)item.Tag);
-                        if (previousGroup != null)
-                        {
-                            if(previousGroup != member.Group)
-                            {
-                                if (previousGroup.People.Count != previousCount)
-                                {
-                                    allSelectionsInGroup = false;
-                                    selectedGroups = null;
-                                    break;
-                                }
-                                previousCount = 0;
-                            }
-                        }
-                        if (previousGroup != member.Group)
-                        {
-                            selectedGroups.Add(member.Group);
-                        }
-                        previousCount++;
-                        previousGroup = member.Group;
-                    }
-                };
-                validate();
-
-                ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-                if (!allSelectionsInGroup || selectedGroups.Count == 1)
-                {
-                    bool isSameGroup = true;
-                    Group lastGroup = null;
-                    List<Person> people = new List<Person>();
-                    foreach (ListViewItem item in listView.SelectedItems)
-                    {
-                        Person member = CurrentProject.FindPerson((Guid)item.Tag);
-                        people.Add(member);
-                        if (isSameGroup)
-                        {
-                            if (lastGroup != null && lastGroup != member.Group)
-                            {
-                                isSameGroup = false;
-                            }
-                            else
-                            {
-                                lastGroup = member.Group;
-                            }
-                        }
-                    }
-                    if (isSameGroup)
-                    {
-                        Series series = chart.Series.Add(res.GetString("col.Score"));
-                        people.ForEach((it) => series.Points.AddXY(it.Name, it.Score));
-                        series.ChartType = SeriesChartType.Pie;
-                    }
-                    else
-                    {
-                        string score = res.GetString("col.Score");
-                        people.ForEach((it) => chart.Series.Add(it.Name).Points.AddXY(score, it.Score));
-                    }
+                    emptySelection.Visible = true;
+                    infoPanel.Visible = false;
                 }
                 else
                 {
-                    string score = res.GetString("col.Score");
-                    selectedGroups.ForEach((group) => {
-                        chart.Series.Add(group.Name).Points.AddXY(score, group.Score);
-                    });
+                    ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
+                    int mode;
+                    void updateSortMode()
+                    {
+                        lviSorter.SortDate = lviSorter.SortColumn == mode;
+                    }
+                    lviSorter.SortColumn = 0;
+
+                    emptySelection.Visible = false;
+                    infoPanel.Visible = true;
+                    if (listView.SelectedItems.Count == 1)
+                    {
+                        Person member = CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag);
+                        List<Score> record = member.Record;
+
+                        // Record List View
+                        recordListView.BeginUpdate();
+                        recordListView.Items.Clear();
+                        recordListView.Columns.Clear();
+                        recordListView.Columns.Add(res.GetString("col.Time"), 110);
+                        recordListView.Columns.Add(res.GetString("col.Reason"), 200);
+                        recordListView.Columns.Add(res.GetString("col.Score"), 40);
+                        mode = 0;
+                        updateSortMode();
+
+                        Series series = chart.Series.Add(member.Name);
+                        series.ChartType = SeriesChartType.Line;
+
+                        record.ForEach((score) =>
+                        {
+                            series.Points.AddXY(score.Time.ToShortDateString(), score.Value);
+                            var item = new ListViewItem
+                            {
+                                Text = score.DateString
+                            };
+                            item.SubItems.Add(score.Reason);
+                            item.SubItems.Add(score.Value.ToString());
+                            recordListView.Items.Add(item);
+                        });
+                        recordListView.View = System.Windows.Forms.View.Details;
+                    }
+                    else
+                    {
+                        bool allSelectionsInGroup = true;
+                        List<Group> selectedGroups = new List<Group>();
+                        void validate()
+                        {
+                            Group previousGroup = null;
+                            int previousCount = 0;
+                            foreach (ListViewItem item in listView.SelectedItems)
+                            {
+                                Person member = CurrentProject.FindPerson((Guid)item.Tag);
+                                if (previousGroup != null)
+                                {
+                                    if (previousGroup != member.Group)
+                                    {
+                                        if (previousGroup.People.Count != previousCount)
+                                        {
+                                            allSelectionsInGroup = false;
+                                            selectedGroups = null;
+                                            break;
+                                        }
+                                        previousCount = 0;
+                                    }
+                                }
+                                if (previousGroup != member.Group)
+                                {
+                                    selectedGroups.Add(member.Group);
+                                }
+                                previousCount++;
+                                previousGroup = member.Group;
+                            }
+                        };
+                        validate();
+
+                        // Record List View
+                        recordListView.BeginUpdate();
+                        recordListView.Items.Clear();
+                        recordListView.Columns.Clear();
+                        recordListView.Columns.Add(res.GetString("col.Target"), 60);
+                        recordListView.Columns.Add(res.GetString("col.Time"), 110);
+                        recordListView.Columns.Add(res.GetString("col.Reason"), 200);
+                        recordListView.Columns.Add(res.GetString("col.Score"), 40);
+                        mode = 1;
+                        updateSortMode();
+
+                        if (!allSelectionsInGroup || selectedGroups.Count == 1)
+                        {
+                            bool isSameGroup = true;
+                            Group lastGroup = null;
+                            List<Person> people = new List<Person>();
+                            foreach (ListViewItem item in listView.SelectedItems)
+                            {
+                                Person member = CurrentProject.FindPerson((Guid)item.Tag);
+                                people.Add(member);
+
+                                member.Record.ForEach((it) =>
+                                {
+                                    var viewItem = recordListView.Items.Add(member.Name);
+                                    viewItem.SubItems.Add(it.DateString);
+                                    viewItem.SubItems.Add(it.Reason);
+                                    viewItem.SubItems.Add(it.Value.ToString());
+                                });
+                                if (isSameGroup)
+                                {
+                                    if (lastGroup != null && lastGroup != member.Group)
+                                    {
+                                        isSameGroup = false;
+                                    }
+                                    else
+                                    {
+                                        lastGroup = member.Group;
+                                    }
+                                }
+                            }
+                            if (isSameGroup)
+                            {
+                                Series series = chart.Series.Add(res.GetString("col.Score"));
+                                people.ForEach((it) => series.Points.AddXY(it.Name, it.Score));
+                                series.ChartType = SeriesChartType.Pie;
+                            }
+                            else
+                            {
+                                string score = res.GetString("col.Score");
+                                people.ForEach((it) => chart.Series.Add(it.Name).Points.AddXY(score, it.Score));
+                            }
+                        }
+                        else
+                        {
+                            string score = res.GetString("col.Score");
+                            selectedGroups.ForEach((group) =>
+                            {
+                                chart.Series.Add(group.Name).Points.AddXY(score, group.Score);
+                            });
+                        }
+
+                        recordListView.View = System.Windows.Forms.View.Details;
+                    }
+
+                    if (lastColumnClickListenr != null)
+                        recordListView.ColumnClick -= lastColumnClickListenr;
+                    lastColumnClickListenr = (s, a) =>
+                    {
+                        if (a.Column == lviSorter.SortColumn)
+                        {
+                            if (lviSorter.Order == SortOrder.Ascending)
+                            {
+                                lviSorter.Order = SortOrder.Descending;
+                            }
+                            else
+                            {
+                                lviSorter.Order = SortOrder.Ascending;
+                            }
+                        }
+                        else
+                        {
+                            lviSorter.SortColumn = a.Column;
+                            lviSorter.SortDate = a.Column == mode;
+                            lviSorter.Order = SortOrder.Ascending;
+                        }
+                        recordListView.Sort();
+                    };
+
+                    recordListView.ColumnClick += lastColumnClickListenr;
+                    recordListView.Sort();
+                    recordListView.EndUpdate();
                 }
+
+                chart.EndInit();
             }
-            chart.EndInit();
+            if (chartTimer != null)
+                chartTimer.Dispose();
+            chartTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 100
+            };
+            chartTimer.Tick += (a, b) =>
+            {
+                doDrawing();
+                chartTimer.Stop();
+                chartTimer.Dispose();
+            };
+            chartTimer.Start();
         }
 
         private void undoMenuItem_Click(object sender, EventArgs e)
@@ -683,7 +855,7 @@ namespace ScoreManager
             }
         }
 
-        private void notifyIcon_Click(object sender, EventArgs e)
+        public void notifyIcon_Click(object sender, EventArgs e)
         {
             Show();
             Activate();
@@ -691,16 +863,27 @@ namespace ScoreManager
             notifyIcon.Visible = false;
         }
 
-        private void openItem_Click(object sender, EventArgs e)
+        private System.Windows.Forms.OpenFileDialog NewOpenSMPDialog()
         {
-            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog()
+            return new System.Windows.Forms.OpenFileDialog()
             {
                 AddExtension = true,
                 Filter = new ComponentResourceManager(typeof(Form1)).GetString("smp") + "(*.smp)|*.smp"
             };
+        }
+        private void openItem_Click(object sender, EventArgs e)
+        {
+            var dialog = NewOpenSMPDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                OpenProject(Open(dialog.FileName));
+                try
+                {
+                    OpenProject(Open(dialog.FileName));
+                }
+                catch(Exception error)
+                {
+                    ShowErrorWhileReading(error);
+                }
             }
             dialog.Dispose();
         }
@@ -733,6 +916,69 @@ namespace ScoreManager
                 viewType = ViewType.QuickIndex;
                 UpdateViewType();
             }
+        }
+
+        private void exitItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void importItem_Click(object sender, EventArgs e)
+        {
+            var dialog = NewOpenSMPDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Project project = Open(dialog.FileName);
+                    var res = new ComponentResourceManager(typeof(Form1));
+                    void doImport()
+                    {
+                        var importer = new ProjectImporter();
+                        importer.GroupDuplicated += (object first, object second) =>
+                        {
+                            return MessageBox.Show(res.GetString("warn.DuplicatedGroup").Replace("%s", ((Group)first).Name), res.GetString("warn"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        };
+                        importer.MemberDuplicated += (object first, object second) =>
+                        {
+                            return MessageBox.Show(res.GetString("warn.DuplicatedPerson").Replace("%s", ((Person)first).Name), res.GetString("warn"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        };
+                        importer.Import(CurrentProject, project);
+                    }
+                    if (project.Encryted)
+                    {
+                        var edit = new EditValue(res.GetString("password.Chief"), true);
+                        if (edit.ShowDialog() == DialogResult.OK)
+                        {
+                            if (project.MatchPassword(edit.ValueReturn).CanChangeMember)
+                            {
+                                doImport();
+                            }
+                            else
+                            {
+                                MessageBox.Show(res.GetString("error.WrongPassword"), res.GetString("error.WPC"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        edit.Dispose();
+                    }
+                    else
+                    {
+                        doImport();
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ShowErrorWhileReading(exception);
+                }
+                finally
+                {
+                    CurrentProject.CanBeSaved = true;
+                    UpdateGroupView();
+                    UpdateMenuStrip(true);
+                    DrawCharts();
+                }
+            }
+            dialog.Dispose();
         }
     }
 }

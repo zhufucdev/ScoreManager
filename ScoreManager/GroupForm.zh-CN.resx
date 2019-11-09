@@ -124,6 +124,9 @@
     <value>取消</value>
     <comment>.T</comment>
   </data>
+  <data name="colorButton.Text" xml:space="preserve">
+    <value>颜色</value>
+  </data>
   <data name="confirm.Text" xml:space="preserve">
     <value>确定</value>
   </data>

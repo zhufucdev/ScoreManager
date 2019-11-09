@@ -124,6 +124,9 @@
     <value>Cancel</value>
     <comment>.T</comment>
   </data>
+  <data name="colorButton.Text" xml:space="preserve">
+    <value>Color</value>
+  </data>
   <data name="confirm.Text" xml:space="preserve">
     <value>Confirm</value>
   </data>

@@ -14,10 +14,29 @@ namespace ScoreManager
     public partial class GroupForm : Form
     {
         public Group ReturnValue;
+        private bool AddMode;
         public GroupForm()
         {
             InitializeComponent();
             Utility.ApplySource(this);
+            AddMode = false;
+        }
+
+        public GroupForm(Group group)
+        {
+            InitializeComponent();
+            Utility.ApplySource(this);
+            AddMode = true;
+            ReturnValue = group;
+
+            nameBox.Text = group.Name;
+            initalScoreBox.Text = group.InitalScore.ToString();
+            group.People.ForEach((it) => memberList.Items.Add(it.Name).Tag = it.ID);
+            if (group.ChosenColor != null)
+            {
+                colorDialog.Color = group.ChosenColor;
+                color = group.ChosenColor;
+            }
         }
 
         private void GroupForm_Load(object sender, EventArgs e)
@@ -34,13 +53,41 @@ namespace ScoreManager
                 nameBox.Focus();
                 return;
             }
-            Group result = new Group(nameBox.Text, long.TryParse(initalScoreBox.Text, out long initalScore) ? initalScore : 0);
-            foreach (ListViewItem item in memberList.Items)
+            if (!AddMode)
             {
-                result.People.Add(new Person(item.Text, result));
+                Group result = new Group(nameBox.Text, long.TryParse(initalScoreBox.Text, out long initalScore) ? initalScore : 0);
+                foreach (ListViewItem item in memberList.Items)
+                {
+                    result.People.Add(new Person(item.Text, result));
+                }
+                result.ChosenColor = color;
+                ReturnValue = result;
+            }
+            else
+            {
+                ReturnValue.Name = nameBox.Text;
+                ReturnValue.InitalScore = long.TryParse(initalScoreBox.Text, out long initalScore) ? initalScore : 0;
+                ReturnValue.ChosenColor = color;
+                foreach (ListViewItem item in memberList.Items) {
+                    if (!ReturnValue.People.Any((it) => it.Name != item.Text))
+                    {
+                        ReturnValue.People.Add(new Person(item.Text, ReturnValue));
+                    }
+                }
+                
+                ReturnValue.People.RemoveAll((it) =>
+                {
+                    foreach (ListViewItem item in memberList.Items)
+                    {
+                        if (item.Text == it.Name)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                });
             }
             DialogResult = DialogResult.OK;
-            ReturnValue = result;
             Close();
         }
 
@@ -85,6 +132,15 @@ namespace ScoreManager
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private Color color;
+        private void colorButton_Click(object sender, EventArgs e)
+        {
+            if(colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                color = colorDialog.Color;
+            }
         }
     }
 }

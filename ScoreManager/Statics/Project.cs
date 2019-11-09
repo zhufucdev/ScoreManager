@@ -239,6 +239,95 @@ namespace ScoreManager.Statics
             return result;
         }
 
+        public class ProjectImporter
+        {
+            public ProjectImporter() { }
+            public event ElementDuplicatedHandler MemberDuplicated;
+            public event ElementDuplicatedHandler GroupDuplicated;
+            public void Import(Project to, Project from)
+            {
+                if (from == null)
+                {
+                    throw new ArgumentNullException(nameof(from));
+                }
+                if (to == null)
+                {
+                    throw new ArgumentNullException(nameof(to));
+                }
+                if (from.Equals(to))
+                {
+                    throw new FieldAccessException();
+                }
+
+                foreach (Group g in from.Groups)
+                {
+                    Group sameName = to.Groups.Find((it) => it.Name == g.Name);
+                    if (sameName == null)
+                    {
+                        var clone = g.Clone() as Group;
+                        clone.Record.Clear();
+                        to.Groups.Add(clone);
+                    }
+                    else
+                    {
+                        bool cancel = false;
+                        switch (GroupDuplicated.Invoke(sameName, g))
+                        {
+                            case DialogResult.Yes:
+                                foreach (Person p in g.People)
+                                {
+                                    Person duplicate = sameName.People.Find((it) => it.Name == p.Name);
+                                    if (duplicate == null)
+                                    {
+                                        sameName.People.Add(p);
+                                    }
+                                    else
+                                    {
+                                        switch (MemberDuplicated.Invoke(duplicate, p))
+                                        {
+                                            case DialogResult.Yes:
+                                                sameName.People.Remove(duplicate);
+                                                sameName.People.Add(p);
+                                                break;
+                                            case DialogResult.Cancel:
+                                                cancel = true;
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                    if (cancel)
+                                        break;
+                                }
+                                if (!cancel)
+                                {
+                                    sameName.InitalScore = g.InitalScore;
+                                    sameName.ChosenColor = g.ChosenColor;
+                                }
+                                break;
+                            case DialogResult.Cancel:
+                                cancel = true;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if (cancel)
+                            break;
+                    }
+                }
+                if (from.Encryted)
+                    from.DailyAdmins.ForEach((it) =>
+                    {
+                        if (!to.DailyAdmins.Contains(it))
+                        {
+                            to.DailyAdmins.Add(it);
+                        }
+                    });
+            }
+        }
+
         public event OperationDoneEventHandler OperationDone;
         public void Do(Operation operation)
         {
@@ -249,7 +338,7 @@ namespace ScoreManager.Statics
             }
             Operations.Add(operation);
 
-            #region free up memory
+            #region Free up memory
             if (Operations.Count >= 50)
             {
                 Operations.RemoveAt(0);

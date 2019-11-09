@@ -132,11 +132,23 @@
   <data name="col.Member" xml:space="preserve">
     <value>组员名</value>
   </data>
+  <data name="col.Reason" xml:space="preserve">
+    <value>理由</value>
+  </data>
   <data name="col.Score" xml:space="preserve">
     <value>得分</value>
   </data>
+  <data name="col.Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="col.Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
   <data name="editToolStripMenuItem.Text" xml:space="preserve">
     <value>编辑</value>
+  </data>
+  <data name="emtpySelection.Text" xml:space="preserve">
+    <value>选择一项以查看</value>
   </data>
   <data name="error.LoadScoreboard" xml:space="preserve">
     <value>无法加载计分板</value>
@@ -159,8 +171,14 @@
   <data name="exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="exitItem.Text" xml:space="preserve">
+    <value>退出</value>
+  </data>
   <data name="file.Text" xml:space="preserve">
     <value>文件</value>
+  </data>
+  <data name="importItem.Text" xml:space="preserve">
+    <value>导入</value>
   </data>
   <data name="languageItem.Text" xml:space="preserve">
     <value>语言</value>
@@ -248,5 +266,14 @@
   </data>
   <data name="viewToolStripItem.Text" xml:space="preserve">
     <value>视图</value>
+  </data>
+  <data name="warn" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="warn.DuplicatedGroup" xml:space="preserve">
+    <value>目标项目存在小组与当前名为%s的小组重复，是否覆盖当前项？</value>
+  </data>
+  <data name="warn.DuplicatedPerson" xml:space="preserve">
+    <value>目标项目存在成员与当前名为%s的成员重复，是否覆盖当前项？</value>
   </data>
 </root>

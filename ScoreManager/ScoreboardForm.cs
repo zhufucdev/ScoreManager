@@ -134,7 +134,7 @@ namespace ScoreManager
                 else
                 {
                     Chart chart = new Chart();
-                    chart.ChartAreas.Add("MainArea");
+                    ChartArea area = chart.ChartAreas.Add("MainArea");
                     chart.Legends.Add("MainLegend");
 
                     string score = res.GetString("col.Score");
@@ -148,8 +148,10 @@ namespace ScoreManager
                                 foreach (Group group in project.Groups)
                                 {
                                     series.Points.AddXY(group.Name, group.Score);
+                                    series.Color = group.ChosenColor;
                                 }
                                 series.ChartType = SeriesChartType.Pie;
+                                area.RecalculateAxesScale();
                                 chart.EndInit();
                             };
                             LastDrawEvent();
@@ -165,8 +167,10 @@ namespace ScoreManager
                                     long ach = group.Score;
                                     series.Points.AddXY(score, ach);
                                     series.Label = ach.ToString();
+                                    series.Color = group.ChosenColor;    
                                     series.ChartType = SeriesChartType.Column;
                                 }
+                                area.RecalculateAxesScale();
                                 chart.EndInit();
                             };
                             LastDrawEvent();
