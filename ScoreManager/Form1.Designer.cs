@@ -44,7 +44,6 @@
             this.recordListView = new System.Windows.Forms.ListView();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.emptySelection = new System.Windows.Forms.Label();
-            this.adminBox = new System.Windows.Forms.ComboBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
@@ -76,6 +75,7 @@
             this.englishItem = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel6 = new System.Windows.Forms.RibbonPanel();
             this.autostartItem = new System.Windows.Forms.RibbonButton();
+            this.adminBox = new System.Windows.Forms.RibbonComboBox();
             this.statusStrip.SuspendLayout();
             this.startPanel.SuspendLayout();
             this.projectPanel.SuspendLayout();
@@ -167,13 +167,6 @@
             resources.ApplyResources(this.emptySelection, "emptySelection");
             this.emptySelection.Name = "emptySelection";
             // 
-            // adminBox
-            // 
-            resources.ApplyResources(this.adminBox, "adminBox");
-            this.adminBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.adminBox.FormattingEnabled = true;
-            this.adminBox.Name = "adminBox";
-            // 
             // notifyIcon
             // 
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
@@ -204,6 +197,7 @@
             // 
             // ribbon1
             // 
+            this.ribbon1.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.ribbon1, "ribbon1");
             this.ribbon1.Minimized = false;
             this.ribbon1.Name = "ribbon1";
@@ -371,6 +365,7 @@
             // 
             this.ribbonPanel5.Enabled = false;
             this.ribbonPanel5.Items.Add(this.validate);
+            this.ribbonPanel5.Items.Add(this.adminBox);
             this.ribbonPanel5.Name = "ribbonPanel5";
             resources.ApplyResources(this.ribbonPanel5, "ribbonPanel5");
             // 
@@ -464,12 +459,19 @@
             resources.ApplyResources(this.autostartItem, "autostartItem");
             this.autostartItem.Click += new System.EventHandler(this.autostartItem_Click);
             // 
+            // adminBox
+            // 
+            this.adminBox.AllowTextEdit = false;
+            this.adminBox.DrawIconsBar = false;
+            this.adminBox.Name = "adminBox";
+            this.adminBox.SelectedIndex = -1;
+            this.adminBox.TextBoxText = "";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.ribbon1);
-            this.Controls.Add(this.adminBox);
             this.Controls.Add(this.projectPanel);
             this.Controls.Add(this.startPanel);
             this.Controls.Add(this.statusStrip);
@@ -498,7 +500,6 @@
         private System.Windows.Forms.TableLayoutPanel projectPanel;
         private System.Windows.Forms.Panel infoPanel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
-        private System.Windows.Forms.ComboBox adminBox;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ListView recordListView;
         private System.Windows.Forms.Label emptySelection;
@@ -533,6 +534,7 @@
         private System.Windows.Forms.RibbonButton properties;
         private System.Windows.Forms.RibbonOrbMenuItem openItem;
         private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
+        private System.Windows.Forms.RibbonComboBox adminBox;
     }
 }
 

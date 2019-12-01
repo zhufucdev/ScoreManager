@@ -52,11 +52,11 @@ namespace ScoreManager
                 UpdatePropertiesButtons();
                 DrawCharts();
             };
-            adminBox.SelectionChangeCommitted += (sender, e) =>
+            adminBox.DropDownItemClicked += (sender, e) =>
             {
-                int oldIndex = adminBox.Tag != null ? (int)adminBox.Tag : adminBox.Items.Count - 1;
+                int oldIndex = adminBox.Tag != null ? (int)adminBox.Tag : adminBox.DropDownItems.Count - 1;
                 adminBox.Tag = adminBox.SelectedIndex;
-                if (adminBox.SelectedIndex < adminBox.Items.Count - 1)
+                if (adminBox.SelectedIndex < adminBox.DropDownItems.Count - 1)
                 {
                     bool isAdmin = adminBox.SelectedIndex == 0;
                     DailyAdmin target = !isAdmin ? CurrentProject.TodaysAdmins[adminBox.SelectedIndex - 1] : null;
@@ -344,14 +344,21 @@ namespace ScoreManager
                 if (includeAdminBox)
                 {
                     adminBox.Visible = true;
-                    adminBox.BeginUpdate();
 
-                    adminBox.Items.Clear();
-                    adminBox.Items.Add(res.GetString("chiefAdmin"));
-                    CurrentProject.TodaysAdmins.ForEach((it) => adminBox.Items.Add(it.Name));
-                    adminBox.Items.Add(res.GetString("observer"));
-
-                    adminBox.EndUpdate();
+                    adminBox.DropDownItems.Clear();
+                    
+                    adminBox.DropDownItems.Add(new RibbonButton
+                    {
+                        Text = res.GetString("chiefAdmin")
+                    });
+                    CurrentProject.TodaysAdmins.ForEach((it) => adminBox.DropDownItems.Add(new RibbonButton
+                    {
+                        Text = it.Name
+                    }));
+                    adminBox.DropDownItems.Add(new RibbonButton
+                    {
+                        Text = res.GetString("observer")
+                    });
                 }
                 switch (unlocked.Permission)
                 {
@@ -362,7 +369,7 @@ namespace ScoreManager
                         adminBox.SelectedIndex = CurrentProject.TodaysAdmins.IndexOf(unlocked.Admin) + 1;
                         break;
                     case Permission.Locked:
-                        adminBox.SelectedIndex = adminBox.Items.Count - 1;
+                        adminBox.SelectedIndex = adminBox.DropDownItems.Count - 1;
                         break;
                 }
             }

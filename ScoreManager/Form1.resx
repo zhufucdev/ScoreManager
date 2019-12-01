@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="readyStatusLable.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 17</value>
@@ -235,7 +235,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;startPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="listView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -316,7 +316,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;projectPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="projectPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listView" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="infoPanel" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="emptySelection" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,100,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -462,33 +462,6 @@
   <data name="&gt;&gt;emptySelection.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="adminBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="adminBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9pt</value>
-  </data>
-  <data name="adminBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>652, 0</value>
-  </data>
-  <data name="adminBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 25</value>
-  </data>
-  <data name="adminBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;adminBox.Name" xml:space="preserve">
-    <value>adminBox</value>
-  </data>
-  <data name="&gt;&gt;adminBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;adminBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;adminBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>244, 17</value>
   </metadata>
@@ -561,29 +534,26 @@
   <data name="ribbon1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
+  <data name="ribbonPanel2.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ribbonPanel4.Text" xml:space="preserve">
+    <value>小组分布</value>
+  </data>
+  <data name="validate.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="validate.Text" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="ribbonPanel5.Text" xml:space="preserve">
+    <value>提权</value>
+  </data>
   <data name="editTab.Text" xml:space="preserve">
     <value>编辑</value>
-  </data>
-  <data name="overviewItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="overviewItem.Text" xml:space="preserve">
-    <value>总览</value>
-  </data>
-  <data name="quickIndexItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="quickIndexItem.Text" xml:space="preserve">
-    <value>快速索引</value>
-  </data>
-  <data name="ribbonPanel3.Text" xml:space="preserve">
-    <value />
   </data>
   <data name="viewTab.Text" xml:space="preserve">
     <value>视图</value>
@@ -624,9 +594,6 @@
   <data name="ribbonButtonUndo.Text" xml:space="preserve">
     <value>ribbonButtonUndo</value>
   </data>
-  <data name="ribbonPanel2.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="recordScore.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -635,9 +602,6 @@
   </data>
   <data name="recordScore.Text" xml:space="preserve">
     <value>记录分数</value>
-  </data>
-  <data name="ribbonPanel4.Text" xml:space="preserve">
-    <value>小组分布</value>
   </data>
   <data name="addGroup.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -666,17 +630,26 @@
   <data name="properties.Text" xml:space="preserve">
     <value>属性</value>
   </data>
-  <data name="ribbonPanel5.Text" xml:space="preserve">
-    <value>提权</value>
+  <data name="ribbonPanel3.Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="validate.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="overviewItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="validate.Text" xml:space="preserve">
-    <value>验证</value>
+  <data name="overviewItem.Text" xml:space="preserve">
+    <value>总览</value>
+  </data>
+  <data name="quickIndexItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="quickIndexItem.Text" xml:space="preserve">
+    <value>快速索引</value>
   </data>
   <data name="languageItem.Text" xml:space="preserve">
     <value>语言</value>
@@ -914,6 +887,12 @@
   </data>
   <data name="&gt;&gt;autostartItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;adminBox.Name" xml:space="preserve">
+    <value>adminBox</value>
+  </data>
+  <data name="&gt;&gt;adminBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonComboBox, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>
