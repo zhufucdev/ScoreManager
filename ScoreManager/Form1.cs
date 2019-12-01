@@ -13,7 +13,7 @@ using ScoreManager.Utils;
 
 namespace ScoreManager
 {
-    public partial class Form1 : Form
+    public partial class Form1 : RibbonForm
     {
         private readonly List<Scoreboard.Scoreboard> scoreboards = new List<Scoreboard.Scoreboard>();
         private readonly ListViewColumnSorter lviSorter = new ListViewColumnSorter();
@@ -23,7 +23,7 @@ namespace ScoreManager
             Icon = Resources.AppIcon;
             InitializeComponent();
             Relayout();
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            //FormBorderStyle = FormBorderStyle.None;
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
 
             notifyIcon.Text = res.GetString("this.Text");
@@ -49,6 +49,7 @@ namespace ScoreManager
             listView.ItemSelectionChanged += (sender, e) =>
             {
                 recordScore.Enabled = unlocked.CanChangeScore && listView.SelectedItems.Count > 0;
+                UpdatePropertiesButtons();
                 DrawCharts();
             };
             adminBox.SelectionChangeCommitted += (sender, e) =>
@@ -73,7 +74,7 @@ namespace ScoreManager
                             if (result.Permission == Permission.ChiefAdmin)
                             {
                                 unlocked = MatchResult.ChiefAdmin;
-                                UpdateMenuStrip();
+                                UpdateRibbonMenu();
                             }
                             else
                             {
@@ -85,7 +86,7 @@ namespace ScoreManager
                             if (result.Permission == Permission.DailyAdmin && result.Admin.Equals(target))
                             {
                                 unlocked = result;
-                                UpdateMenuStrip();
+                                UpdateRibbonMenu();
                             }
                             else
                             {
@@ -102,7 +103,7 @@ namespace ScoreManager
                 else
                 {
                     unlocked = MatchResult.Locked;
-                    UpdateMenuStrip();
+                    UpdateRibbonMenu();
                 }
             };
 
@@ -148,7 +149,7 @@ namespace ScoreManager
             }
 
             unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
-            UpdateMenuStrip(true);
+            UpdateRibbonMenu(true);
 
             Relayout();
             ColumnStyle column = projectPanel.ColumnStyles[0];
@@ -167,21 +168,26 @@ namespace ScoreManager
         private void Relayout()
         {
             ComponentResourceManager res = Utility.ApplySource(this);
-            if (quickIndexView != null) quickIndexView.UpdateLanguage();
+            Text = res.GetString("this.Text") + (CurrentProject == null ? "" : "-" + CurrentProject.Name);
             if (CurrentProject == null)
             {
                 projectPanel.Visible = false;
                 startPanel.Visible = true;
-                startPanel.Dock = DockStyle.Fill;
-                projectPanel.Dock = DockStyle.None;
+                startPanel.Width = Width - 6;
+                //startPanel.Dock = DockStyle.Fill;
+                //projectPanel.Dock = DockStyle.None;
                 adminBox.Visible = false;
             }
             else
             {
+                if (quickIndexView != null) quickIndexView.UpdateLanguage();
                 startPanel.Visible = false;
                 projectPanel.Visible = true;
-                projectPanel.Dock = DockStyle.Fill;
-                startPanel.Dock = DockStyle.None;
+                projectPanel.Width = Width - 6;
+                projectPanel.Left = 0;
+                projectPanel.Top = ribbon1.Height + 12;
+                //projectPanel.Dock = DockStyle.Fill;
+                //startPanel.Dock = DockStyle.None;
 
                 listView.Columns.Clear();
                 listView.Columns.Add(new ColumnHeader
@@ -194,53 +200,99 @@ namespace ScoreManager
                     Text = res.GetString("col.Score"),
                     Width = 120
                 });
-                UpdateMenuStrip(true);
+                UpdateRibbonMenu(true);
             }
         }
 
-        private void UpdateGroupView()
+        private void UpdateGroupView(bool scoreOnly = false)
         {
             listView.BeginUpdate();
-            listView.Groups.Clear();
-            listView.Items.Clear();
-            CurrentProject.Groups.ForEach((group) =>
+            if (!scoreOnly)
             {
-                ListViewGroup groupView = new ListViewGroup
+                listView.Groups.Clear();
+                listView.Items.Clear();
+                CurrentProject.Groups.ForEach((group) =>
                 {
-                    Header = group.Name
-                };
-
-                group.People.ForEach((it) =>
-                {
-                    ListViewItem item = new ListViewItem
+                    ListViewGroup groupView = new ListViewGroup
                     {
-                        Text = it.Name,
-                        Tag = it.ID
+                        Header = group.Name,
+                        Name = group.Name
                     };
-                    item.SubItems.Add(it.Score.ToString());
-                    
-                    groupView.Items.Add(item);
-                    listView.Items.Add(item);
-                });
 
-                listView.Groups.Add(groupView);
-                listView.ShowGroups = true;
-            });
+                    group.People.ForEach((it) =>
+                    {
+                        ListViewItem item = new ListViewItem
+                        {
+                            Text = it.Name,
+                            Tag = it.ID
+                        };
+                        item.SubItems.Add(it.Score.ToString());
+
+                        groupView.Items.Add(item);
+                        listView.Items.Add(item);
+                    });
+
+                    listView.Groups.Add(groupView);
+                    listView.ShowGroups = true;
+                });
+            }
+            else
+            {
+                foreach (Group g in CurrentProject.Groups)
+                {
+                    ListView.ListViewItemCollection groupItems = null;
+                    foreach (ListViewGroup group in listView.Groups)
+                    {
+                        if (group.Name == g.Name)
+                        {
+                            groupItems = group.Items;
+                            break;
+                        }
+                    }
+                    #region skip undrawn groups
+                    if (groupItems == null)
+                        continue;
+                    #endregion
+                    g.People.ForEach((p) =>
+                    {
+                        bool found = false;
+                        foreach (ListViewItem item in groupItems)
+                        {
+                            if ((Guid)item.Tag == p.ID)
+                            {
+                                item.SubItems[1].Text = p.Score.ToString();
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found)
+                        {
+                            ListViewItem newItem = new ListViewItem
+                            {
+                                Text = p.Name,
+                                Tag = p.ID
+                            };
+                            newItem.SubItems.Add(p.Score.ToString());
+
+                            groupItems.Add(newItem);
+                            listView.Items.Add(newItem);
+                        }
+                    });
+                }
+            }
             listView.EndUpdate();
         }
 
         private void UpdateUndoRedoMenuStrip()
         {
-            menuStrip.SuspendLayout();
-            saveToolStripMenuItem.Enabled = undoMenuItem.Enabled = redoMenuItem.Enabled = unlocked.CanChangeScore;
+            ribbonButtonSave.Enabled = ribbonButtonUndo.Enabled = ribbonButtonRedo.Enabled = unlocked.CanChangeScore;
             if (unlocked.CanChangeScore)
             {
-                undoMenuItem.Enabled = CurrentProject.LastOperation != null;
-                redoMenuItem.Enabled = CurrentProject.OperationHeader < CurrentProject.Operations.Count - 1 
+                ribbonButtonUndo.Enabled = CurrentProject.LastOperation != null;
+                ribbonButtonRedo.Enabled = CurrentProject.OperationHeader < CurrentProject.Operations.Count - 1 
                     && CurrentProject.Operations.Count > 0;
-                saveToolStripMenuItem.Enabled = CurrentProject.CanBeSaved;
+                ribbonButtonSave.Enabled = CurrentProject.CanBeSaved;
             }
-            menuStrip.ResumeLayout();
         }
         private QuickIndexView quickIndexView;
         private void UpdateViewType()
@@ -258,7 +310,7 @@ namespace ScoreManager
                         quickIndexView.Dock = DockStyle.Fill;
                         Padding newMargin = new Padding(3);
                         newMargin.Bottom += statusStrip.Height;
-                        newMargin.Top += MainMenuStrip.Height;
+                        newMargin.Top += ribbon1.Height;
                         quickIndexView.Padding = newMargin;
                     }
                     projectPanel.Visible = false;
@@ -271,16 +323,17 @@ namespace ScoreManager
                     this.SuspendLayout();
                     if(quickIndexView != null) quickIndexView.Visible = false;
                     projectPanel.Visible = true;
-                    UpdateGroupView();
+                    UpdateGroupView(scoreOnly: true);
                     this.ResumeLayout();
                     break;
             }
         }
-        private void UpdateMenuStrip(bool includeAdminBox = false)
+        private void UpdateRibbonMenu(bool includeAdminBox = false)
         {
+            editTab.Enabled = true;
+            viewTab.Enabled = true;//quickIndexItem.Enabled = overviewItem.Enabled = true;
             addGroup.Enabled = addMember.Enabled = unlocked.CanChangeMember;
             validate.Enabled = CurrentProject.Encryted;
-            quickIndexItem.Enabled = overviewItem.Enabled = true;
             UpdateViewType();
             UpdateUndoRedoMenuStrip();
             if (CurrentProject.Encryted)
@@ -318,7 +371,6 @@ namespace ScoreManager
                 adminBox.Visible = false;
             }
 
-            recordScore.Enabled = unlocked.CanChangeScore;
             projectProperties.Enabled = unlocked.CanChangeMember;
             importItem.Enabled = unlocked.CanChangeMember;
 
@@ -365,52 +417,72 @@ namespace ScoreManager
                 listMenu.MenuItems.Add(res.GetString("recordScore.Text"), RecordScoreMenuClickHandler)
                     .Enabled = unlocked.CanChangeScore;
 
-                if (listView.SelectedItems.Count == 1)
-                    listMenu.MenuItems.Add(res.GetString("properties"), PropertiesMenuClickHandler)
-                        .Enabled = unlocked.CanChangeMember;
-                else
-                {
-                    bool inOneGroup = true;
-                    Group lastGroup = null;
-                    foreach(ListViewItem item in listView.SelectedItems)
-                    {
-                        Person person = CurrentProject.FindPerson((Guid)item.Tag);
-                        if (lastGroup == null)
-                        {
-                            lastGroup = person.Group;
-                        }
-                        else if (person.Group != lastGroup)
-                        {
-                            inOneGroup = false;
-                            break;
-                        }
-                    }
-                    if (inOneGroup)
-                    {
-                        listMenu.MenuItems.Add(res.GetString("properties"), (x, y) =>
-                        {
-                            GroupForm form = new GroupForm(lastGroup);
-                            Group oldGroup = lastGroup.Clone() as Group;
-                            if (form.ShowDialog() == DialogResult.OK) {
-                                CurrentProject.Do(new ChangeGroupProperties(oldGroup, lastGroup));
-
-                                UpdateGroupView();
-                                DrawCharts();
-                            }
-                            form.Dispose();
-                        })
-                            .Enabled = unlocked.CanChangeMember;
-                    }
-                }
+                UpdatePropertiesButtons();
             }
         }
-
-        private void PropertiesMenuClickHandler(object sender, EventArgs e)
+        private EventHandler lastPropertiesButtonAction = null;
+        private void UpdatePropertiesButtons()
         {
-            MemberForm memberForm = new MemberForm(CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag), CurrentProject);
-            if (memberForm.ShowDialog() == DialogResult.OK)
-                UpdateGroupView();
-            memberForm.Dispose();
+            ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
+            if (listView.SelectedItems.Count == 0)
+                properties.Enabled = false;
+            else if (listView.SelectedItems.Count == 1)
+            {
+                EventHandler action = (x, y) =>
+                {
+                    MemberForm memberForm = new MemberForm(CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag), CurrentProject);
+                    if (memberForm.ShowDialog() == DialogResult.OK)
+                        UpdateGroupView();
+                    memberForm.Dispose();
+                };
+                listMenu.MenuItems.Add(res.GetString("properties"), action)
+                    .Enabled = unlocked.CanChangeMember;
+                if (lastPropertiesButtonAction != null)
+                    properties.Click -= lastPropertiesButtonAction;
+                properties.Click += action;
+                lastPropertiesButtonAction = action;
+                properties.Enabled = unlocked.CanChangeMember;
+            }
+            else
+            {
+                bool inOneGroup = true;
+                Group lastGroup = null;
+                foreach (ListViewItem item in listView.SelectedItems)
+                {
+                    Person person = CurrentProject.FindPerson((Guid)item.Tag);
+                    if (lastGroup == null)
+                    {
+                        lastGroup = person.Group;
+                    }
+                    else if (person.Group != lastGroup)
+                    {
+                        inOneGroup = false;
+                        break;
+                    }
+                }
+                if (inOneGroup)
+                {
+                    EventHandler action = (x, y) =>
+                    {
+                        GroupForm form = new GroupForm(lastGroup);
+                        Group oldGroup = lastGroup.Clone() as Group;
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            CurrentProject.Do(new ChangeGroupProperties(oldGroup, lastGroup));
+
+                            UpdateGroupView();
+                            DrawCharts();
+                        }
+                        form.Dispose();
+                    };
+                    listMenu.MenuItems.Add(res.GetString("properties"), action)
+                        .Enabled = unlocked.CanChangeMember;
+                    if (lastPropertiesButtonAction != null)
+                        properties.Click -= lastPropertiesButtonAction;
+                    properties.Click += action;
+                    lastPropertiesButtonAction = action;
+                }
+            }
         }
         private void RecordScoreMenuClickHandler(object sender, EventArgs e)
         {
@@ -429,28 +501,19 @@ namespace ScoreManager
             {
                 Operations = operations.ToArray()
             });
-            UpdateGroupView();
+            UpdateGroupView(scoreOnly: true);
             DrawCharts();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             recent.Enabled = Settings.Default.RecentFolders != null && Settings.Default.RecentFolders.Count > 0;
-            saveToolStripMenuItem.Enabled = false;
-            addGroup.Enabled = false;
-            addMember.Enabled = false;
-            recordScore.Enabled = false;
-            validate.Enabled = false;
-            projectProperties.Enabled = false;
-            importItem.Enabled = false;
-            undoMenuItem.Enabled = false;
-            redoMenuItem.Enabled = false;
             listView.View = System.Windows.Forms.View.Details;
             listMenu.Popup += this.PopupHandler;
             listView.ContextMenu = listMenu;
             autostartItem.Checked = Settings.Default.Autostart;
             recordListView.ListViewItemSorter = lviSorter;
-
+            viewTab.Enabled = false;
 
             UpdateLanguageMenuStrip();
 
@@ -463,7 +526,7 @@ namespace ScoreManager
 
         private void UpdateLanguageMenuStrip()
         {
-            MainMenuStrip.SuspendLayout();
+            ribbon1.SuspendLayout();
             chineseItem.Checked = false;
             englishItem.Checked = false;
             switch (Settings.Default.Language)
@@ -477,7 +540,7 @@ namespace ScoreManager
                 default:
                     break;
             }
-            MainMenuStrip.ResumeLayout();
+            ribbon1.ResumeLayout();
             Settings.Default.Save();
         }
 
@@ -493,10 +556,10 @@ namespace ScoreManager
             groupForm.Dispose();
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ribbonButtonSave_Click(object sender, EventArgs e)
         {
             CurrentProject.Save();
-            saveToolStripMenuItem.Enabled = false;
+            ribbonButtonSave.Enabled = false;
         }
 
         private void statusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -536,7 +599,7 @@ namespace ScoreManager
                     }
                     else
                     {
-                        UpdateMenuStrip();
+                        UpdateRibbonMenu();
                         validate.Text = res.GetString("lock");
                     }
                 }
@@ -545,7 +608,7 @@ namespace ScoreManager
             else
             {
                 unlocked = MatchResult.Locked;
-                UpdateMenuStrip();
+                UpdateRibbonMenu();
                 validate.Text = res.GetString("validate.Text");
             }
         }
@@ -560,7 +623,7 @@ namespace ScoreManager
                     unlocked = MatchResult.Locked;
                     CurrentProject.Save();
                 }
-                UpdateMenuStrip(true);
+                UpdateRibbonMenu(true);
             }
             projectForm.Dispose();
         }
@@ -676,13 +739,6 @@ namespace ScoreManager
                                 Person member = CurrentProject.FindPerson((Guid)item.Tag);
                                 people.Add(member);
 
-                                member.Record.ForEach((it) =>
-                                {
-                                    var viewItem = recordListView.Items.Add(member.Name);
-                                    viewItem.SubItems.Add(it.DateString);
-                                    viewItem.SubItems.Add(it.Reason);
-                                    viewItem.SubItems.Add(it.Value.ToString());
-                                });
                                 if (isSameGroup)
                                 {
                                     if (lastGroup != null && lastGroup != member.Group)
@@ -693,6 +749,29 @@ namespace ScoreManager
                                     {
                                         lastGroup = member.Group;
                                     }
+                                }
+                            }
+                            if (isSameGroup && lastGroup.People.Count == people.Count)
+                            {
+                                lastGroup.Record.ForEach((it) =>
+                                {
+                                    var viewItem = recordListView.Items.Add(it.Maker.Name);
+                                    viewItem.SubItems.Add(it.DateString);
+                                    viewItem.SubItems.Add(it.Reason);
+                                    viewItem.SubItems.Add(it.Value.ToString());
+                                });
+                            }
+                            else
+                            {
+                                foreach (Person member in people)
+                                {
+                                    member.Record.ForEach((it) =>
+                                    {
+                                        var viewItem = recordListView.Items.Add(member.Name);
+                                        viewItem.SubItems.Add(it.DateString);
+                                        viewItem.SubItems.Add(it.Reason);
+                                        viewItem.SubItems.Add(it.Value.ToString());
+                                    });
                                 }
                             }
                             if (isSameGroup)
@@ -781,17 +860,17 @@ namespace ScoreManager
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.Z) && undoMenuItem.Enabled)
+            if (keyData == (Keys.Control | Keys.Z) && ribbonButtonUndo.Enabled)
             {
                 undoMenuItem_Click(null, null);
                 return true;
-            } else if (keyData == (Keys.Control | Keys.Shift | Keys.Z) && redoMenuItem.Enabled)
+            } else if (keyData == (Keys.Control | Keys.Shift | Keys.Z) && ribbonButtonRedo.Enabled)
             {
                 redoMenuItem_Click(null, null);
                 return true;
-            } else if(keyData == (Keys.Control | Keys.S) && saveToolStripMenuItem.Enabled)
+            } else if(keyData == (Keys.Control | Keys.S) && ribbonButtonSave.Enabled)
             {
-                SaveToolStripMenuItem_Click(null, null);
+                ribbonButtonSave_Click(null, null);
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -863,7 +942,7 @@ namespace ScoreManager
             notifyIcon.Visible = false;
         }
 
-        private System.Windows.Forms.OpenFileDialog NewOpenSMPDialog()
+        public static System.Windows.Forms.OpenFileDialog NewOpenSMPDialog()
         {
             return new System.Windows.Forms.OpenFileDialog()
             {
@@ -934,16 +1013,9 @@ namespace ScoreManager
                     var res = new ComponentResourceManager(typeof(Form1));
                     void doImport()
                     {
-                        var importer = new ProjectImporter();
-                        importer.GroupDuplicated += (object first, object second) =>
-                        {
-                            return MessageBox.Show(res.GetString("warn.DuplicatedGroup").Replace("%s", ((Group)first).Name), res.GetString("warn"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                        };
-                        importer.MemberDuplicated += (object first, object second) =>
-                        {
-                            return MessageBox.Show(res.GetString("warn.DuplicatedPerson").Replace("%s", ((Person)first).Name), res.GetString("warn"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                        };
-                        importer.Import(CurrentProject, project);
+                        var import = new ImportForm(project, CurrentProject);
+                        import.ShowDialog();
+                        import.Dispose();
                     }
                     if (project.Encryted)
                     {
@@ -974,7 +1046,7 @@ namespace ScoreManager
                 {
                     CurrentProject.CanBeSaved = true;
                     UpdateGroupView();
-                    UpdateMenuStrip(true);
+                    UpdateRibbonMenu(true);
                     DrawCharts();
                 }
             }

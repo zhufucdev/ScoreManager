@@ -117,25 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="col.Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="col.Score" xml:space="preserve">
-    <value>Score Achieved</value>
-  </data>
-  <data name="noData" xml:space="preserve">
-    <value>There is no project opened.</value>
-  </data>
-  <data name="properties" xml:space="preserve">
-    <value>Properties</value>
-  </data>
-  <data name="this.Text" xml:space="preserve">
-    <value>Scoreboard</value>
-  </data>
-  <data name="warn" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="warn.EmtpyScore" xml:space="preserve">
-    <value>Add empty score?</value>
-  </data>
 </root>

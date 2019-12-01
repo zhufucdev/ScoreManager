@@ -74,7 +74,7 @@ namespace ScoreManager
                 }
                 else
                 {
-                    run.DeleteValue("ScoreManager", false);
+                    run.DeleteValue("ScoreManger", false);
                 }
                 run.Close();
                 machine.Close();
@@ -125,7 +125,6 @@ namespace ScoreManager
         [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
-        //显示屏幕键盘
         public static int ShowInputPanel()
         {
             try
@@ -134,7 +133,6 @@ namespace ScoreManager
                 if (!System.IO.File.Exists(file))
                     return -1;
                 Process.Start(file);
-                //return SetUnDock(); //不知SetUnDock()是什么，所以直接注释返回1
                 return 1;
             }
             catch (Exception)
@@ -142,7 +140,6 @@ namespace ScoreManager
                 return 255;
             }
         }
-
 
 
         private const Int32 WM_SYSCOMMAND = 274;

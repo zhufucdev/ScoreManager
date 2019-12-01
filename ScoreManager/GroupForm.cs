@@ -58,7 +58,7 @@ namespace ScoreManager
                 Group result = new Group(nameBox.Text, long.TryParse(initalScoreBox.Text, out long initalScore) ? initalScore : 0);
                 foreach (ListViewItem item in memberList.Items)
                 {
-                    result.People.Add(new Person(item.Text, result));
+                    result.People.Add(new Person(item.Text, ref result));
                 }
                 result.ChosenColor = color;
                 ReturnValue = result;
@@ -71,7 +71,7 @@ namespace ScoreManager
                 foreach (ListViewItem item in memberList.Items) {
                     if (!ReturnValue.People.Any((it) => it.Name != item.Text))
                     {
-                        ReturnValue.People.Add(new Person(item.Text, ReturnValue));
+                        ReturnValue.People.Add(new Person(item.Text, ref ReturnValue));
                     }
                 }
                 

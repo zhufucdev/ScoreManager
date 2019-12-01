@@ -150,17 +150,22 @@ namespace ScoreManager.Statics
             return false;
         }
 
-        public void MovePerson(Person who, Group dest)
+        public void MovePerson(Person who, Group dest, bool moveRecord = true)
         {
             Group oldGroup = who.Group;
-            oldGroup.Record.RemoveAll((record) => {
-                bool result = record.Maker == who;
-                if (result)
+            if (moveRecord)
+            {
+                oldGroup.Record.RemoveAll((record) =>
                 {
-                    dest.Record.Add(record);
-                }
-                return result;
-            });
+                    bool result = record.Maker == who;
+                    if (result)
+                    {
+                        if (!dest.Record.Contains(record))
+                            dest.Record.Add(record);
+                    }
+                    return result;
+                });
+            }
 
             oldGroup.People.Remove(who);
             dest.People.Add(who);
@@ -233,7 +238,7 @@ namespace ScoreManager.Statics
             JArray groups = obj.Value<JArray>("groups");
             foreach(JObject group in groups)
             {
-                result.Groups.Add(Group.Deserialize(group));
+                result.Groups.Add(Group.Deserialize(group, result));
             }
 
             return result;
@@ -244,7 +249,12 @@ namespace ScoreManager.Statics
             public ProjectImporter() { }
             public event ElementDuplicatedHandler MemberDuplicated;
             public event ElementDuplicatedHandler GroupDuplicated;
-            public void Import(Project to, Project from)
+            public event ImportProgressChangeHandler ProgressChanged;
+            public enum Mode
+            {
+                Group, Record
+            }
+            public void Import(Project to, Project from, Mode mode = Mode.Group)
             {
                 if (from == null)
                 {
@@ -258,73 +268,112 @@ namespace ScoreManager.Statics
                 {
                     throw new FieldAccessException();
                 }
-
-                foreach (Group g in from.Groups)
+                var count = 0;
+                int processes;
+                void notifyProgress()
                 {
-                    Group sameName = to.Groups.Find((it) => it.Name == g.Name);
-                    if (sameName == null)
+                    ProgressChanged.Invoke(1F * count / processes);
+                }
+                if (mode == Mode.Group)
+                {
+                    processes = from.Groups.Count;
+                    if (from.Encryted)
                     {
-                        var clone = g.Clone() as Group;
-                        clone.Record.Clear();
-                        to.Groups.Add(clone);
-                    }
-                    else
-                    {
-                        bool cancel = false;
-                        switch (GroupDuplicated.Invoke(sameName, g))
+                        processes += from.DailyAdmins.Count;
+                        from.DailyAdmins.ForEach((it) =>
                         {
-                            case DialogResult.Yes:
-                                foreach (Person p in g.People)
-                                {
-                                    Person duplicate = sameName.People.Find((it) => it.Name == p.Name);
-                                    if (duplicate == null)
+                            if (!to.DailyAdmins.Contains(it))
+                            {
+                                to.DailyAdmins.Add(it);
+                            }
+                            count++;
+                            notifyProgress();
+                        });
+                    }
+                    foreach (Group g in from.Groups)
+                    {
+                        Group sameName = to.Groups.Find((it) => it.Name == g.Name);
+                        if (sameName == null)
+                        {
+                            var clone = g.Clone() as Group;
+                            clone.Record.Clear();
+                            to.Groups.Add(clone);
+                        }
+                        else
+                        {
+                            bool cancel = false;
+                            switch (GroupDuplicated.Invoke(sameName, g))
+                            {
+                                case DialogResult.Yes:
+                                    foreach (Person p in g.People)
                                     {
-                                        sameName.People.Add(p);
-                                    }
-                                    else
-                                    {
-                                        switch (MemberDuplicated.Invoke(duplicate, p))
+                                        Person duplicate = sameName.People.Find((it) => it.Name == p.Name);
+                                        if (duplicate == null)
                                         {
-                                            case DialogResult.Yes:
-                                                sameName.People.Remove(duplicate);
-                                                sameName.People.Add(p);
-                                                break;
-                                            case DialogResult.Cancel:
-                                                cancel = true;
-                                                break;
-                                            default:
-                                                break;
+                                            sameName.People.Add(p);
                                         }
-                                    }
+                                        else
+                                        {
+                                            switch (MemberDuplicated.Invoke(duplicate, p))
+                                            {
+                                                case DialogResult.Yes:
+                                                    sameName.People.Remove(duplicate);
+                                                    sameName.People.Add(p);
+                                                    break;
+                                                case DialogResult.Cancel:
+                                                    cancel = true;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
 
-                                    if (cancel)
-                                        break;
-                                }
-                                if (!cancel)
-                                {
-                                    sameName.InitalScore = g.InitalScore;
-                                    sameName.ChosenColor = g.ChosenColor;
-                                }
-                                break;
-                            case DialogResult.Cancel:
-                                cancel = true;
-                                break;
-                            default:
+                                        if (cancel)
+                                            break;
+                                    }
+                                    if (!cancel)
+                                    {
+                                        sameName.InitalScore = g.InitalScore;
+                                        sameName.ChosenColor = System.Drawing.Color.FromArgb(g.ChosenColor.ToArgb());
+                                    }
+                                    break;
+                                case DialogResult.Cancel:
+                                    cancel = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (cancel)
                                 break;
                         }
-
-                        if (cancel)
-                            break;
+                        count++;
+                        notifyProgress();
                     }
                 }
-                if (from.Encryted)
-                    from.DailyAdmins.ForEach((it) =>
+                else
+                {
+                    var people = new List<Person>();
+                    foreach(Group g in from.Groups)
                     {
-                        if (!to.DailyAdmins.Contains(it))
+                        g.People.ForEach((person) => people.Add(person));
+                    }
+                    processes = people.Count;
+                    foreach(Person person in people)
+                    {
+                        var find = to.FindPerson(person.ID);
+                        if (find != null)
                         {
-                            to.DailyAdmins.Add(it);
+                            person.Record.ForEach((r) =>
+                            {
+                                if (!find.Group.Record.Exists((it) => it.Time == r.Time))
+                                    find.Group.Record.Add(new Score(r.Value, r.Reason, find.ID, r.Time, to));
+                            });
                         }
-                    });
+                        count++;
+                        notifyProgress();
+                    }
+                }
             }
         }
 
@@ -375,6 +424,13 @@ namespace ScoreManager.Statics
                     OperationHeaderChanged.Invoke();
                 mHeader = value;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Project
+                && ((Project)obj).Name == this.Name
+                && ((Project)obj).Path == this.Path;
         }
 
         public class MatchResult

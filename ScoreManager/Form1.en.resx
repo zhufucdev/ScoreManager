@@ -144,10 +144,10 @@
   <data name="col.Time" xml:space="preserve">
     <value>Time</value>
   </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+  <data name="editTab.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="emtpySelection.Text" xml:space="preserve">
+  <data name="emptySelection.Text" xml:space="preserve">
     <value>Select an item to check out.</value>
   </data>
   <data name="error.LoadScoreboard" xml:space="preserve">
@@ -173,9 +173,6 @@
   </data>
   <data name="exitItem.Text" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="file.Text" xml:space="preserve">
-    <value>File</value>
   </data>
   <data name="importItem.Text" xml:space="preserve">
     <value>Import</value>
@@ -246,6 +243,9 @@
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>Redo</value>
   </data>
+  <data name="ribbon1.OrbText" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -264,7 +264,7 @@
   <data name="validate.Text" xml:space="preserve">
     <value>Validate</value>
   </data>
-  <data name="viewToolStripItem.Text" xml:space="preserve">
+  <data name="viewTab.Text" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="warn" xml:space="preserve">

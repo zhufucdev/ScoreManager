@@ -129,4 +129,10 @@
   <data name="this.Text" xml:space="preserve">
     <value>计分</value>
   </data>
+  <data name="warn" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="warn.EmptyScore" xml:space="preserve">
+    <value>是否添加空分数？</value>
+  </data>
 </root>

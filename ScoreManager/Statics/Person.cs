@@ -40,14 +40,14 @@ namespace ScoreManager
                 return scores;
             }
         }
-        public Person(string name, Group group)
+        public Person(string name, ref Group group)
         {
             this.Name = name;
             Group = group;
             ID = Guid.NewGuid();
         }
 
-        public Person(string name, Group group, Guid id)
+        public Person(string name, ref Group group, Guid id)
         {
             this.Name = name;
             Group = group;
@@ -65,9 +65,8 @@ namespace ScoreManager
 
         public override bool Equals(object obj)
         {
-            return obj is Person 
-                && ((Person)obj).Name == this.Name 
-                && ((Person)obj).Group == this.Group;
+            return obj is Person
+                && ((Person)obj).ID == ID;
         }
 
         public override int GetHashCode()

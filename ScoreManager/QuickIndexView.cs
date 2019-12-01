@@ -32,7 +32,6 @@ namespace ScoreManager
 
         public void UpdateComponents()
         {
-            remove.Enabled = listView.SelectedItems.Count > 0;
             if (listView.SelectedItems.Count == 0)
             {
                 RestBoxes();
@@ -75,6 +74,7 @@ namespace ScoreManager
                 scoreBox.ValueChanged += ScoreChange;
             }
             confirm.Enabled = data.Count > 0 && Form1.unlocked.CanChangeScore;
+            remove.Enabled = listView.SelectedItems.Count > 0;
         }
 
         private string getGeneralName(Person it)
@@ -223,6 +223,25 @@ namespace ScoreManager
         private void confirm_Click(object sender, EventArgs e)
         {
             Sync();
+            #region Check empty score
+            var emtpyList = "";
+            foreach (KeyValuePair<Person, Score> d in data)
+            {
+                if (d.Value.Value == 0)
+                {
+                    emtpyList += d.Key.Name + ", ";
+                }
+            }
+            if (emtpyList.Length > 0)
+            {
+                var res = new ComponentResourceManager(typeof(QuickIndexView));
+                var result = MessageBox.Show(res.GetString("warn.EmptyScore").Replace("%s", emtpyList.Remove(emtpyList.Length - 2)), res.GetString("warn"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            #endregion
             List<ScoreChange> operations = new List<ScoreChange>();
             foreach(KeyValuePair<Person, Score> d in data)
             {
@@ -233,6 +252,7 @@ namespace ScoreManager
             data.Clear();
 
             confirm.Enabled = false;
+            remove.Enabled = false;
             UpdateListView();
             RestBoxes();
         }

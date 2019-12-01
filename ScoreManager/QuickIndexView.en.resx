@@ -144,4 +144,10 @@
   <data name="this.Text" xml:space="preserve">
     <value>Quick Index</value>
   </data>
+  <data name="warn" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="warn.EmptyScore" xml:space="preserve">
+    <value>Add empty score for %s?</value>
+  </data>
 </root>

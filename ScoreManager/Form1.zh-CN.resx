@@ -144,10 +144,10 @@
   <data name="col.Time" xml:space="preserve">
     <value>时间</value>
   </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
+  <data name="editTab.Text" xml:space="preserve">
     <value>编辑</value>
   </data>
-  <data name="emtpySelection.Text" xml:space="preserve">
+  <data name="emptySelection.Text" xml:space="preserve">
     <value>选择一项以查看</value>
   </data>
   <data name="error.LoadScoreboard" xml:space="preserve">
@@ -173,9 +173,6 @@
   </data>
   <data name="exitItem.Text" xml:space="preserve">
     <value>退出</value>
-  </data>
-  <data name="file.Text" xml:space="preserve">
-    <value>文件</value>
   </data>
   <data name="importItem.Text" xml:space="preserve">
     <value>导入</value>
@@ -246,6 +243,9 @@
   <data name="redoMenuItem.Text" xml:space="preserve">
     <value>重做</value>
   </data>
+  <data name="ribbon1.Orb.Text" xml:space="preserve">
+    <value>文件</value>
+  </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>保存</value>
   </data>
@@ -264,7 +264,7 @@
   <data name="validate.Text" xml:space="preserve">
     <value>验证</value>
   </data>
-  <data name="viewToolStripItem.Text" xml:space="preserve">
+  <data name="viewTab.Text" xml:space="preserve">
     <value>视图</value>
   </data>
   <data name="warn" xml:space="preserve">

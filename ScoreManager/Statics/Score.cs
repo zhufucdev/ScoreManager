@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using ScoreManager.Statics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,33 @@ namespace ScoreManager
     {
         public int Value;
         public string Reason;
-        public readonly Person Maker;
+        private Person maker;
+        private KeyValuePair<Project, Guid> context;
+        public Person Maker 
+        {
+            get
+            {
+                if (maker == null)
+                {
+                    maker = context.Key.FindPerson(context.Value);
+                }
+                return maker;
+            }
+        }
         public readonly DateTime Time;
         public Score(int Value, string Reason, Person Maker)
         {
             this.Value = Value;
             this.Reason = Reason;
-            this.Maker = Maker;
+            maker = Maker;
             Time = DateTime.Now;
         }
 
-        public Score(int Value, string Reason, Person Maker, DateTime Time)
+        public Score(int Value, string Reason, Guid Maker, DateTime Time, Project Context)
         {
             this.Value = Value;
             this.Reason = Reason;
-            this.Maker = Maker;
+            context = new KeyValuePair<Project, Guid>(Context, Maker);
             this.Time = Time;
         }
 
@@ -44,6 +57,7 @@ namespace ScoreManager
         public override bool Equals(object obj)
         {
             return obj is Score
+                && ((Score)obj).Time == this.Time
                 && ((Score)obj).Value == this.Value
                 && ((Score)obj).Reason == this.Reason
                 && ((Score)obj).Maker == this.Maker;

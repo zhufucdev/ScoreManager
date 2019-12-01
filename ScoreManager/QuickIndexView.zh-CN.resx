@@ -144,4 +144,10 @@
   <data name="this.Text" xml:space="preserve">
     <value>快速索引</value>
   </data>
+  <data name="warn" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="warn.EmptyScore" xml:space="preserve">
+    <value>是否为%s添加空分数？</value>
+  </data>
 </root>

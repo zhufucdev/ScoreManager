@@ -138,6 +138,12 @@
   <data name="groupLabel.Text" xml:space="preserve">
     <value>组别</value>
   </data>
+  <data name="move" xml:space="preserve">
+    <value>成员移动</value>
+  </data>
+  <data name="move.Text" xml:space="preserve">
+    <value>将%s的分数记录也移动至目标小组？</value>
+  </data>
   <data name="nameLabel.Text" xml:space="preserve">
     <value>姓名</value>
   </data>

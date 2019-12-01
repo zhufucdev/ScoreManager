@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="col.Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="col.Score" xml:space="preserve">
-    <value>Score Achieved</value>
-  </data>
-  <data name="noData" xml:space="preserve">
-    <value>There is no project opened.</value>
-  </data>
-  <data name="properties" xml:space="preserve">
-    <value>Properties</value>
-  </data>
-  <data name="this.Text" xml:space="preserve">
-    <value>Scoreboard</value>
+  <data name="infoLabel.Text" xml:space="preserve">
+    <value>你想从%s导入什么数据？</value>
   </data>
   <data name="warn" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
   </data>
-  <data name="warn.EmtpyScore" xml:space="preserve">
-    <value>Add empty score?</value>
+  <data name="warn.DuplicatedGroup" xml:space="preserve">
+    <value>目标项目存在小组与当前名为%s的小组重复，是否覆盖当前项？</value>
+  </data>
+  <data name="warn.DuplicatedPerson" xml:space="preserve">
+    <value>目标项目存在成员与当前名为%s的成员重复，是否覆盖当前项？</value>
   </data>
 </root>

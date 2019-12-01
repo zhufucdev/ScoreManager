@@ -117,210 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>773, 25</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="file.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="file.Text" xml:space="preserve">
-    <value>文件</value>
-  </data>
-  <data name="newToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="newToolStripMenuItem.Text" xml:space="preserve">
-    <value>新建</value>
-  </data>
-  <data name="projectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="projectToolStripMenuItem.Text" xml:space="preserve">
-    <value>项目</value>
-  </data>
-  <data name="newScoreboardItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 22</value>
-  </data>
-  <data name="newScoreboardItem.Text" xml:space="preserve">
-    <value>计分板</value>
-  </data>
-  <data name="openItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="openItem.Text" xml:space="preserve">
-    <value>打开</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 6</value>
-  </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>保存</value>
-  </data>
-  <data name="importItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="importItem.Text" xml:space="preserve">
-    <value>导入</value>
-  </data>
-  <data name="projectProperties.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="projectProperties.Text" xml:space="preserve">
-    <value>属性</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 6</value>
-  </data>
-  <data name="exitItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
-  </data>
-  <data name="exitItem.Text" xml:space="preserve">
-    <value>退出</value>
-  </data>
-  <data name="editToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="editToolStripMenuItem.Text" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="undoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="undoMenuItem.Text" xml:space="preserve">
-    <value>撤销</value>
-  </data>
-  <data name="redoMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="redoMenuItem.Text" xml:space="preserve">
-    <value>重做</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 6</value>
-  </data>
-  <data name="addGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="addGroup.Text" xml:space="preserve">
-    <value>添加小组</value>
-  </data>
-  <data name="addMember.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="addMember.Text" xml:space="preserve">
-    <value>添加成员</value>
-  </data>
-  <data name="recordScore.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="recordScore.Text" xml:space="preserve">
-    <value>记录分数</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 6</value>
-  </data>
-  <data name="validate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="validate.Text" xml:space="preserve">
-    <value>验证</value>
-  </data>
-  <data name="viewToolStripItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="viewToolStripItem.Text" xml:space="preserve">
-    <value>视图</value>
-  </data>
-  <data name="overviewItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="overviewItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="overviewItem.Text" xml:space="preserve">
-    <value>总览</value>
-  </data>
-  <data name="quickIndexItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="quickIndexItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
-  </data>
-  <data name="quickIndexItem.Text" xml:space="preserve">
-    <value>快速索引</value>
-  </data>
-  <data name="settingsItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 21</value>
-  </data>
-  <data name="settingsItem.Text" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="languageItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="languageItem.Text" xml:space="preserve">
-    <value>语言</value>
-  </data>
-  <data name="chineseItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
-  </data>
-  <data name="chineseItem.Text" xml:space="preserve">
-    <value>中文（简体）</value>
-  </data>
-  <data name="englishItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
-  </data>
-  <data name="englishItem.Text" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="autostartItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
-  </data>
-  <data name="autostartItem.Text" xml:space="preserve">
-    <value>随系统启动</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newProject.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="newProject.Font" type="System.Drawing.Font, System.Drawing">
     <value>微软雅黑, 9pt</value>
   </data>
   <data name="newProject.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 116</value>
+    <value>209, 124</value>
   </data>
   <data name="newProject.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 152</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="newProject.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -346,7 +157,7 @@
     <value>微软雅黑, 9pt</value>
   </data>
   <data name="recent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 116</value>
+    <value>29, 124</value>
   </data>
   <data name="recent.Size" type="System.Drawing.Size, System.Drawing">
     <value>166, 152</value>
@@ -373,7 +184,7 @@
     <value>130, 17</value>
   </metadata>
   <data name="statusStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 428</value>
+    <value>0, 560</value>
   </data>
   <data name="statusStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>773, 22</value>
@@ -394,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="readyStatusLable.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 17</value>
@@ -402,11 +213,14 @@
   <data name="readyStatusLable.Text" xml:space="preserve">
     <value>就绪</value>
   </data>
+  <data name="startPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="startPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 28</value>
+    <value>0, 143</value>
   </data>
   <data name="startPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>399, 400</value>
+    <value>399, 417</value>
   </data>
   <data name="startPanel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -421,7 +235,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;startPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="listView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -433,7 +247,7 @@
     <value>3, 3</value>
   </data>
   <data name="listView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 377</value>
+    <value>178, 388</value>
   </data>
   <data name="listView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -450,8 +264,113 @@
   <data name="&gt;&gt;listView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="projectPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <data name="projectPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Name" xml:space="preserve">
+    <value>infoPanel</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Parent" xml:space="preserve">
+    <value>projectPanel</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;emptySelection.Name" xml:space="preserve">
+    <value>emptySelection</value>
+  </data>
+  <data name="&gt;&gt;emptySelection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;emptySelection.Parent" xml:space="preserve">
+    <value>projectPanel</value>
+  </data>
+  <data name="&gt;&gt;emptySelection.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="projectPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>405, 146</value>
+  </data>
+  <data name="projectPanel.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="projectPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>368, 414</value>
+  </data>
+  <data name="projectPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;projectPanel.Name" xml:space="preserve">
+    <value>projectPanel</value>
+  </data>
+  <data name="&gt;&gt;projectPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;projectPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;projectPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="projectPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listView" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="infoPanel" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="emptySelection" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,100,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;recordListView.Name" xml:space="preserve">
+    <value>recordListView</value>
+  </data>
+  <data name="&gt;&gt;recordListView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recordListView.Parent" xml:space="preserve">
+    <value>infoPanel</value>
+  </data>
+  <data name="&gt;&gt;recordListView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;chart.Name" xml:space="preserve">
+    <value>chart</value>
+  </data>
+  <data name="&gt;&gt;chart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataVisualization.Charting.Chart, System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="&gt;&gt;chart.Parent" xml:space="preserve">
+    <value>infoPanel</value>
+  </data>
+  <data name="&gt;&gt;chart.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="infoPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="infoPanel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9pt</value>
+  </data>
+  <data name="infoPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 397</value>
+  </data>
+  <data name="infoPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>178, 14</value>
+  </data>
+  <data name="infoPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Name" xml:space="preserve">
+    <value>infoPanel</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.Parent" xml:space="preserve">
+    <value>projectPanel</value>
+  </data>
+  <data name="&gt;&gt;infoPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="recordListView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -460,10 +379,10 @@
     <value>微软雅黑, 9pt</value>
   </data>
   <data name="recordListView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 306</value>
+    <value>3, 300</value>
   </data>
   <data name="recordListView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 90</value>
+    <value>172, 102</value>
   </data>
   <data name="recordListView.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -507,33 +426,6 @@
   <data name="&gt;&gt;chart.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="infoPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="infoPanel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9pt</value>
-  </data>
-  <data name="infoPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 386</value>
-  </data>
-  <data name="infoPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 14</value>
-  </data>
-  <data name="infoPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;infoPanel.Name" xml:space="preserve">
-    <value>infoPanel</value>
-  </data>
-  <data name="&gt;&gt;infoPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;infoPanel.Parent" xml:space="preserve">
-    <value>projectPanel</value>
-  </data>
-  <data name="&gt;&gt;infoPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="emptySelection.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -544,7 +436,7 @@
     <value>187, 0</value>
   </data>
   <data name="emptySelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 383</value>
+    <value>178, 394</value>
   </data>
   <data name="emptySelection.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -569,36 +461,6 @@
   </data>
   <data name="&gt;&gt;emptySelection.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="projectPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="projectPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>405, 25</value>
-  </data>
-  <data name="projectPanel.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="projectPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>368, 403</value>
-  </data>
-  <data name="projectPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;projectPanel.Name" xml:space="preserve">
-    <value>projectPanel</value>
-  </data>
-  <data name="&gt;&gt;projectPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;projectPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;projectPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="projectPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listView" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="infoPanel" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="emptySelection" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,100,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="adminBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -625,13 +487,229 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;adminBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>244, 17</value>
   </metadata>
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>ScoreManager</value>
+  </data>
+  <data name="ribbonTab1.Text" xml:space="preserve">
+    <value>ribbonTab1</value>
+  </data>
+  <data name="ribbonButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABpJREFUWEftwQEBAAAAgiD/r25IQAAAAMC5GhAgAAGdeElDAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ribbonButton2.LargeImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABpJREFUWEftwQEBAAAAgiD/r25IQAAAAMC5GhAgAAGdeElDAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ribbonButton2.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="ribbonButton2.Text" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="ribbonButton3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABpJREFUWEftwQEBAAAAgiD/r25IQAAAAMC5GhAgAAGdeElDAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ribbonButton3.LargeImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABpJREFUWEftwQEBAAAAgiD/r25IQAAAAMC5GhAgAAGdeElDAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ribbonButton3.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="ribbonButton3.Text" xml:space="preserve">
+    <value>ribbonButton3</value>
+  </data>
+  <data name="ribbon1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>微软雅黑, 9pt</value>
+  </data>
+  <data name="ribbon1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="ribbon1.OrbDropDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="ribbon1.OrbDropDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>527, 207</value>
+  </data>
+  <data name="ribbon1.OrbDropDown.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ribbon1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>773, 140</value>
+  </data>
+  <data name="ribbon1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="editTab.Text" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="overviewItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="overviewItem.Text" xml:space="preserve">
+    <value>总览</value>
+  </data>
+  <data name="quickIndexItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="quickIndexItem.Text" xml:space="preserve">
+    <value>快速索引</value>
+  </data>
+  <data name="ribbonPanel3.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="viewTab.Text" xml:space="preserve">
+    <value>视图</value>
+  </data>
+  <data name="settingsItem.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ribbon1.Text" xml:space="preserve">
+    <value>ribbon1</value>
+  </data>
+  <data name="&gt;&gt;ribbon1.Name" xml:space="preserve">
+    <value>ribbon1</value>
+  </data>
+  <data name="&gt;&gt;ribbon1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Ribbon, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbon1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ribbon1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="openItem.Text" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="importItem.Text" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="projectProperties.Text" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="ribbonButtonRedo.Text" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="ribbonButtonSave.Text" xml:space="preserve">
+    <value>ribbonButtonSave</value>
+  </data>
+  <data name="ribbonButtonUndo.Text" xml:space="preserve">
+    <value>ribbonButtonUndo</value>
+  </data>
+  <data name="ribbonPanel2.Text" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="recordScore.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="recordScore.Text" xml:space="preserve">
+    <value>记录分数</value>
+  </data>
+  <data name="ribbonPanel4.Text" xml:space="preserve">
+    <value>小组分布</value>
+  </data>
+  <data name="addGroup.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="addGroup.Text" xml:space="preserve">
+    <value>添加成员</value>
+  </data>
+  <data name="addMember.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="addMember.Text" xml:space="preserve">
+    <value>添加小组</value>
+  </data>
+  <data name="properties.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="properties.Text" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="ribbonPanel5.Text" xml:space="preserve">
+    <value>提权</value>
+  </data>
+  <data name="validate.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="validate.Text" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="languageItem.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="chineseItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="chineseItem.Text" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="englishItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="englishItem.Text" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ribbonPanel6.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="autostartItem.SmallImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAABNJREFUOE9jGAWjYBSMAjBgYAAABBAAAadEfGMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="autostartItem.Text" xml:space="preserve">
+    <value>随系统启动</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -640,7 +718,7 @@
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>773, 450</value>
+    <value>773, 582</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>40, 40</value>
@@ -650,174 +728,6 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>计分管理器</value>
-  </data>
-  <data name="&gt;&gt;file.Name" xml:space="preserve">
-    <value>file</value>
-  </data>
-  <data name="&gt;&gt;file.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;newToolStripMenuItem.Name" xml:space="preserve">
-    <value>newToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;newToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;projectToolStripMenuItem.Name" xml:space="preserve">
-    <value>projectToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;projectToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;newScoreboardItem.Name" xml:space="preserve">
-    <value>newScoreboardItem</value>
-  </data>
-  <data name="&gt;&gt;newScoreboardItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openItem.Name" xml:space="preserve">
-    <value>openItem</value>
-  </data>
-  <data name="&gt;&gt;openItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;importItem.Name" xml:space="preserve">
-    <value>importItem</value>
-  </data>
-  <data name="&gt;&gt;importItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;projectProperties.Name" xml:space="preserve">
-    <value>projectProperties</value>
-  </data>
-  <data name="&gt;&gt;projectProperties.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exitItem.Name" xml:space="preserve">
-    <value>exitItem</value>
-  </data>
-  <data name="&gt;&gt;exitItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;editToolStripMenuItem.Name" xml:space="preserve">
-    <value>editToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;editToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;undoMenuItem.Name" xml:space="preserve">
-    <value>undoMenuItem</value>
-  </data>
-  <data name="&gt;&gt;undoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Name" xml:space="preserve">
-    <value>redoMenuItem</value>
-  </data>
-  <data name="&gt;&gt;redoMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addGroup.Name" xml:space="preserve">
-    <value>addGroup</value>
-  </data>
-  <data name="&gt;&gt;addGroup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addMember.Name" xml:space="preserve">
-    <value>addMember</value>
-  </data>
-  <data name="&gt;&gt;addMember.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recordScore.Name" xml:space="preserve">
-    <value>recordScore</value>
-  </data>
-  <data name="&gt;&gt;recordScore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;validate.Name" xml:space="preserve">
-    <value>validate</value>
-  </data>
-  <data name="&gt;&gt;validate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;viewToolStripItem.Name" xml:space="preserve">
-    <value>viewToolStripItem</value>
-  </data>
-  <data name="&gt;&gt;viewToolStripItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;overviewItem.Name" xml:space="preserve">
-    <value>overviewItem</value>
-  </data>
-  <data name="&gt;&gt;overviewItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;quickIndexItem.Name" xml:space="preserve">
-    <value>quickIndexItem</value>
-  </data>
-  <data name="&gt;&gt;quickIndexItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsItem.Name" xml:space="preserve">
-    <value>settingsItem</value>
-  </data>
-  <data name="&gt;&gt;settingsItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;languageItem.Name" xml:space="preserve">
-    <value>languageItem</value>
-  </data>
-  <data name="&gt;&gt;languageItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chineseItem.Name" xml:space="preserve">
-    <value>chineseItem</value>
-  </data>
-  <data name="&gt;&gt;chineseItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;englishItem.Name" xml:space="preserve">
-    <value>englishItem</value>
-  </data>
-  <data name="&gt;&gt;englishItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autostartItem.Name" xml:space="preserve">
-    <value>autostartItem</value>
-  </data>
-  <data name="&gt;&gt;autostartItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;readyStatusLable.Name" xml:space="preserve">
     <value>readyStatusLable</value>
@@ -831,10 +741,184 @@
   <data name="&gt;&gt;notifyIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ribbonTab1.Name" xml:space="preserve">
+    <value>ribbonTab1</value>
+  </data>
+  <data name="&gt;&gt;ribbonTab1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonTab, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonButton2.Name" xml:space="preserve">
+    <value>ribbonButton2</value>
+  </data>
+  <data name="&gt;&gt;ribbonButton2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonButton3.Name" xml:space="preserve">
+    <value>ribbonButton3</value>
+  </data>
+  <data name="&gt;&gt;ribbonButton3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;openItem.Name" xml:space="preserve">
+    <value>openItem</value>
+  </data>
+  <data name="&gt;&gt;openItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonOrbMenuItem, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;importItem.Name" xml:space="preserve">
+    <value>importItem</value>
+  </data>
+  <data name="&gt;&gt;importItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonOrbMenuItem, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonSeparator1.Name" xml:space="preserve">
+    <value>ribbonSeparator1</value>
+  </data>
+  <data name="&gt;&gt;ribbonSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonSeparator, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;projectProperties.Name" xml:space="preserve">
+    <value>projectProperties</value>
+  </data>
+  <data name="&gt;&gt;projectProperties.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonOrbMenuItem, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonRedo.Name" xml:space="preserve">
+    <value>ribbonButtonRedo</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonRedo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonSave.Name" xml:space="preserve">
+    <value>ribbonButtonSave</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonUndo.Name" xml:space="preserve">
+    <value>ribbonButtonUndo</value>
+  </data>
+  <data name="&gt;&gt;ribbonButtonUndo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;editTab.Name" xml:space="preserve">
+    <value>editTab</value>
+  </data>
+  <data name="&gt;&gt;editTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonTab, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel2.Name" xml:space="preserve">
+    <value>ribbonPanel2</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;recordScore.Name" xml:space="preserve">
+    <value>recordScore</value>
+  </data>
+  <data name="&gt;&gt;recordScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel4.Name" xml:space="preserve">
+    <value>ribbonPanel4</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;addGroup.Name" xml:space="preserve">
+    <value>addGroup</value>
+  </data>
+  <data name="&gt;&gt;addGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;addMember.Name" xml:space="preserve">
+    <value>addMember</value>
+  </data>
+  <data name="&gt;&gt;addMember.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;properties.Name" xml:space="preserve">
+    <value>properties</value>
+  </data>
+  <data name="&gt;&gt;properties.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel5.Name" xml:space="preserve">
+    <value>ribbonPanel5</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;validate.Name" xml:space="preserve">
+    <value>validate</value>
+  </data>
+  <data name="&gt;&gt;validate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;viewTab.Name" xml:space="preserve">
+    <value>viewTab</value>
+  </data>
+  <data name="&gt;&gt;viewTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonTab, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel3.Name" xml:space="preserve">
+    <value>ribbonPanel3</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;overviewItem.Name" xml:space="preserve">
+    <value>overviewItem</value>
+  </data>
+  <data name="&gt;&gt;overviewItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;quickIndexItem.Name" xml:space="preserve">
+    <value>quickIndexItem</value>
+  </data>
+  <data name="&gt;&gt;quickIndexItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;settingsItem.Name" xml:space="preserve">
+    <value>settingsItem</value>
+  </data>
+  <data name="&gt;&gt;settingsItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonTab, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;languageItem.Name" xml:space="preserve">
+    <value>languageItem</value>
+  </data>
+  <data name="&gt;&gt;languageItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;chineseItem.Name" xml:space="preserve">
+    <value>chineseItem</value>
+  </data>
+  <data name="&gt;&gt;chineseItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;englishItem.Name" xml:space="preserve">
+    <value>englishItem</value>
+  </data>
+  <data name="&gt;&gt;englishItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel6.Name" xml:space="preserve">
+    <value>ribbonPanel6</value>
+  </data>
+  <data name="&gt;&gt;ribbonPanel6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonPanel, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
+  <data name="&gt;&gt;autostartItem.Name" xml:space="preserve">
+    <value>autostartItem</value>
+  </data>
+  <data name="&gt;&gt;autostartItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RibbonButton, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
+  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RibbonForm, System.Windows.Forms.Ribbon, Version=2.0.0.0, Culture=neutral, PublicKeyToken=928736e248aa81f9</value>
   </data>
 </root>

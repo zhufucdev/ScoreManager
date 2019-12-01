@@ -83,20 +83,33 @@ namespace ScoreManager
                     MessageBox.Show(res.GetString("error.PersonExits"), res.GetString("error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                ValueReturn = new Person(nameBox.Text, selectedGroup);
+                ValueReturn = new Person(nameBox.Text, ref selectedGroup);
             }
             else
             {
                 List<Operation> operations = new List<Operation>();
+                if (selectedGroup != ValueReturn.Group)
+                {
+                    bool moveRecords = false;
+                    if (ValueReturn.Record.Count > 0)
+                    {
+                        var result = MessageBox.Show(res.GetString("move.Text").Replace("%s", ValueReturn.Name), res.GetString("move"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
+                        {
+                            moveRecords = true;
+                        }
+                        else if (result == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
+                    operations.Add(new MoveMember(ValueReturn, ValueReturn.Group, selectedGroup, moveRecords));
+                    project.MovePerson(ValueReturn, selectedGroup, moveRecords);
+                }
                 if (ValueReturn.Name != nameBox.Name)
                 {
                     operations.Add(new RenameMember(ValueReturn, ValueReturn.Name, nameBox.Text));
                     ValueReturn.Name = nameBox.Text;
-                }
-                if (selectedGroup != ValueReturn.Group)
-                {
-                    operations.Add(new MoveMember(ValueReturn, ValueReturn.Group, selectedGroup));
-                    project.MovePerson(ValueReturn, selectedGroup);
                 }
                 project.Do(new OperationSticker()
                 {

@@ -138,6 +138,12 @@
   <data name="groupLabel.Text" xml:space="preserve">
     <value>Group</value>
   </data>
+  <data name="move" xml:space="preserve">
+    <value>Member Movement</value>
+  </data>
+  <data name="move.Text" xml:space="preserve">
+    <value>Move %s's score records to the dest group as well?</value>
+  </data>
   <data name="nameLabel.Text" xml:space="preserve">
     <value>Name</value>
   </data>

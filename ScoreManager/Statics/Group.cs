@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using ScoreManager.Statics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,26 +19,13 @@ namespace ScoreManager
             get
             {
                 long result = InitalScore;
-                record.ForEach((it) => result += it.Value);
+                Record.ForEach((it) => result += it.Value);
                 return result;
             }
         }
-        public List<Person> People
-        {
-            get
-            {
-                return people;
-            }
-        }
-        public List<Score> Record
-        {
-            get
-            {
-                return record;
-            }
-        }
-        private List<Person> people = new List<Person>();
-        private List<Score> record = new List<Score>();
+        public List<Person> People { get; } = new List<Person>();
+        public List<Score> Record { get; } = new List<Score>();
+
         private static Random random = new Random();
         public Group(string Name, long InitalScore)
         {
@@ -56,14 +44,14 @@ namespace ScoreManager
             result.Add("color", ChosenColor.ToArgb());
 
             JArray people = new JArray();
-            this.people.ForEach((it) =>
+            this.People.ForEach((it) =>
             {
                 people.Add(it.Serialize());
             });
             result.Add("people", people);
 
             JArray record = new JArray();
-            this.record.ForEach((it) =>
+            this.Record.ForEach((it) =>
             {
                 record.Add(it.Serialize());
             });
@@ -71,7 +59,7 @@ namespace ScoreManager
             return result;
         }
 
-        public static Group Deserialize(JObject former)
+        public static Group Deserialize(JObject former, Project context)
         {
             Group result = new Group(former.GetValue("name").ToString(), former.GetValue("inital").ToObject<long>());
             if (former.ContainsKey("color"))
@@ -81,7 +69,7 @@ namespace ScoreManager
 
             foreach(JObject obj in former.GetValue("people").ToObject<JArray>())
             {
-                Person person = new Person(obj.GetValue("name").ToString(), result, Guid.Parse(obj.GetValue("id").ToString()));
+                Person person = new Person(obj.GetValue("name").ToString(), ref result, Guid.Parse(obj.GetValue("id").ToString()));
                 result.People.Add(person);
             }
             foreach(JObject obj in former.GetValue("record").ToObject<JArray>())
@@ -91,8 +79,9 @@ namespace ScoreManager
                     new Score(
                         obj.Value<int>("value"), 
                         obj.Value<string>("reason"),
-                        result.People.Find((p) => p.ID == makerID),
-                        new DateTime(obj.Value<long>("time"))
+                        makerID,
+                        new DateTime(obj.Value<long>("time")),
+                        context
                     )
                 );
             }
@@ -109,7 +98,7 @@ namespace ScoreManager
 
         public override int GetHashCode()
         {
-            int hash = people.GetHashCode();
+            int hash = People.GetHashCode();
             hash += Name.GetHashCode() * 31;
             hash += InitalScore.GetHashCode() * 31;
             return hash;
@@ -118,8 +107,8 @@ namespace ScoreManager
         public object Clone()
         {
             var result = new Group(Name, InitalScore);
-            result.People.AddRange(people);
-            result.record.AddRange(record);
+            result.People.AddRange(People);
+            result.Record.AddRange(Record);
             return result;
         }
     }

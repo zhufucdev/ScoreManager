@@ -105,8 +105,18 @@ namespace ScoreManager
                 }
             }
             ValueReturn = new Score(int.Parse(textBox.Text) * (negative ? -1 : 1), reason, target);
-            target.Group.Record.Add(ValueReturn);
             DialogResult = DialogResult.OK;
+            if (ValueReturn.Value == 0)
+            {
+                var res = new ComponentResourceManager(typeof(ScoreForm));
+                var result = MessageBox.Show(res.GetString("warn.EmptyScore"), res.GetString("warn"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                {
+                    Close();
+                    return;
+                }
+            }
+            target.Group.Record.Add(ValueReturn);
             Close();
         }
 
