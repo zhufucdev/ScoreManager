@@ -168,9 +168,7 @@ namespace ScoreManager
             UpdateRibbonMenu(true);
 
             Relayout();
-            ColumnStyle column = projectPanel.ColumnStyles[0];
-            column.SizeType = SizeType.Percent;
-            column.Width = 50f;
+            projectPanel.SplitterDistance = projectPanel.Width / 2;
             FormBorderStyle = FormBorderStyle.Sizable;
 
             UpdateGroupView();
@@ -185,13 +183,14 @@ namespace ScoreManager
         {
             ComponentResourceManager res = Utility.ApplySource(this);
             Text = res.GetString("this.Text") + (CurrentProject == null ? "" : "-" + CurrentProject.Name);
+
             if (CurrentProject == null)
             {
                 projectPanel.Visible = false;
                 startPanel.Visible = true;
-                startPanel.Width = Width - 6;
-                //startPanel.Dock = DockStyle.Fill;
-                //projectPanel.Dock = DockStyle.None;
+                //startPanel.Width = Width - 6;
+                startPanel.Dock = DockStyle.Fill;
+                projectPanel.Dock = DockStyle.None;
                 adminBox.Visible = false;
             }
             else
@@ -199,11 +198,11 @@ namespace ScoreManager
                 if (quickIndexView != null) quickIndexView.UpdateLanguage();
                 startPanel.Visible = false;
                 projectPanel.Visible = true;
-                projectPanel.Width = Width - 6;
-                projectPanel.Left = 0;
-                projectPanel.Top = ribbonMain.Height + 12;
-                //projectPanel.Dock = DockStyle.Fill;
-                //startPanel.Dock = DockStyle.None;
+                //projectPanel.Width = Width - 6;
+                //projectPanel.Left = 0;
+                //projectPanel.Top = ribbonMain.Height + 12;
+                projectPanel.Dock = DockStyle.Fill;
+                startPanel.Dock = DockStyle.None;
 
                 listView.Columns.Clear();
                 listView.Columns.Add(new ColumnHeader
@@ -660,8 +659,7 @@ namespace ScoreManager
                 chart.Series.Clear();
                 if (listView.SelectedItems.Count == 0)
                 {
-                    emptySelection.Visible = true;
-                    infoPanel.Visible = false;
+                    splitContainerH.Visible = false;
                 }
                 else
                 {
@@ -673,8 +671,7 @@ namespace ScoreManager
                     }
                     lviSorter.SortColumn = 0;
 
-                    emptySelection.Visible = false;
-                    infoPanel.Visible = true;
+                    splitContainerH.Visible = true;
                     if (listView.SelectedItems.Count == 1)
                     {
                         Person member = CurrentProject.FindPerson((Guid)listView.SelectedItems[0].Tag);
@@ -813,7 +810,13 @@ namespace ScoreManager
                             string score = res.GetString("col.Score");
                             selectedGroups.ForEach((group) =>
                             {
-                                chart.Series.Add(group.Name).Points.AddXY(score, group.Score);
+                                var series = new Series()
+                                {
+                                    Name = group.Name,
+                                    Color = group.ChosenColor
+                                };
+                                series.Points.AddXY(score, group.Score);
+                                chart.Series.Add(series);
                             });
                         }
 

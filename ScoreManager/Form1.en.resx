@@ -144,6 +144,9 @@
   <data name="col.Time" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="createItem.Text" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="editTab.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -177,6 +180,12 @@
   <data name="importItem.Text" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="labelHint.Text" xml:space="preserve">
+    <value>Click "File" to begin with.</value>
+  </data>
+  <data name="labelStart.Text" xml:space="preserve">
+    <value>Welcome to ScoreManager</value>
+  </data>
   <data name="languageItem.Text" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="newProject.Text" xml:space="preserve">
     <value>New Scoreboard Project</value>
+  </data>
+  <data name="newScoreboardButton.Text" xml:space="preserve">
+    <value>Create Scoreboard</value>
   </data>
   <data name="newScoreboardItem.Text" xml:space="preserve">
     <value>Scoreboard</value>
@@ -228,6 +240,9 @@
   <data name="properties" xml:space="preserve">
     <value>Properties</value>
   </data>
+  <data name="properties.Text" xml:space="preserve">
+    <value>Properties</value>
+  </data>
   <data name="quickIndexItem.Text" xml:space="preserve">
     <value>Quick Index</value>
   </data>
@@ -246,8 +261,14 @@
   <data name="ribbon1.OrbText" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="ribbonMain.OrbText" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="scoreboardPanel.Text" xml:space="preserve">
+    <value>Scoreboard</value>
   </data>
   <data name="settingsItem.Text" xml:space="preserve">
     <value>Settings</value>

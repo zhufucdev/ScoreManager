@@ -30,13 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.listView = new System.Windows.Forms.ListView();
-            this.projectPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.infoPanel = new System.Windows.Forms.Panel();
-            this.recordListView = new System.Windows.Forms.ListView();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
@@ -79,44 +75,23 @@
             this.labelHint = new System.Windows.Forms.Label();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.readyStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
+            this.projectPanel = new System.Windows.Forms.SplitContainer();
+            this.listView = new System.Windows.Forms.ListView();
+            this.splitContainerH = new System.Windows.Forms.SplitContainer();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.emptySelection = new System.Windows.Forms.Label();
-            this.projectPanel.SuspendLayout();
-            this.infoPanel.SuspendLayout();
+            this.recordListView = new System.Windows.Forms.ListView();
             this.startPanel.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projectPanel)).BeginInit();
+            this.projectPanel.Panel1.SuspendLayout();
+            this.projectPanel.Panel2.SuspendLayout();
+            this.projectPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).BeginInit();
+            this.splitContainerH.Panel1.SuspendLayout();
+            this.splitContainerH.Panel2.SuspendLayout();
+            this.splitContainerH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listView
-            // 
-            resources.ApplyResources(this.listView, "listView");
-            this.listView.HideSelection = false;
-            this.listView.Name = "listView";
-            this.listView.UseCompatibleStateImageBehavior = false;
-            // 
-            // projectPanel
-            // 
-            resources.ApplyResources(this.projectPanel, "projectPanel");
-            this.projectPanel.Controls.Add(this.listView, 0, 0);
-            this.projectPanel.Controls.Add(this.infoPanel, 1, 0);
-            this.projectPanel.Controls.Add(this.emptySelection, 1, 0);
-            this.projectPanel.Name = "projectPanel";
-            // 
-            // infoPanel
-            // 
-            this.infoPanel.Controls.Add(this.recordListView);
-            this.infoPanel.Controls.Add(this.chart);
-            resources.ApplyResources(this.infoPanel, "infoPanel");
-            this.infoPanel.Name = "infoPanel";
-            // 
-            // recordListView
-            // 
-            resources.ApplyResources(this.recordListView, "recordListView");
-            this.recordListView.HideSelection = false;
-            this.recordListView.Name = "recordListView";
-            this.recordListView.UseCompatibleStateImageBehavior = false;
-            this.recordListView.View = System.Windows.Forms.View.Details;
             // 
             // notifyIcon
             // 
@@ -470,9 +445,9 @@
             // 
             // startPanel
             // 
+            resources.ApplyResources(this.startPanel, "startPanel");
             this.startPanel.Controls.Add(this.labelHint);
             this.startPanel.Controls.Add(this.labelStart);
-            resources.ApplyResources(this.startPanel, "startPanel");
             this.startPanel.Name = "startPanel";
             // 
             // labelHint
@@ -493,44 +468,83 @@
             this.readyStatusLable.Name = "readyStatusLable";
             resources.ApplyResources(this.readyStatusLable, "readyStatusLable");
             // 
+            // projectPanel
+            // 
+            resources.ApplyResources(this.projectPanel, "projectPanel");
+            this.projectPanel.Name = "projectPanel";
+            // 
+            // projectPanel.Panel1
+            // 
+            this.projectPanel.Panel1.Controls.Add(this.listView);
+            // 
+            // projectPanel.Panel2
+            // 
+            this.projectPanel.Panel2.Controls.Add(this.splitContainerH);
+            // 
+            // listView
+            // 
+            resources.ApplyResources(this.listView, "listView");
+            this.listView.HideSelection = false;
+            this.listView.Name = "listView";
+            this.listView.UseCompatibleStateImageBehavior = false;
+            // 
+            // splitContainerH
+            // 
+            resources.ApplyResources(this.splitContainerH, "splitContainerH");
+            this.splitContainerH.Name = "splitContainerH";
+            // 
+            // splitContainerH.Panel1
+            // 
+            this.splitContainerH.Panel1.Controls.Add(this.chart);
+            // 
+            // splitContainerH.Panel2
+            // 
+            this.splitContainerH.Panel2.Controls.Add(this.recordListView);
+            // 
             // chart
             // 
+            chartArea3.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea3);
             resources.ApplyResources(this.chart, "chart");
-            this.chart.BackColor = System.Drawing.SystemColors.Control;
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            this.chart.Cursor = System.Windows.Forms.Cursors.Default;
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart.Legends.Add(legend3);
             this.chart.Name = "chart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart.Series.Add(series3);
             // 
-            // emptySelection
+            // recordListView
             // 
-            resources.ApplyResources(this.emptySelection, "emptySelection");
-            this.emptySelection.Name = "emptySelection";
+            resources.ApplyResources(this.recordListView, "recordListView");
+            this.recordListView.HideSelection = false;
+            this.recordListView.Name = "recordListView";
+            this.recordListView.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.projectPanel);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.startPanel);
             this.Controls.Add(this.ribbonMain);
-            this.Controls.Add(this.projectPanel);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.projectPanel.ResumeLayout(false);
-            this.infoPanel.ResumeLayout(false);
             this.startPanel.ResumeLayout(false);
             this.startPanel.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.projectPanel.Panel1.ResumeLayout(false);
+            this.projectPanel.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.projectPanel)).EndInit();
+            this.projectPanel.ResumeLayout(false);
+            this.splitContainerH.Panel1.ResumeLayout(false);
+            this.splitContainerH.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerH)).EndInit();
+            this.splitContainerH.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -538,11 +552,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.TableLayoutPanel projectPanel;
-        private System.Windows.Forms.Panel infoPanel;
         private System.Windows.Forms.NotifyIcon notifyIcon;
-        private System.Windows.Forms.ListView recordListView;
         private System.Windows.Forms.RibbonTab ribbonTab1;
         private System.Windows.Forms.RibbonButton ribbonButton2;
         private System.Windows.Forms.RibbonButton ribbonButton3;
@@ -584,8 +594,11 @@
         private System.Windows.Forms.ToolStripStatusLabel readyStatusLable;
         private System.Windows.Forms.RibbonPanel scoreboardPanel;
         private System.Windows.Forms.RibbonButton newScoreboardButton;
+        private System.Windows.Forms.SplitContainer projectPanel;
+        private System.Windows.Forms.SplitContainer splitContainerH;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
-        private System.Windows.Forms.Label emptySelection;
+        private System.Windows.Forms.ListView recordListView;
+        private System.Windows.Forms.ListView listView;
     }
 }
 

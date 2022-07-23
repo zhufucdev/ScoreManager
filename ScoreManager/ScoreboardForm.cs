@@ -147,8 +147,8 @@ namespace ScoreManager
                                 Series series = chart.Series.Add(score);
                                 foreach (Group group in project.Groups)
                                 {
-                                    series.Points.AddXY(group.Name, group.Score);
-                                    series.Color = group.ChosenColor;
+                                    var index = series.Points.AddXY(group.Name, group.Score);
+                                    series.Points[index].Color = group.ChosenColor;
                                 }
                                 series.ChartType = SeriesChartType.Pie;
                                 area.RecalculateAxesScale();
