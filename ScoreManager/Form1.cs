@@ -1,5 +1,6 @@
 ﻿using ScoreManager.Statics;
 using System;
+using System.IO;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -8,7 +9,6 @@ using System.Collections.Generic;
 using static ScoreManager.Statics.Project;
 using ScoreManager.Properties;
 using Microsoft.Win32;
-using System.Drawing;
 using ScoreManager.Utils;
 
 namespace ScoreManager
@@ -32,6 +32,22 @@ namespace ScoreManager
             notifyIcon.ContextMenu.MenuItems.Add(res.GetString("exit"), (e, a) => {
                 Application.Exit();
             });
+
+            if (Settings.Default.RecentProjects != null)
+            {
+                foreach (var recent in Settings.Default.RecentProjects)
+                {
+                    var item = new RibbonOrbRecentItem()
+                    {
+                        Text = Path.GetFileNameWithoutExtension(recent)
+                    };
+                    item.Click += (sender, e) =>
+                    {
+                        OpenProject(Project.Open(recent));
+                    };
+                    ribbonMain.OrbDropDown.RecentItems.Add(item);
+                }
+            }
 
             FormClosed += (sender, e) =>
             {
@@ -135,17 +151,17 @@ namespace ScoreManager
         public void OpenProject(Project project)
         {
             CurrentProject = project;
-            if (Settings.Default.RecentFolders == null)
+            if (Settings.Default.RecentProjects == null)
             {
-                Settings.Default.RecentFolders = new System.Collections.Specialized.StringCollection();
+                Settings.Default.RecentProjects = new System.Collections.Specialized.StringCollection();
             }
             else
             {
-                if (Settings.Default.RecentFolders.Contains(project.Path))
+                if (Settings.Default.RecentProjects.Contains(project.Path))
                 {
-                    Settings.Default.RecentFolders.Remove(project.Path);
+                    Settings.Default.RecentProjects.Remove(project.Path);
                 }
-                Settings.Default.RecentFolders.Insert(0, project.Path);
+                Settings.Default.RecentProjects.Insert(0, project.Path);
             }
 
             unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
@@ -185,7 +201,7 @@ namespace ScoreManager
                 projectPanel.Visible = true;
                 projectPanel.Width = Width - 6;
                 projectPanel.Left = 0;
-                projectPanel.Top = ribbon1.Height + 12;
+                projectPanel.Top = ribbonMain.Height + 12;
                 //projectPanel.Dock = DockStyle.Fill;
                 //startPanel.Dock = DockStyle.None;
 
@@ -310,7 +326,7 @@ namespace ScoreManager
                         quickIndexView.Dock = DockStyle.Fill;
                         Padding newMargin = new Padding(3);
                         newMargin.Bottom += statusStrip.Height;
-                        newMargin.Top += ribbon1.Height;
+                        newMargin.Top += ribbonMain.Height;
                         quickIndexView.Padding = newMargin;
                     }
                     projectPanel.Visible = false;
@@ -332,7 +348,7 @@ namespace ScoreManager
         {
             editTab.Enabled = true;
             viewTab.Enabled = true;//quickIndexItem.Enabled = overviewItem.Enabled = true;
-            addGroup.Enabled = addMember.Enabled = unlocked.CanChangeMember;
+            addMember.Enabled = addGroup.Enabled = unlocked.CanChangeMember;
             validate.Enabled = CurrentProject.Encryted;
             UpdateViewType();
             UpdateUndoRedoMenuStrip();
@@ -405,7 +421,7 @@ namespace ScoreManager
         {
             try
             {
-                OpenProject(Project.Open(Settings.Default.RecentFolders[0]));
+                OpenProject(Project.Open(Settings.Default.RecentProjects[0]));
             }
             catch(Exception error)
             {
@@ -514,7 +530,6 @@ namespace ScoreManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            recent.Enabled = Settings.Default.RecentFolders != null && Settings.Default.RecentFolders.Count > 0;
             listView.View = System.Windows.Forms.View.Details;
             listMenu.Popup += this.PopupHandler;
             listView.ContextMenu = listMenu;
@@ -533,7 +548,7 @@ namespace ScoreManager
 
         private void UpdateLanguageMenuStrip()
         {
-            ribbon1.SuspendLayout();
+            ribbonMain.SuspendLayout();
             chineseItem.Checked = false;
             englishItem.Checked = false;
             switch (Settings.Default.Language)
@@ -547,7 +562,7 @@ namespace ScoreManager
                 default:
                     break;
             }
-            ribbon1.ResumeLayout();
+            ribbonMain.ResumeLayout();
             Settings.Default.Save();
         }
 

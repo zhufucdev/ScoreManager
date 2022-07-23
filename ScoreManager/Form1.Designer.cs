@@ -30,28 +30,24 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.newProject = new System.Windows.Forms.Button();
-            this.recent = new System.Windows.Forms.Button();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.readyStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
-            this.startPanel = new System.Windows.Forms.Panel();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.listView = new System.Windows.Forms.ListView();
             this.projectPanel = new System.Windows.Forms.TableLayoutPanel();
             this.infoPanel = new System.Windows.Forms.Panel();
             this.recordListView = new System.Windows.Forms.ListView();
-            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.emptySelection = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ribbonTab1 = new System.Windows.Forms.RibbonTab();
             this.ribbonButton2 = new System.Windows.Forms.RibbonButton();
             this.ribbonButton3 = new System.Windows.Forms.RibbonButton();
-            this.ribbon1 = new System.Windows.Forms.Ribbon();
+            this.ribbonMain = new System.Windows.Forms.Ribbon();
             this.openItem = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.createItem = new System.Windows.Forms.RibbonOrbMenuItem();
+            this.createProjectItem = new System.Windows.Forms.RibbonButton();
+            this.createScoreboardItem = new System.Windows.Forms.RibbonButton();
             this.importItem = new System.Windows.Forms.RibbonOrbMenuItem();
-            this.ribbonSeparator1 = new System.Windows.Forms.RibbonSeparator();
+            this.fileOptionSeparator = new System.Windows.Forms.RibbonSeparator();
             this.projectProperties = new System.Windows.Forms.RibbonOrbMenuItem();
             this.ribbonButtonRedo = new System.Windows.Forms.RibbonButton();
             this.ribbonButtonSave = new System.Windows.Forms.RibbonButton();
@@ -60,11 +56,12 @@
             this.ribbonPanel2 = new System.Windows.Forms.RibbonPanel();
             this.recordScore = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel4 = new System.Windows.Forms.RibbonPanel();
-            this.addGroup = new System.Windows.Forms.RibbonButton();
             this.addMember = new System.Windows.Forms.RibbonButton();
+            this.addGroup = new System.Windows.Forms.RibbonButton();
             this.properties = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel5 = new System.Windows.Forms.RibbonPanel();
             this.validate = new System.Windows.Forms.RibbonButton();
+            this.adminBox = new System.Windows.Forms.RibbonComboBox();
             this.viewTab = new System.Windows.Forms.RibbonTab();
             this.ribbonPanel3 = new System.Windows.Forms.RibbonPanel();
             this.overviewItem = new System.Windows.Forms.RibbonButton();
@@ -75,47 +72,21 @@
             this.englishItem = new System.Windows.Forms.RibbonButton();
             this.ribbonPanel6 = new System.Windows.Forms.RibbonPanel();
             this.autostartItem = new System.Windows.Forms.RibbonButton();
-            this.adminBox = new System.Windows.Forms.RibbonComboBox();
-            this.statusStrip.SuspendLayout();
-            this.startPanel.SuspendLayout();
+            this.scoreboardPanel = new System.Windows.Forms.RibbonPanel();
+            this.newScoreboardButton = new System.Windows.Forms.RibbonButton();
+            this.labelStart = new System.Windows.Forms.Label();
+            this.startPanel = new System.Windows.Forms.Panel();
+            this.labelHint = new System.Windows.Forms.Label();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.readyStatusLable = new System.Windows.Forms.ToolStripStatusLabel();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.emptySelection = new System.Windows.Forms.Label();
             this.projectPanel.SuspendLayout();
             this.infoPanel.SuspendLayout();
+            this.startPanel.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
-            // 
-            // newProject
-            // 
-            resources.ApplyResources(this.newProject, "newProject");
-            this.newProject.Name = "newProject";
-            this.newProject.UseVisualStyleBackColor = true;
-            this.newProject.Click += new System.EventHandler(this.New_Project);
-            // 
-            // recent
-            // 
-            resources.ApplyResources(this.recent, "recent");
-            this.recent.Name = "recent";
-            this.recent.UseVisualStyleBackColor = true;
-            this.recent.Click += new System.EventHandler(this.Recent_Click);
-            // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.readyStatusLable});
-            resources.ApplyResources(this.statusStrip, "statusStrip");
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip_ItemClicked);
-            // 
-            // readyStatusLable
-            // 
-            this.readyStatusLable.Name = "readyStatusLable";
-            resources.ApplyResources(this.readyStatusLable, "readyStatusLable");
-            // 
-            // startPanel
-            // 
-            resources.ApplyResources(this.startPanel, "startPanel");
-            this.startPanel.Controls.Add(this.recent);
-            this.startPanel.Controls.Add(this.newProject);
-            this.startPanel.Name = "startPanel";
             // 
             // listView
             // 
@@ -147,26 +118,6 @@
             this.recordListView.UseCompatibleStateImageBehavior = false;
             this.recordListView.View = System.Windows.Forms.View.Details;
             // 
-            // chart
-            // 
-            resources.ApplyResources(this.chart, "chart");
-            this.chart.BackColor = System.Drawing.SystemColors.Control;
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            this.chart.Cursor = System.Windows.Forms.Cursors.Default;
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
-            this.chart.Name = "chart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart.Series.Add(series2);
-            // 
-            // emptySelection
-            // 
-            resources.ApplyResources(this.emptySelection, "emptySelection");
-            this.emptySelection.Name = "emptySelection";
-            // 
             // notifyIcon
             // 
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
@@ -195,38 +146,39 @@
             this.ribbonButton3.SmallImage = ((System.Drawing.Image)(resources.GetObject("ribbonButton3.SmallImage")));
             resources.ApplyResources(this.ribbonButton3, "ribbonButton3");
             // 
-            // ribbon1
+            // ribbonMain
             // 
-            this.ribbon1.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.ribbon1, "ribbon1");
-            this.ribbon1.Minimized = false;
-            this.ribbon1.Name = "ribbon1";
-            // 
-            // 
-            // 
-            this.ribbon1.OrbDropDown.BorderRoundness = 8;
-            this.ribbon1.OrbDropDown.Location = ((System.Drawing.Point)(resources.GetObject("ribbon1.OrbDropDown.Location")));
-            this.ribbon1.OrbDropDown.MenuItems.Add(this.openItem);
-            this.ribbon1.OrbDropDown.MenuItems.Add(this.importItem);
-            this.ribbon1.OrbDropDown.MenuItems.Add(this.ribbonSeparator1);
-            this.ribbon1.OrbDropDown.MenuItems.Add(this.projectProperties);
-            this.ribbon1.OrbDropDown.Name = "";
-            this.ribbon1.OrbDropDown.Size = ((System.Drawing.Size)(resources.GetObject("ribbon1.OrbDropDown.Size")));
-            this.ribbon1.OrbDropDown.TabIndex = ((int)(resources.GetObject("ribbon1.OrbDropDown.TabIndex")));
-            this.ribbon1.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
-            this.ribbon1.OrbText = "文件";
+            this.ribbonMain.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.ribbonMain, "ribbonMain");
+            this.ribbonMain.Minimized = false;
+            this.ribbonMain.Name = "ribbonMain";
             // 
             // 
             // 
-            this.ribbon1.QuickAccessToolbar.DropDownButtonItems.Add(this.ribbonButtonRedo);
-            this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButtonSave);
-            this.ribbon1.QuickAccessToolbar.Items.Add(this.ribbonButtonUndo);
-            this.ribbon1.RibbonTabFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ribbon1.Tabs.Add(this.editTab);
-            this.ribbon1.Tabs.Add(this.viewTab);
-            this.ribbon1.Tabs.Add(this.settingsItem);
-            this.ribbon1.TabSpacing = 4;
-            this.ribbon1.ThemeColor = System.Windows.Forms.RibbonTheme.Black;
+            this.ribbonMain.OrbDropDown.BorderRoundness = 8;
+            this.ribbonMain.OrbDropDown.Location = ((System.Drawing.Point)(resources.GetObject("ribbonMain.OrbDropDown.Location")));
+            this.ribbonMain.OrbDropDown.MenuItems.Add(this.openItem);
+            this.ribbonMain.OrbDropDown.MenuItems.Add(this.createItem);
+            this.ribbonMain.OrbDropDown.MenuItems.Add(this.importItem);
+            this.ribbonMain.OrbDropDown.MenuItems.Add(this.fileOptionSeparator);
+            this.ribbonMain.OrbDropDown.MenuItems.Add(this.projectProperties);
+            this.ribbonMain.OrbDropDown.Name = "";
+            this.ribbonMain.OrbDropDown.Size = ((System.Drawing.Size)(resources.GetObject("ribbonMain.OrbDropDown.Size")));
+            this.ribbonMain.OrbDropDown.TabIndex = ((int)(resources.GetObject("ribbonMain.OrbDropDown.TabIndex")));
+            this.ribbonMain.OrbStyle = System.Windows.Forms.RibbonOrbStyle.Office_2013;
+            this.ribbonMain.OrbText = "文件";
+            // 
+            // 
+            // 
+            this.ribbonMain.QuickAccessToolbar.DropDownButtonItems.Add(this.ribbonButtonRedo);
+            this.ribbonMain.QuickAccessToolbar.Items.Add(this.ribbonButtonSave);
+            this.ribbonMain.QuickAccessToolbar.Items.Add(this.ribbonButtonUndo);
+            this.ribbonMain.RibbonTabFont = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ribbonMain.Tabs.Add(this.editTab);
+            this.ribbonMain.Tabs.Add(this.viewTab);
+            this.ribbonMain.Tabs.Add(this.settingsItem);
+            this.ribbonMain.TabSpacing = 4;
+            this.ribbonMain.ThemeColor = System.Windows.Forms.RibbonTheme.Black;
             // 
             // openItem
             // 
@@ -237,6 +189,34 @@
             this.openItem.SmallImage = global::ScoreManager.Properties.Resources.icons8_opened_folder_30;
             resources.ApplyResources(this.openItem, "openItem");
             this.openItem.Click += new System.EventHandler(this.openItem_Click);
+            // 
+            // createItem
+            // 
+            this.createItem.DropDownArrowDirection = System.Windows.Forms.RibbonArrowDirection.Right;
+            this.createItem.DropDownItems.Add(this.createProjectItem);
+            this.createItem.DropDownItems.Add(this.createScoreboardItem);
+            this.createItem.Image = global::ScoreManager.Properties.Resources.icons8_create_30;
+            this.createItem.LargeImage = global::ScoreManager.Properties.Resources.icons8_create_30;
+            this.createItem.Name = "createItem";
+            this.createItem.SmallImage = global::ScoreManager.Properties.Resources.icons8_create_30;
+            resources.ApplyResources(this.createItem, "createItem");
+            this.createItem.Click += new System.EventHandler(this.New_Project);
+            // 
+            // createProjectItem
+            // 
+            this.createProjectItem.Image = ((System.Drawing.Image)(resources.GetObject("createProjectItem.Image")));
+            this.createProjectItem.LargeImage = ((System.Drawing.Image)(resources.GetObject("createProjectItem.LargeImage")));
+            this.createProjectItem.Name = "createProjectItem";
+            this.createProjectItem.SmallImage = global::ScoreManager.Properties.Resources.icons8_add_folder_40;
+            resources.ApplyResources(this.createProjectItem, "createProjectItem");
+            // 
+            // createScoreboardItem
+            // 
+            this.createScoreboardItem.Image = ((System.Drawing.Image)(resources.GetObject("createScoreboardItem.Image")));
+            this.createScoreboardItem.LargeImage = ((System.Drawing.Image)(resources.GetObject("createScoreboardItem.LargeImage")));
+            this.createScoreboardItem.Name = "createScoreboardItem";
+            this.createScoreboardItem.SmallImage = ((System.Drawing.Image)(resources.GetObject("createScoreboardItem.SmallImage")));
+            resources.ApplyResources(this.createScoreboardItem, "createScoreboardItem");
             // 
             // importItem
             // 
@@ -249,9 +229,9 @@
             resources.ApplyResources(this.importItem, "importItem");
             this.importItem.Click += new System.EventHandler(this.importItem_Click);
             // 
-            // ribbonSeparator1
+            // fileOptionSeparator
             // 
-            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            this.fileOptionSeparator.Name = "fileOptionSeparator";
             // 
             // projectProperties
             // 
@@ -326,31 +306,31 @@
             // ribbonPanel4
             // 
             this.ribbonPanel4.Enabled = false;
-            this.ribbonPanel4.Items.Add(this.addGroup);
             this.ribbonPanel4.Items.Add(this.addMember);
+            this.ribbonPanel4.Items.Add(this.addGroup);
             this.ribbonPanel4.Items.Add(this.properties);
             this.ribbonPanel4.Name = "ribbonPanel4";
             resources.ApplyResources(this.ribbonPanel4, "ribbonPanel4");
             // 
-            // addGroup
-            // 
-            this.addGroup.Enabled = false;
-            this.addGroup.Image = global::ScoreManager.Properties.Resources.icons8_add_user_male_40;
-            this.addGroup.LargeImage = global::ScoreManager.Properties.Resources.icons8_add_user_male_40;
-            this.addGroup.Name = "addGroup";
-            this.addGroup.SmallImage = ((System.Drawing.Image)(resources.GetObject("addGroup.SmallImage")));
-            resources.ApplyResources(this.addGroup, "addGroup");
-            this.addGroup.Click += new System.EventHandler(this.AddMember_Click);
-            // 
             // addMember
             // 
             this.addMember.Enabled = false;
-            this.addMember.Image = global::ScoreManager.Properties.Resources.icons8_add_folder_40;
-            this.addMember.LargeImage = global::ScoreManager.Properties.Resources.icons8_add_folder_40;
+            this.addMember.Image = global::ScoreManager.Properties.Resources.icons8_add_user_male_40;
+            this.addMember.LargeImage = global::ScoreManager.Properties.Resources.icons8_add_user_male_40;
             this.addMember.Name = "addMember";
             this.addMember.SmallImage = ((System.Drawing.Image)(resources.GetObject("addMember.SmallImage")));
             resources.ApplyResources(this.addMember, "addMember");
-            this.addMember.Click += new System.EventHandler(this.AddGroup_Click);
+            this.addMember.Click += new System.EventHandler(this.AddMember_Click);
+            // 
+            // addGroup
+            // 
+            this.addGroup.Enabled = false;
+            this.addGroup.Image = global::ScoreManager.Properties.Resources.icons8_add_folder_40;
+            this.addGroup.LargeImage = global::ScoreManager.Properties.Resources.icons8_add_folder_40;
+            this.addGroup.Name = "addGroup";
+            this.addGroup.SmallImage = ((System.Drawing.Image)(resources.GetObject("addGroup.SmallImage")));
+            resources.ApplyResources(this.addGroup, "addGroup");
+            this.addGroup.Click += new System.EventHandler(this.AddGroup_Click);
             // 
             // properties
             // 
@@ -378,6 +358,14 @@
             this.validate.SmallImage = ((System.Drawing.Image)(resources.GetObject("validate.SmallImage")));
             resources.ApplyResources(this.validate, "validate");
             this.validate.Click += new System.EventHandler(this.validate_Click);
+            // 
+            // adminBox
+            // 
+            this.adminBox.AllowTextEdit = false;
+            this.adminBox.DrawIconsBar = false;
+            this.adminBox.Name = "adminBox";
+            this.adminBox.SelectedIndex = -1;
+            this.adminBox.TextBoxText = "";
             // 
             // viewTab
             // 
@@ -417,6 +405,7 @@
             this.settingsItem.Name = "settingsItem";
             this.settingsItem.Panels.Add(this.languageItem);
             this.settingsItem.Panels.Add(this.ribbonPanel6);
+            this.settingsItem.Panels.Add(this.scoreboardPanel);
             resources.ApplyResources(this.settingsItem, "settingsItem");
             // 
             // languageItem
@@ -459,31 +448,89 @@
             resources.ApplyResources(this.autostartItem, "autostartItem");
             this.autostartItem.Click += new System.EventHandler(this.autostartItem_Click);
             // 
-            // adminBox
+            // scoreboardPanel
             // 
-            this.adminBox.AllowTextEdit = false;
-            this.adminBox.DrawIconsBar = false;
-            this.adminBox.Name = "adminBox";
-            this.adminBox.SelectedIndex = -1;
-            this.adminBox.TextBoxText = "";
+            this.scoreboardPanel.Items.Add(this.newScoreboardButton);
+            this.scoreboardPanel.Name = "scoreboardPanel";
+            resources.ApplyResources(this.scoreboardPanel, "scoreboardPanel");
+            // 
+            // newScoreboardButton
+            // 
+            this.newScoreboardButton.Image = global::ScoreManager.Properties.Resources.icons8_create_40;
+            this.newScoreboardButton.LargeImage = global::ScoreManager.Properties.Resources.icons8_create_40;
+            this.newScoreboardButton.Name = "newScoreboardButton";
+            this.newScoreboardButton.SmallImage = global::ScoreManager.Properties.Resources.icons8_create_30;
+            resources.ApplyResources(this.newScoreboardButton, "newScoreboardButton");
+            this.newScoreboardButton.Click += new System.EventHandler(this.newScoreboardItem_Click);
+            // 
+            // labelStart
+            // 
+            resources.ApplyResources(this.labelStart, "labelStart");
+            this.labelStart.Name = "labelStart";
+            // 
+            // startPanel
+            // 
+            this.startPanel.Controls.Add(this.labelHint);
+            this.startPanel.Controls.Add(this.labelStart);
+            resources.ApplyResources(this.startPanel, "startPanel");
+            this.startPanel.Name = "startPanel";
+            // 
+            // labelHint
+            // 
+            resources.ApplyResources(this.labelHint, "labelHint");
+            this.labelHint.Name = "labelHint";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.readyStatusLable});
+            resources.ApplyResources(this.statusStrip, "statusStrip");
+            this.statusStrip.Name = "statusStrip";
+            // 
+            // readyStatusLable
+            // 
+            this.readyStatusLable.Name = "readyStatusLable";
+            resources.ApplyResources(this.readyStatusLable, "readyStatusLable");
+            // 
+            // chart
+            // 
+            resources.ApplyResources(this.chart, "chart");
+            this.chart.BackColor = System.Drawing.SystemColors.Control;
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            this.chart.Cursor = System.Windows.Forms.Cursors.Default;
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Name = "chart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart.Series.Add(series1);
+            // 
+            // emptySelection
+            // 
+            resources.ApplyResources(this.emptySelection, "emptySelection");
+            this.emptySelection.Name = "emptySelection";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.Controls.Add(this.ribbon1);
-            this.Controls.Add(this.projectPanel);
-            this.Controls.Add(this.startPanel);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.startPanel);
+            this.Controls.Add(this.ribbonMain);
+            this.Controls.Add(this.projectPanel);
             this.KeyPreview = true;
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
-            this.startPanel.ResumeLayout(false);
             this.projectPanel.ResumeLayout(false);
             this.infoPanel.ResumeLayout(false);
+            this.startPanel.ResumeLayout(false);
+            this.startPanel.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -491,23 +538,15 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button newProject;
-        private System.Windows.Forms.Button recent;
-        private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel readyStatusLable;
-        private System.Windows.Forms.Panel startPanel;
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.TableLayoutPanel projectPanel;
         private System.Windows.Forms.Panel infoPanel;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ListView recordListView;
-        private System.Windows.Forms.Label emptySelection;
         private System.Windows.Forms.RibbonTab ribbonTab1;
-        private System.Windows.Forms.RibbonPanel ribbonPanel1;
         private System.Windows.Forms.RibbonButton ribbonButton2;
         private System.Windows.Forms.RibbonButton ribbonButton3;
-        private System.Windows.Forms.Ribbon ribbon1;
+        private System.Windows.Forms.Ribbon ribbonMain;
         private System.Windows.Forms.RibbonButton ribbonButtonUndo;
         private System.Windows.Forms.RibbonTab editTab;
         private System.Windows.Forms.RibbonButton ribbonButtonSave;
@@ -519,8 +558,8 @@
         private System.Windows.Forms.RibbonButton quickIndexItem;
         private System.Windows.Forms.RibbonButton overviewItem;
         private System.Windows.Forms.RibbonPanel ribbonPanel4;
-        private System.Windows.Forms.RibbonButton addGroup;
         private System.Windows.Forms.RibbonButton addMember;
+        private System.Windows.Forms.RibbonButton addGroup;
         private System.Windows.Forms.RibbonPanel ribbonPanel5;
         private System.Windows.Forms.RibbonButton validate;
         private System.Windows.Forms.RibbonOrbMenuItem importItem;
@@ -533,8 +572,20 @@
         private System.Windows.Forms.RibbonButton ribbonButtonRedo;
         private System.Windows.Forms.RibbonButton properties;
         private System.Windows.Forms.RibbonOrbMenuItem openItem;
-        private System.Windows.Forms.RibbonSeparator ribbonSeparator1;
+        private System.Windows.Forms.RibbonSeparator fileOptionSeparator;
         private System.Windows.Forms.RibbonComboBox adminBox;
+        private System.Windows.Forms.RibbonOrbMenuItem createItem;
+        private System.Windows.Forms.RibbonButton createProjectItem;
+        private System.Windows.Forms.RibbonButton createScoreboardItem;
+        private System.Windows.Forms.Label labelStart;
+        private System.Windows.Forms.Panel startPanel;
+        private System.Windows.Forms.Label labelHint;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel readyStatusLable;
+        private System.Windows.Forms.RibbonPanel scoreboardPanel;
+        private System.Windows.Forms.RibbonButton newScoreboardButton;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
+        private System.Windows.Forms.Label emptySelection;
     }
 }
 

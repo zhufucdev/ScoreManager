@@ -93,13 +93,13 @@ namespace ScoreManager
                 return;
             }
 
-            if(Settings.Default.RecentFolders == null)
+            if(Settings.Default.RecentProjects == null)
             {
-                Settings.Default.RecentFolders = new System.Collections.Specialized.StringCollection();
+                Settings.Default.RecentProjects = new System.Collections.Specialized.StringCollection();
             }
-            if (!Settings.Default.RecentFolders.Contains(fileBox.Text))
+            if (!Settings.Default.RecentProjects.Contains(fileBox.Text))
             {
-                Settings.Default.RecentFolders.Add(fileBox.Text);
+                Settings.Default.RecentProjects.Add(fileBox.Text);
                 Settings.Default.Save();
             }
 
@@ -139,8 +139,8 @@ namespace ScoreManager
 
         private void ProjectForm_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.RecentFolders != null)
-                foreach (string iterator in Settings.Default.RecentFolders)
+            if (Settings.Default.RecentProjects != null)
+                foreach (string iterator in Settings.Default.RecentProjects)
                 {
                     fileBox.Items.Add(iterator);
                 }

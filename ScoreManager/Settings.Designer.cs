@@ -37,12 +37,12 @@ namespace ScoreManager {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection RecentFolders {
+        public global::System.Collections.Specialized.StringCollection RecentProjects {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["RecentFolders"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["RecentProjects"]));
             }
             set {
-                this["RecentFolders"] = value;
+                this["RecentProjects"] = value;
             }
         }
         
