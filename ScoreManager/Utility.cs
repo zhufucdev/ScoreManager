@@ -70,7 +70,7 @@ namespace ScoreManager
                 RegistryKey run = machine.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
                 if (value)
                 {
-                    run.SetValue("ScoreManger", Application.ExecutablePath + " -open-last");
+                    run.SetValue("ScoreManger", Application.ExecutablePath + " --open-last");
                 }
                 else
                 {

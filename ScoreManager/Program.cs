@@ -19,7 +19,7 @@ namespace ScoreManager
             Form1 form1 = new Form1();
             if (args.Length > 0)
             {
-                if (args.Contains("-open-last"))
+                if (args.Contains("--open-last"))
                 {
                     form1.Recent_Click(null, null);
                 }
