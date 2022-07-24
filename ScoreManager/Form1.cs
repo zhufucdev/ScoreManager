@@ -539,10 +539,6 @@ namespace ScoreManager
             UpdateLanguageMenuStrip();
 
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-            if (Registry.ClassesRoot.OpenSubKey(".smp") == null)
-            {
-                Utility.SetAssociation(".smp", "ScoreManager", "");
-            }
         }
 
         private void UpdateLanguageMenuStrip()
