@@ -64,12 +64,14 @@ namespace ScoreManager
         private void doRecord_Click(object sender, EventArgs e)
         {
             importer.Import(to, from, ProjectImporter.Mode.Record);
+            from.Close();
             Close();
         }
 
         private void doMember_Click(object sender, EventArgs e)
         {
             importer.Import(to, from, ProjectImporter.Mode.Group);
+            from.Close();
             Close();
         }
     }
