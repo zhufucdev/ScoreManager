@@ -426,6 +426,7 @@ namespace ScoreManager
         {
             try
             {
+                CurrentProject?.Close();
                 OpenProject(Project.Open(fileName));
             }
             catch(Exception error)
