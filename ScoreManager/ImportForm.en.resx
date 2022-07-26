@@ -120,6 +120,9 @@
   <data name="infoLabel.Text" xml:space="preserve">
     <value>What data do you want to import from %s?</value>
   </data>
+  <data name="progressLabel.Text" xml:space="preserve">
+    <value>Importing accordingly</value>
+  </data>
   <data name="warn" xml:space="preserve">
     <value>Warn</value>
   </data>

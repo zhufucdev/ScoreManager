@@ -46,12 +46,12 @@ namespace ScoreManager
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            Utility.ShowInputPanel();
+            //Utility.ShowInputPanel();
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
         {
-            Utility.HideInputPanel();
+            //Utility.HideInputPanel();
         }
     }
 }

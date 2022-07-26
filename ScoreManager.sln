@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32714.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreManager", "ScoreManager\ScoreManager.csproj", "{59103DB1-924D-49FA-A51F-3DED4F186482}"
 EndProject
@@ -13,8 +13,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{59103DB1-924D-49FA-A51F-3DED4F186482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59103DB1-924D-49FA-A51F-3DED4F186482}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

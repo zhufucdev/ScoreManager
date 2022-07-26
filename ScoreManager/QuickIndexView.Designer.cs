@@ -174,7 +174,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "QuickIndexView";
             this.Size = new System.Drawing.Size(462, 228);
-            this.Load += new System.EventHandler(this.QuickIndexView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.scoreBox)).EndInit();
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();

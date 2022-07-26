@@ -120,6 +120,9 @@
   <data name="infoLabel.Text" xml:space="preserve">
     <value>你想从%s导入什么数据？</value>
   </data>
+  <data name="progressLabel.Text" xml:space="preserve">
+    <value>正在导入</value>
+  </data>
   <data name="warn" xml:space="preserve">
     <value>警告</value>
   </data>

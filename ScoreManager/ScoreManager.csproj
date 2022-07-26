@@ -16,7 +16,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\zhufu\Desktop\Publish\ScoreManager\</PublishUrl>
+    <PublishUrl>Y:\Downloads\ScoreManager\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,8 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <TargetCulture>zh-CN</TargetCulture>
+    <PublisherName>zhufucdev</PublisherName>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.1.1.2</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -52,9 +54,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>29427050ABD2A2EFFD9A443065C84C0C72CE1DFE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FCF5426249D3228A8071D978411C219119094A8B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>ScoreManager_TemporaryKey.pfx</ManifestKeyFile>
@@ -188,11 +191,6 @@
     <Compile Include="ScoreForm.Designer.cs">
       <DependentUpon>ScoreForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScoreForm.zh-CN.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScoreForm.zh-CN.resx</DependentUpon>
-    </Compile>
     <Compile Include="Statics\AddGroup.cs" />
     <Compile Include="Statics\AddMember.cs" />
     <Compile Include="Statics\DailyAdmin.cs" />
@@ -232,7 +230,7 @@
     <EmbeddedResource Include="DailyAdminForm.resx">
       <DependentUpon>DailyAdminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DailyAdminForm.zh-CN.resx">
+    <EmbeddedResource Include="DailyAdminForm.zh.resx">
       <DependentUpon>DailyAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditValue.en.resx">
@@ -241,7 +239,7 @@
     <EmbeddedResource Include="EditValue.resx">
       <DependentUpon>EditValue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditValue.zh-CN.resx">
+    <EmbeddedResource Include="EditValue.zh.resx">
       <DependentUpon>EditValue.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.en.resx">
@@ -250,7 +248,7 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.zh-CN.resx">
+    <EmbeddedResource Include="Form1.zh.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GroupForm.en.resx">
@@ -259,7 +257,7 @@
     <EmbeddedResource Include="GroupForm.resx">
       <DependentUpon>GroupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GroupForm.zh-CN.resx">
+    <EmbeddedResource Include="GroupForm.zh.resx">
       <DependentUpon>GroupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForm.en.resx">
@@ -268,7 +266,7 @@
     <EmbeddedResource Include="ImportForm.resx">
       <DependentUpon>ImportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportForm.zh-CN.resx">
+    <EmbeddedResource Include="ImportForm.zh.resx">
       <DependentUpon>ImportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MemberForm.en.resx">
@@ -277,7 +275,7 @@
     <EmbeddedResource Include="MemberForm.resx">
       <DependentUpon>MemberForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MemberForm.zh-CN.resx">
+    <EmbeddedResource Include="MemberForm.zh.resx">
       <DependentUpon>MemberForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectForm.en.resx">
@@ -286,7 +284,7 @@
     <EmbeddedResource Include="ProjectForm.resx">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectForm.zh-CN.resx">
+    <EmbeddedResource Include="ProjectForm.zh.resx">
       <DependentUpon>ProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -305,13 +303,13 @@
     <EmbeddedResource Include="QuickIndexView.resx">
       <DependentUpon>QuickIndexView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuickIndexView.zh-CN.resx">
+    <EmbeddedResource Include="QuickIndexView.zh.resx">
       <DependentUpon>QuickIndexView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScoreboardConfigForm.en.resx">
       <DependentUpon>ScoreboardConfigForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScoreboardConfigForm.zh-CN.resx">
+    <EmbeddedResource Include="ScoreboardConfigForm.zh.resx">
       <DependentUpon>ScoreboardConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScoreboardForm.en.resx">
@@ -320,11 +318,11 @@
     <EmbeddedResource Include="ScoreboardForm.resx">
       <DependentUpon>ScoreboardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScoreboardForm.zh-CN.resx">
-      <DependentUpon>ScoreboardForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ScoreboardConfigForm.resx">
       <DependentUpon>ScoreboardConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScoreboardForm.zh.resx">
+      <DependentUpon>ScoreboardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScoreForm.en.resx">
       <DependentUpon>ScoreForm.cs</DependentUpon>
@@ -332,10 +330,8 @@
     <EmbeddedResource Include="ScoreForm.resx">
       <DependentUpon>ScoreForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScoreForm.zh-CN.resx">
+    <EmbeddedResource Include="ScoreForm.zh.resx">
       <DependentUpon>ScoreForm.cs</DependentUpon>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ScoreForm.zh-CN.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="ScoreManager_TemporaryKey.pfx" />
@@ -360,10 +356,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AppIcon.ico" />
+    <Content Include="Resources\AppIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Face.ico" />
+    <Content Include="Resources\Face.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Star.ico" />
@@ -453,10 +453,32 @@
   <ItemGroup>
     <FileAssociation Include=".smp">
       <Visible>False</Visible>
-      <Description>ScoreboardManager项目</Description>
+      <Description>ScoreManager项目</Description>
       <Progid>smp</Progid>
-      <DefaultIcon>Resources\Face.ico</DefaultIcon>
+      <DefaultIcon>Resources\AppIcon.ico</DefaultIcon>
     </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="en\ScoreManager.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="zh\ScoreManager.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

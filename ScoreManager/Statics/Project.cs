@@ -18,17 +18,31 @@ namespace ScoreManager.Statics
         public bool CanBeSaved = false;
         public DateTime TimeBegin { get; private set; }
 
+        public readonly List<Group> Groups = new List<Group>();
+        public readonly List<Operation> Operations = new List<Operation>();
+
         public bool Encryted
         {
             get { return chiefPassword != null; }
         }
         public List<DailyAdmin> DailyAdmins;
-        public Project(string File, string Name) {
+
+        private readonly Lazy<FileStream> stream;
+
+        private Project(string File)
+        {
+            this.stream = new Lazy<FileStream>(() => {
+                var r = new FileStream(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+                return r;
+            });
+        }
+        public Project(string File, string Name) : this(File)
+        {
             this.Path = File;
             this.Name = Name;
             TimeBegin = DateTime.Now;
         }
-        public Project(string File, string Name, string password)
+        public Project(string File, string Name, string password) : this(File)
         {
             this.Path = File;
             this.Name = Name;
@@ -36,9 +50,6 @@ namespace ScoreManager.Statics
 
             Encrypt(password);
         }
-        public readonly List<Group> Groups = new List<Group>();
-        public readonly List<Operation> Operations = new List<Operation>();
-
         public void Encrypt(string newPassword)
         {
             using (SHA256 sha = SHA256.Create())
@@ -50,7 +61,7 @@ namespace ScoreManager.Statics
 
         public void Save()
         {
-            string str;
+            byte[] str;
             try
             {
                 JObject serialize = new JObject();
@@ -73,19 +84,25 @@ namespace ScoreManager.Statics
                 Groups.ForEach((it) => groups.Add(it.Serialize()));
                 serialize.Add("groups", groups);
 
-                str = serialize.ToString();
+                str = Encoding.UTF8.GetBytes(serialize.ToString());
             }
             catch (Exception e)
             {
                 ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-                MessageBox.Show(res.GetString("error.saveProject"), e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, res.GetString("error.saveProject"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                StreamWriter sw = File.CreateText(Path);
-                sw.Write(str);
-                sw.Close();
+                stream.Value.Seek(0, SeekOrigin.Begin);
+                var originalLength = stream.Value.Length;
+                stream.Value.Write(str, 0, str.Length);
+                for (int i = 0; i < originalLength - str.Length; i++)
+                {
+                    stream.Value.WriteByte(0);
+                }
+                stream.Value.SetLength(str.Length);
+
                 CanBeSaved = false;
             }
             catch (Exception e)
@@ -240,7 +257,7 @@ namespace ScoreManager.Statics
             {
                 result.Groups.Add(Group.Deserialize(group, result));
             }
-
+            _ = result.stream.Value;
             return result;
         }
 
@@ -296,8 +313,8 @@ namespace ScoreManager.Statics
                         if (sameName == null)
                         {
                             var clone = g.Clone() as Group;
-                            clone.Record.Clear();
                             to.Groups.Add(clone);
+                            clone.Record.Clear();
                         }
                         else
                         {
@@ -318,7 +335,9 @@ namespace ScoreManager.Statics
                                             {
                                                 case DialogResult.Yes:
                                                     sameName.People.Remove(duplicate);
-                                                    sameName.People.Add(p);
+                                                    var clone = p.Clone() as Person;
+                                                    clone.Group = sameName;
+                                                    sameName.People.Add(clone);
                                                     break;
                                                 case DialogResult.Cancel:
                                                     cancel = true;
@@ -334,7 +353,7 @@ namespace ScoreManager.Statics
                                     if (!cancel)
                                     {
                                         sameName.InitalScore = g.InitalScore;
-                                        sameName.ChosenColor = System.Drawing.Color.FromArgb(g.ChosenColor.ToArgb());
+                                        sameName.ChosenColor = g.ChosenColor;
                                     }
                                     break;
                                 case DialogResult.Cancel:
@@ -426,6 +445,14 @@ namespace ScoreManager.Statics
             }
         }
 
+        public void Close()
+        {
+            if (stream.IsValueCreated)
+            {
+                stream.Value.Dispose();
+            }
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Project
@@ -483,6 +510,11 @@ namespace ScoreManager.Statics
         public enum Permission
         {
             Locked, ChiefAdmin, DailyAdmin
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

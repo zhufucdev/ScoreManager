@@ -13,16 +13,16 @@ namespace ScoreManager
 {
     public partial class QuickIndexView : UserControl
     {
-        private Project Project;
-        private Form1 Form1;
-        private Dictionary<Person, Score> data = new Dictionary<Person, Score>();
+        private readonly Project Project;
+        private readonly Form1 Form1;
+        private readonly Dictionary<Person, Score> data = new Dictionary<Person, Score>();
         public QuickIndexView(Project project, Form1 parent)
         {
+            Project = project;
+            Form1 = parent;
             InitializeComponent();
             UpdateLanguage();
             UpdateComponents();
-            Project = project;
-            Form1 = parent;
         }
 
         public void UpdateLanguage()
@@ -42,7 +42,7 @@ namespace ScoreManager
                 Person person = Project.FindPerson((Guid)listView.SelectedItems[0].Tag);
                 Score score = data[person];
                 nameBox.Enabled = true;
-                nameBox.Text = getGeneralName(person);
+                nameBox.Text = GetGeneralName(person);
                 reasonBox.Text = score.Reason;
                 scoreBox.Value = score.Value;
                 lastSelected = new List<Person>() { person };
@@ -77,15 +77,15 @@ namespace ScoreManager
             remove.Enabled = listView.SelectedItems.Count > 0;
         }
 
-        private string getGeneralName(Person it)
+        private static string GetGeneralName(Person it)
         {
             return it.Name + "(" + it.Group.Name + ")";
         }
-        public void QuickIndexView_Load(object sender, EventArgs e)
+        public void UpdateNameList()
         {
             Project.Groups.ForEach((g) =>
             {
-                g.People.ForEach((it) => nameBox.AutoCompleteOptions.Add(getGeneralName(it)));
+                g.People.ForEach((it) => nameBox.AutoCompleteOptions.Add(GetGeneralName(it)));
                 g.Record.ForEach((it) =>
                 {
                     if (!reasonBox.AutoCompleteOptions.Contains(it.Reason))
@@ -95,7 +95,7 @@ namespace ScoreManager
                 });
             });
         }
-        private void add(string name)
+        private void Add(string name)
         {
             Person person = Project.FindPerson(name);
             if (person == null)
@@ -125,7 +125,7 @@ namespace ScoreManager
         {
             if (e.KeyChar == 13)
             {
-                add(nameBox.Text);
+                Add(nameBox.Text);
                 UpdateComponents();
                 e.Handled = true;
             }
@@ -207,12 +207,12 @@ namespace ScoreManager
 
         private void Input_Focused(object sender, EventArgs e)
         {
-            Utility.ShowInputPanel();
+            //Utility.ShowInputPanel();
         }
 
         private void Input_Leave(object sender, EventArgs e)
         {
-            Utility.HideInputPanel();
+            //Utility.HideInputPanel();
         }
 
         private void nameBox_Leave(object sender, EventArgs e)

@@ -19,14 +19,16 @@ namespace ScoreManager
             Form1 form1 = new Form1();
             if (args.Length > 0)
             {
+                string target;
                 if (args.Contains("--open-last"))
                 {
-                    form1.Recent_Click(null, null);
+                    target = Settings.Default.RecentProjects[0];
                 }
                 else
                 {
-                    form1.OpenProject(Statics.Project.Open(args[0]));
+                    target = args[0];
                 }
+                form1.OpenFile(target);
             }
             Application.Run(form1);
         }

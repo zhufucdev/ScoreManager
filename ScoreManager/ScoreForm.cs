@@ -186,12 +186,12 @@ namespace ScoreManager
 
         private void reasonBox_Enter(object sender, EventArgs e)
         {
-            Utility.ShowInputPanel();
+            //Utility.ShowInputPanel();
         }
 
         private void reasonBox_Leave(object sender, EventArgs e)
         {
-            Utility.HideInputPanel();
+            //Utility.HideInputPanel();
         }
     }
 }

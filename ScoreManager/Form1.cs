@@ -19,7 +19,10 @@ namespace ScoreManager
         private readonly ListViewColumnSorter lviSorter = new ListViewColumnSorter();
         public Form1()
         {
-            Settings.Default.Language = Settings.Default.Language ?? Thread.CurrentThread.CurrentCulture.Name;
+            if (string.IsNullOrEmpty(Settings.Default.Language))
+            {
+                Settings.Default.Language = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            }
             Icon = Resources.AppIcon;
             InitializeComponent();
             Relayout();
@@ -43,7 +46,7 @@ namespace ScoreManager
                     };
                     item.Click += (sender, e) =>
                     {
-                        OpenProject(Project.Open(recent));
+                        OpenFile(recent);
                     };
                     ribbonMain.OrbDropDown.RecentItems.Add(item);
                 }
@@ -51,6 +54,7 @@ namespace ScoreManager
 
             FormClosed += (sender, e) =>
             {
+                CurrentProject?.Close();
                 if (Settings.Default.Scoreboards != null)
                 {
                     Settings.Default.Scoreboards.Clear();
@@ -329,6 +333,7 @@ namespace ScoreManager
                         quickIndexView.Padding = newMargin;
                     }
                     projectPanel.Visible = false;
+                    quickIndexView.UpdateNameList();
                     quickIndexView.Visible = true;
                     this.ResumeLayout();
                     break;
@@ -412,19 +417,19 @@ namespace ScoreManager
             }
             projectForm.Dispose();
         }
-        private void ShowErrorWhileReading(Exception error)
+        private static void ShowErrorWhileReading(Exception error)
         {
             MessageBox.Show(error.GetType().FullName + ": " + error.Message, new ComponentResourceManager(typeof(Form1)).GetString("error.OpenProject"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        public void Recent_Click(object sender, EventArgs e)
+        public void OpenFile(string fileName)
         {
             try
             {
-                OpenProject(Project.Open(Settings.Default.RecentProjects[0]));
+                OpenProject(Project.Open(fileName));
             }
             catch(Exception error)
             {
-                ShowErrorWhileReading(error);
+                MessageBox.Show(error.GetType().FullName + ": " + error.Message, new ComponentResourceManager(typeof(Form1)).GetString("error.OpenProject"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -551,7 +556,7 @@ namespace ScoreManager
                 case "en":
                     englishItem.Checked = true;
                     break;
-                case "zh-CN":
+                case "zh":
                     chineseItem.Checked = true;
                     break;
                 default:
@@ -920,7 +925,7 @@ namespace ScoreManager
 
         private void chineseItem_Click(object sender, EventArgs e)
         {
-            Settings.Default.Language = "zh-CN";
+            Settings.Default.Language = "zh";
             UpdateLanguageMenuStrip();
             Relayout();
         }
@@ -976,14 +981,7 @@ namespace ScoreManager
             var dialog = NewOpenSMPDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    OpenProject(Open(dialog.FileName));
-                }
-                catch(Exception error)
-                {
-                    ShowErrorWhileReading(error);
-                }
+                OpenFile(dialog.FileName);
             }
             dialog.Dispose();
         }
@@ -1032,7 +1030,7 @@ namespace ScoreManager
                 {
                     Project project = Open(dialog.FileName);
                     var res = new ComponentResourceManager(typeof(Form1));
-                    void doImport()
+                    void startImport()
                     {
                         var import = new ImportForm(project, CurrentProject);
                         import.ShowDialog();
@@ -1045,7 +1043,7 @@ namespace ScoreManager
                         {
                             if (project.MatchPassword(edit.ValueReturn).CanChangeMember)
                             {
-                                doImport();
+                                startImport();
                             }
                             else
                             {
@@ -1056,7 +1054,7 @@ namespace ScoreManager
                     }
                     else
                     {
-                        doImport();
+                        startImport();
                     }
                 }
                 catch (Exception exception)

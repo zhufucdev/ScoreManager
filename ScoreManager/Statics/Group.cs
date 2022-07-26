@@ -26,7 +26,7 @@ namespace ScoreManager
         public List<Person> People { get; } = new List<Person>();
         public List<Score> Record { get; } = new List<Score>();
 
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
         public Group(string Name, long InitalScore)
         {
             this.Name = Name;
@@ -107,8 +107,13 @@ namespace ScoreManager
         public object Clone()
         {
             var result = new Group(Name, InitalScore);
-            result.People.AddRange(People);
+            result.People.AddRange(People.Select(p => {
+                var clone = p.Clone() as Person;
+                clone.Group = result;
+                return clone;
+            }));
             result.Record.AddRange(Record);
+            result.ChosenColor = ChosenColor;
             return result;
         }
     }

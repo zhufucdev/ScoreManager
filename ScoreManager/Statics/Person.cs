@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScoreManager
 {
-    public class Person
+    public class Person: ICloneable
     {
         public string Name;
         public readonly Guid ID;
@@ -74,6 +74,11 @@ namespace ScoreManager
             int hash = Name.GetHashCode();
             hash += 31 * Group.GetHashCode();
             return hash;
+        }
+
+        public object Clone()
+        {
+            return new Person(Name, ref Group, ID);
         }
     }
 }

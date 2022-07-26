@@ -5,7 +5,7 @@
     <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="RecentFolders" Type="System.Collections.Specialized.StringCollection" Scope="User">
+    <Setting Name="RecentProjects" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Scoreboards" Type="System.Collections.Specialized.StringCollection" Scope="User">
