@@ -39,6 +39,11 @@ internal class Program
 
         try
         {
+            if (Directory.Exists(configDialog.TargetLocation))
+            {
+                Directory.Delete(configDialog.TargetLocation, true);
+            }
+
             using var stream = new MemoryStream(Resources.Package);
             using var zip = new ZipArchive(stream!);
             zip.ExtractToDirectory(configDialog.TargetLocation);
