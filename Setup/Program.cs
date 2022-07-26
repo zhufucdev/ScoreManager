@@ -7,7 +7,6 @@ using System.Diagnostics;
 using IWshRuntimeLibrary;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 internal class Program
 {
@@ -183,7 +182,7 @@ internal class Program
             {
                 { "DisplayName" , "ScoreManager" },
                 { "DisplayIcon", appPath },
-                { "DisplayVersion", "1.1.1" },
+                { "DisplayVersion", "1.1.1.5" },
                 { "EstimatedSize", 4322 },
                 { "InstallDate", date.ToString("yyyyMMdd") },
                 { "InstallLocation", configDialog.TargetLocation },
