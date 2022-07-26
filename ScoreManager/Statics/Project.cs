@@ -297,15 +297,23 @@ namespace ScoreManager.Statics
                     if (from.Encryted)
                     {
                         processes += from.DailyAdmins.Count;
-                        from.DailyAdmins.ForEach((it) =>
+                        if (to.DailyAdmins != null)
                         {
-                            if (!to.DailyAdmins.Contains(it))
+                            from.DailyAdmins.ForEach((it) =>
                             {
-                                to.DailyAdmins.Add(it);
-                            }
-                            count++;
-                            notifyProgress();
-                        });
+                                if (!to.DailyAdmins.Contains(it))
+                                {
+                                    to.DailyAdmins.Add(it);
+                                }
+                                count++;
+                                notifyProgress();
+                            });
+                        }
+                        else
+                        {
+                            to.DailyAdmins = new List<DailyAdmin>(from.DailyAdmins);
+                            count += from.DailyAdmins.Count;
+                        }
                     }
                     foreach (Group g in from.Groups)
                     {
