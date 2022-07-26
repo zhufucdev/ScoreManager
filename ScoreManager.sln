@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32714.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoreManager", "ScoreManager\ScoreManager.csproj", "{59103DB1-924D-49FA-A51F-3DED4F186482}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{37EB320F-5688-48E1-965E-BFD3EB89EB61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{59103DB1-924D-49FA-A51F-3DED4F186482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59103DB1-924D-49FA-A51F-3DED4F186482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37EB320F-5688-48E1-965E-BFD3EB89EB61}.Debug|Any CPU.ActiveCfg = Debug
+		{37EB320F-5688-48E1-965E-BFD3EB89EB61}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
