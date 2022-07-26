@@ -73,7 +73,7 @@ namespace ScoreManager
                 reasonBox.TextChanged += ReasonChange;
                 scoreBox.ValueChanged += ScoreChange;
             }
-            confirm.Enabled = data.Count > 0 && Form1.unlocked.CanChangeScore;
+            confirm.Enabled = data.Count > 0 && Form1.Unlocked.CanChangeScore;
             remove.Enabled = listView.SelectedItems.Count > 0;
         }
 

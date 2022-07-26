@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScoreManager.exe" size="348064">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ScoreManager.exe" size="346016">
       <assemblyIdentity name="ScoreManager" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NEhJdIrm/w3cdcadWDdTqQQws0KQAuBo+bm8UfvHtSU=</dsig:DigestValue>
+        <dsig:DigestValue>9J7nZRlNv0o1EQqeNVaFgZEWRkulUMBgeqv3dtXhslw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EA7+c1Y7pLt2NZQePA9cjW6jQJnz87verPIf7T+w51E=</dsig:DigestValue>
+        <dsig:DigestValue>x/+OaKlon/kNauWizBGzzyMk4whR2gieCnX+afHHYXU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BeMZ0mJ2G0HyOCevHZnll1MMdp00LSh8No0f6DfwPNY=</dsig:DigestValue>
+        <dsig:DigestValue>2S3jBTAu9z4k7+5wWPwP2/cSbrmh7CpZjpZTSAddlOs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

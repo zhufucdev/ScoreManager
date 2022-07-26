@@ -68,7 +68,7 @@ namespace ScoreManager
             };
             listView.ItemSelectionChanged += (sender, e) =>
             {
-                recordScore.Enabled = unlocked.CanChangeScore && listView.SelectedItems.Count > 0;
+                recordScore.Enabled = Unlocked.CanChangeScore && listView.SelectedItems.Count > 0;
                 UpdatePropertiesButtons();
                 DrawCharts();
             };
@@ -93,7 +93,7 @@ namespace ScoreManager
                         {
                             if (result.Permission == Permission.ChiefAdmin)
                             {
-                                unlocked = MatchResult.ChiefAdmin;
+                                Unlocked = MatchResult.ChiefAdmin;
                                 UpdateRibbonMenu();
                             }
                             else
@@ -105,7 +105,7 @@ namespace ScoreManager
                         {
                             if (result.Permission == Permission.DailyAdmin && result.Admin.Equals(target))
                             {
-                                unlocked = result;
+                                Unlocked = result;
                                 UpdateRibbonMenu();
                             }
                             else
@@ -122,7 +122,7 @@ namespace ScoreManager
                 }
                 else
                 {
-                    unlocked = MatchResult.Locked;
+                    Unlocked = MatchResult.Locked;
                     UpdateRibbonMenu();
                 }
             };
@@ -146,7 +146,7 @@ namespace ScoreManager
         }
 
         public Project CurrentProject;
-        public MatchResult unlocked
+        public MatchResult Unlocked
         {
             private set;
             get;
@@ -168,7 +168,7 @@ namespace ScoreManager
                 Settings.Default.RecentProjects.Insert(0, project.Path);
             }
 
-            unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
+            Unlocked = project.Encryted ? MatchResult.Locked : MatchResult.ChiefAdmin;
             UpdateRibbonMenu(true);
 
             Relayout();
@@ -304,8 +304,8 @@ namespace ScoreManager
 
         private void UpdateUndoRedoMenuStrip()
         {
-            ribbonButtonSave.Enabled = ribbonButtonUndo.Enabled = ribbonButtonRedo.Enabled = unlocked.CanChangeScore;
-            if (unlocked.CanChangeScore)
+            ribbonButtonSave.Enabled = ribbonButtonUndo.Enabled = ribbonButtonRedo.Enabled = Unlocked.CanChangeScore;
+            if (Unlocked.CanChangeScore)
             {
                 ribbonButtonUndo.Enabled = CurrentProject.LastOperation != null;
                 ribbonButtonRedo.Enabled = CurrentProject.OperationHeader < CurrentProject.Operations.Count - 1 
@@ -352,14 +352,14 @@ namespace ScoreManager
         {
             editTab.Enabled = true;
             viewTab.Enabled = true;//quickIndexItem.Enabled = overviewItem.Enabled = true;
-            addMember.Enabled = addGroup.Enabled = unlocked.CanChangeMember;
+            addMember.Enabled = addGroup.Enabled = Unlocked.CanChangeMember;
             validate.Enabled = CurrentProject.Encryted;
             UpdateViewType();
             UpdateUndoRedoMenuStrip();
             if (CurrentProject.Encryted)
             {
                 ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-                validate.Text = res.GetString(unlocked.CanChangeScore ? "lock" : "validate.Text");
+                validate.Text = res.GetString(Unlocked.CanChangeScore ? "lock" : "validate.Text");
 
                 if (includeAdminBox)
                 {
@@ -380,13 +380,13 @@ namespace ScoreManager
                         Text = res.GetString("observer")
                     });
                 }
-                switch (unlocked.Permission)
+                switch (Unlocked.Permission)
                 {
                     case Permission.ChiefAdmin:
                         adminBox.SelectedIndex = 0;
                         break;
                     case Permission.DailyAdmin:
-                        adminBox.SelectedIndex = CurrentProject.TodaysAdmins.IndexOf(unlocked.Admin) + 1;
+                        adminBox.SelectedIndex = CurrentProject.TodaysAdmins.IndexOf(Unlocked.Admin) + 1;
                         break;
                     case Permission.Locked:
                         adminBox.SelectedIndex = adminBox.DropDownItems.Count - 1;
@@ -398,8 +398,8 @@ namespace ScoreManager
                 adminBox.Visible = false;
             }
 
-            projectProperties.Enabled = unlocked.CanChangeMember;
-            importItem.Enabled = unlocked.CanChangeMember;
+            projectProperties.Enabled = Unlocked.CanChangeMember;
+            importItem.Enabled = Unlocked.CanChangeMember;
 
             if (viewType == ViewType.QuickIndex)
             {
@@ -412,6 +412,7 @@ namespace ScoreManager
             ProjectForm projectForm = new ProjectForm();
             if (projectForm.ShowDialog() == DialogResult.OK)
             {
+                CurrentProject?.Close();
                 projectForm.ReturnValue.Save();
                 OpenProject(projectForm.ReturnValue);
             }
@@ -442,7 +443,7 @@ namespace ScoreManager
             if (listView.SelectedItems.Count > 0)
             {
                 listMenu.MenuItems.Add(res.GetString("recordScore.Text"), RecordScoreMenuClickHandler)
-                    .Enabled = unlocked.CanChangeScore;
+                    .Enabled = Unlocked.CanChangeScore;
 
                 UpdatePropertiesButtons();
             }
@@ -463,12 +464,12 @@ namespace ScoreManager
                     memberForm.Dispose();
                 };
                 listMenu.MenuItems.Add(res.GetString("properties"), action)
-                    .Enabled = unlocked.CanChangeMember;
+                    .Enabled = Unlocked.CanChangeMember;
                 if (lastPropertiesButtonAction != null)
                     properties.Click -= lastPropertiesButtonAction;
                 properties.Click += action;
                 lastPropertiesButtonAction = action;
-                properties.Enabled = unlocked.CanChangeMember;
+                properties.Enabled = Unlocked.CanChangeMember;
             }
             else
             {
@@ -503,7 +504,7 @@ namespace ScoreManager
                         form.Dispose();
                     };
                     listMenu.MenuItems.Add(res.GetString("properties"), action)
-                        .Enabled = unlocked.CanChangeMember;
+                        .Enabled = Unlocked.CanChangeMember;
                     if (lastPropertiesButtonAction != null)
                         properties.Click -= lastPropertiesButtonAction;
                     properties.Click += action;
@@ -609,13 +610,13 @@ namespace ScoreManager
         private void validate_Click(object sender, EventArgs e)
         {
             ComponentResourceManager res = new ComponentResourceManager(typeof(Form1));
-            if (!unlocked.CanChangeScore)
+            if (!Unlocked.CanChangeScore)
             {
                 EditValue edit = new EditValue(res.GetString("password"), true);
                 if (edit.ShowDialog() == DialogResult.OK)
                 {
-                    unlocked = CurrentProject.MatchPassword(edit.ValueReturn);
-                    if (!unlocked.CanChangeScore)
+                    Unlocked = CurrentProject.MatchPassword(edit.ValueReturn);
+                    if (!Unlocked.CanChangeScore)
                     {
                         MessageBox.Show(res.GetString("error.WrongPassword"), res.GetString("error.WPC"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -629,7 +630,7 @@ namespace ScoreManager
             }
             else
             {
-                unlocked = MatchResult.Locked;
+                Unlocked = MatchResult.Locked;
                 UpdateRibbonMenu();
                 validate.Text = res.GetString("validate.Text");
             }
@@ -642,7 +643,7 @@ namespace ScoreManager
             {
                 if (CurrentProject.Encryted)
                 {
-                    unlocked = MatchResult.Locked;
+                    Unlocked = MatchResult.Locked;
                     CurrentProject.Save();
                 }
                 UpdateRibbonMenu(true);
