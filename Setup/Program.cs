@@ -13,7 +13,8 @@ internal class Program
     public const string APPLICATION_NAME = "ScoreManager.exe",
             APPLICATION_LNK = "ScoreManager.lnk",
             UNINSTALLER_NAME = "Uninstall.exe",
-            APPLICATION_ID = "{578CC202-76BC-4CDA-AB3F-A84E3B204802}";
+            APPLICATION_ID = "{578CC202-76BC-4CDA-AB3F-A84E3B204802}",
+            VERSION = "1.1.1.6";
 
     [STAThread]
     private static void Main(string[] args)
@@ -182,7 +183,7 @@ internal class Program
             {
                 { "DisplayName" , "ScoreManager" },
                 { "DisplayIcon", appPath },
-                { "DisplayVersion", "1.1.1.5" },
+                { "DisplayVersion", VERSION },
                 { "EstimatedSize", 4322 },
                 { "InstallDate", date.ToString("yyyyMMdd") },
                 { "InstallLocation", configDialog.TargetLocation },
