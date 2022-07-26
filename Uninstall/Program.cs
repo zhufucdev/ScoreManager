@@ -1,8 +1,11 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
+
+const string APPLICATION_ID = "{578CC202-76BC-4CDA-AB3F-A84E3B204802}";
 
 Application.EnableVisualStyles();
 
@@ -29,6 +32,15 @@ catch(Exception e)
 {
     Debug.WriteLine(e.Message);
     _ = MessageBox.Show(string.Format("由于{0}，未清除。", e.Message), "文件关联未清除", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+}
+
+try
+{
+    ClearUninstaller();
+}
+catch (Exception e)
+{
+    Debug.WriteLine(e.Message);
 }
 
 _ = MessageBox.Show("卸载已完成。", "完成", MessageBoxButtons.OK);
@@ -75,6 +87,12 @@ void ClearAssociation(string Extension)
 
 [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
 static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+
+void ClearUninstaller()
+{
+    var baseKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true);
+    baseKey!.DeleteSubKey(APPLICATION_ID);
+}
 
 bool Delete(bool selfIncluded = false)
 {
