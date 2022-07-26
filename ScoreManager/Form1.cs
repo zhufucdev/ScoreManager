@@ -412,6 +412,7 @@ namespace ScoreManager
             ProjectForm projectForm = new ProjectForm();
             if (projectForm.ShowDialog() == DialogResult.OK)
             {
+                CurrentProject?.Save();
                 CurrentProject?.Close();
                 projectForm.ReturnValue.Save();
                 OpenProject(projectForm.ReturnValue);
@@ -426,6 +427,7 @@ namespace ScoreManager
         {
             try
             {
+                CurrentProject?.Save();
                 CurrentProject?.Close();
                 OpenProject(Project.Open(fileName));
             }
